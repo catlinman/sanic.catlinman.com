@@ -1,2 +1,4 @@
 sanic
 jinja2
+pyscss
+sqlalchemy
