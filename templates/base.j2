@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "head.j2" %}
+</head>
+
+<body>
+    <div id="background">
+        {# Main scene goes in here for the background animation and logo. #}
+        <header>
+            {# Logo header in the center of the screen #}
+        </header>
+    </div>
+    <nav>
+        {# Page header menu bar for site navigation #}
+    </nav>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+</body>
+</html>

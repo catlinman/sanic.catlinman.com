@@ -1,4 +1,5 @@
-sanic
-jinja2
-pyscss
-sqlalchemy
+sanic==0.5.4
+Jinja2==2.9.6
+libsass==0.13.2
+SQLAlchemy==1.1.11
+watchdog==0.8.3

@@ -1,0 +1,16 @@
+
+$primary-font: Helvetica, sans-serif;
+$primary-color: #fffff5;
+$accent-color: #ffe899;
+$secondary-color: #262523;
+$background-color: #181818;
+
+html {
+    background-attachment: fixed;
+    background-color: $background-color;
+    background-image: url('/static/img/tile.png');
+    background-repeat: repeat;
+    color: $primary-color;
+    font-family: $primary-font;
+    text-align: center;
+}
