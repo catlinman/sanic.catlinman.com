@@ -102,3 +102,6 @@ ENV/
 
 # Built static files
 static/css
+
+# Authentication secrets
+secrets.py
