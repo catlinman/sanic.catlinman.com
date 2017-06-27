@@ -7,3 +7,12 @@ from .contact import contact
 from .gallery import gallery
 from .projects import projects
 from .templates import templates
+
+__all__ = [
+    "about",
+    "blog",
+    "contact",
+    "gallery",
+    "projects",
+    "templates"
+]
