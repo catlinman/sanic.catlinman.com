@@ -7,6 +7,7 @@ from datetime import datetime
 # Import application modules.
 import assets
 import database
+import blueprints
 
 # Import basic Sanic modules.
 from sanic import Sanic, response, exceptions
@@ -33,35 +34,28 @@ template_env = j2.Environment(
 
 
 @app.exception(exceptions.NotFound)
-def not_found(request, exception):
+async def page_404(request, exception):
     if(app.debug is False):
         return response.text("Hey stop that. You know {} doesn't exist, right?".format(request.url))
 
 
-@app.route("/")
-async def index(request):
+@app.route("/", methods=['GET'])
+async def page_root(request):
     t = template_env.get_template("index.html.j2")
+
     rendered_template = await t.render_async(
         date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
 
     return response.html(rendered_template)
 
-
-@app.route("/templates/<template_name>", methods=['GET'])
-async def show_template(request, template_name):
-    if(app.debug is False):
-        return response.redirect("/", status=301)
-
-    try:
-        t = template_env.get_template("{}.html.j2".format(template_name))
-
-        rendered_template = await t.render_async()
-
-        return response.html(rendered_template)
-
-    except(j2.exceptions.TemplateNotFound):
-        return response.text("The template of '{}' was not found because you probably spelled it wrong.".format(template_name))
+# Add all blueprints to this project.
+app.blueprint(blueprints.about)
+app.blueprint(blueprints.blog)
+app.blueprint(blueprints.contact)
+app.blueprint(blueprints.gallery)
+app.blueprint(blueprints.projects)
+app.blueprint(blueprints.templates)
 
 if __name__ == "__main__":
     # Build all our assets.

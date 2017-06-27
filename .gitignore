@@ -102,6 +102,7 @@ ENV/
 
 # Built static files
 static/css
+static/jsmin
 
 # Authentication secrets
 secrets.py
