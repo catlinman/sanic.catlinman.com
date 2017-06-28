@@ -5,12 +5,84 @@ $accent-color: #ffe899;
 $secondary-color: #262523;
 $background-color: #181818;
 
+$prefix: '-moz-', '-webkit-', '-o-', '-ms-', '';
+
+@mixin keyframe-fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+     @include keyframe-fadein;
+}
+
+@-webkit-keyframes fadein {
+     @include keyframe-fadein;
+}
+
+@-o-keyframes fadein {
+     @include keyframe-fadein;
+}
+
+@-ms-keyframes fadein {
+     @include keyframe-fadein;
+}
+
+@keyframes fadein {
+     @include keyframe-fadein;
+}
+
+@mixin fadein($arg) {
+    $keyframe-name: fadein;
+    $duration: $arg;
+    @each $p in $prefix {
+        #{$p}animation: $keyframe-name $duration;
+    }
+}
+
 html {
+    background: radial-gradient(transparent, $background-color), url('/static/img/tile.png');
     background-attachment: fixed;
     background-color: $background-color;
-    background-image: url('/static/img/tile.png');
     background-repeat: repeat;
     color: $primary-color;
     font-family: $primary-font;
+    height: 100%;
     text-align: center;
+}
+
+body {
+    margin: 0;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#canvas {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    @include fadein(1s);
+}
+
+.logo {
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    max-width: 45%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.image-shadow {
+    filter: blur(32px) brightness(.05);
 }

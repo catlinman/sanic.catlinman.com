@@ -15,11 +15,11 @@ async def page_projects_name(request):
     pass
 
 
-@projects.route("/projects/data", methods=['GET'])
-async def data_projects(request):
+@projects.route("/projects/html", methods=['GET'])
+async def html_projects(request):
     pass
 
 
-@projects.route("/projects/<name>/data", methods=['GET'])
-async def data_projects_name(request):
+@projects.route("/projects/<name>/html", methods=['GET'])
+async def html_projects_name(request):
     pass

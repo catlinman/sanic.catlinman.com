@@ -10,6 +10,6 @@ async def page_about(request):
     pass
 
 
-@about.route("/about/data", methods=['GET'])
-async def data_about(request):
+@about.route("/about/html", methods=['GET'])
+async def html_about(request):
     pass

@@ -15,11 +15,11 @@ async def page_gallery_section(request):
     pass
 
 
-@gallery.route("/gallery/data", methods=['GET'])
-async def data_gallery(request):
+@gallery.route("/gallery/html", methods=['GET'])
+async def html_gallery(request):
     pass
 
 
-@gallery.route("/gallery/<section>/data", methods=['GET'])
-async def data_gallery_section(request):
+@gallery.route("/gallery/<section>/html", methods=['GET'])
+async def html_gallery_section(request):
     pass

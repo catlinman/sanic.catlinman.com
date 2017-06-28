@@ -5,22 +5,25 @@
 
 <head>
     {% include "head.html.j2" %}
+    {% include "scene.html.j2" %}
 </head>
 
 <body>
-    <div id="background">
-        {# Main scene goes in here for the background animation and logo. #}
+    <div id="background" oncontextmenu="return false">
+        {# Main scene goes in here for the background animation. #}
+        <div id="canvas"></div>
         <header>
+            <img class="logo image-shadow" src="/static/img/logo.png" alt="Catlinman Logo">
+            <img class="logo" src="/static/img/logo.png" alt="Catlinman Logo">
+
             {# Logo header in the center of the screen #}
         </header>
     </div>
     <nav>
         {# Page header menu bar for site navigation #}
     </nav>
-    <div id="content">
-        {% block content %}
-        {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
     <footer>
         {% block footer %}
         {% endblock %}

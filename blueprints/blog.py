@@ -15,11 +15,11 @@ async def page_blog_entry(request):
     pass
 
 
-@blog.route("/blog/data", methods=['GET'])
-async def data_blog(request):
+@blog.route("/blog/html", methods=['GET'])
+async def html_blog(request):
     pass
 
 
-@blog.route("/blog/<entry_id>/data", methods=['GET'])
-async def data_blog_entry(request):
+@blog.route("/blog/<entry_id>/html", methods=['GET'])
+async def html_blog_entry(request):
     pass

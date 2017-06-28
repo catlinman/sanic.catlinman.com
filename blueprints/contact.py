@@ -10,6 +10,6 @@ async def page_contact(request):
     pass
 
 
-@contact.route("/contact/data", methods=['GET'])
-async def data_contact(request):
+@contact.route("/contact/html", methods=['GET'])
+async def html_contact(request):
     pass
