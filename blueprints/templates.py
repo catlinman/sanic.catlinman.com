@@ -1,4 +1,5 @@
 
+# Import and setup this blueprint.
 from sanic import Blueprint, response
 
 templates = Blueprint("templates")
@@ -6,10 +7,12 @@ templates = Blueprint("templates")
 
 @templates.route("/templates/<name>", methods=['GET'])
 async def page_template(request, name):
-    if(app.debug is False):
+    if(request.app.debug is False):
         return response.redirect("/", status=301)
 
     try:
+        template_env = request.app.config.template_env
+
         t = template_env.get_template("{}.html.j2".format(name))
 
         rendered_template = await t.render_async()

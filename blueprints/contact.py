@@ -1,4 +1,5 @@
 
+# Import and setup this blueprint.
 from sanic import Blueprint, response
 
 contact = Blueprint("contact")

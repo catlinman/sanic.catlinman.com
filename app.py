@@ -1,8 +1,6 @@
 
 # Import Python modules.
-import os
 import sys
-from datetime import datetime
 
 # Import application modules.
 import assets
@@ -32,24 +30,16 @@ template_env = j2.Environment(
     enable_async=enable_async
 )
 
+app.config.template_env = template_env
+
 
 @app.exception(exceptions.NotFound)
 async def page_404(request, exception):
     if(app.debug is False):
         return response.text("Hey stop that. You know {} doesn't exist, right?".format(request.url))
 
-
-@app.route("/", methods=['GET'])
-async def page_root(request):
-    t = template_env.get_template("index.html.j2")
-
-    rendered_template = await t.render_async(
-        date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    )
-
-    return response.html(rendered_template)
-
 # Add all blueprints to this project.
+app.blueprint(blueprints.root)
 app.blueprint(blueprints.about)
 app.blueprint(blueprints.blog)
 app.blueprint(blueprints.contact)
@@ -66,5 +56,5 @@ if __name__ == "__main__":
         host="127.0.0.1",
         port=8080,
         workers=4,
-        debug=True
+        debug=False
     )

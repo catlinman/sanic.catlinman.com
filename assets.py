@@ -10,7 +10,7 @@ from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-# Import SASS parser and compressor.
+# Import SCSS parser and compressor.
 import sass
 
 # Import Javascript minifier.
