@@ -12,10 +12,10 @@ var particleCount; // Current particle count.
 // Particle creation function. Uses window size for particle count.
 function createParticles() {
     // Set the correct particle count if it wasn't already set.
-    if (particleCount == null) particleCount = (windowWidth * windowHeight) / 10000;
+    particleCount = (width * height) / 10000;
 
     // Calculate a count of particles that responds to the screen size.
-    var mean = (windowWidth * windowHeight) / 10000;
+    var mean = (width * height) / 10000;
 
     // Iterate over our particle range and start adding data to the particle array.
     for (var i = 0; i < particleCount * particleMult; i++) {
@@ -66,8 +66,8 @@ function drawParticles() {
 
         // Set the fill color.
         fill(
-            map(pos.y, 0, height, 15, -5),
-            80,
+            ((map(pos.y, 0, height, 15, -3) % 100) + 100) % 100,
+            100,
             100
         );
 
@@ -80,7 +80,7 @@ function drawParticles() {
                 0,
                 height,
                 particleSize / 4,
-                particleSize + (sin((frameCount + i) / 15) * (particleSize / 3))
+                particleSize + (sin((frameCount + i * 5) / 15) * particleSize)
             )
         );
     }
@@ -100,12 +100,12 @@ function updateParticles() {
         var n = (noise(pos.x + frameCount), (pos.y + frameCount)) * TAU * 8;
 
         // Calculate the direction of movement.
-        var dir = createVector(cos(n), -random(1) + 0.4);
+        var dir = createVector(cos(n) / 2, -random(1) + 0.4);
 
         vel.add(dir);
 
         // Limit the velocity of particles.
-        vel.limit(1.5)
+        vel.lerp(0, 0, 0, 0.1);
 
         // Add our velocity to the future position of particles.
         ftr.add(vel);
@@ -114,12 +114,12 @@ function updateParticles() {
         pos.lerp(ftr.x, ftr.y, 0, 0.1)
 
         // Wrap off screen positions.
-        if (pos.x < 0) {
-            pos.x = width - 1
+        if (pos.x < -particleSize * 2) {
+            pos.x = width + (particleSize * 2) - 1
             ftr.x = pos.x
 
-        } else if (pos.x > width) {
-            pos.x = 1
+        } else if (pos.x > width + (particleSize * 2)) {
+            pos.x = (-particleSize * 2) + 1
             ftr.x = pos.x
         }
 
@@ -131,19 +131,20 @@ function updateParticles() {
             ftr.y = pos.y
         }
 
-        // Check if the mouse was pressed. Repel on left click and attract on right click.
-        if (mouseIsPressed) {
-            var distToMouse = mousePos.dist(pos); // Get the distance of the particle to the mouse cursor.
+        var distToMouse = mousePos.dist(pos); // Get the distance of the particle to the mouse cursor.
 
-            // If the distance is shorter than minimum distance we apply force to the particle.
-            if (distToMouse < particleDist) {
-                var force = createVector(pos.x - mousePos.x, pos.y - mousePos.y);
+        // If the distance is shorter than minimum distance we apply force to the particle.
+        if (distToMouse < particleDist) {
+            var force = createVector(pos.x - mousePos.x, pos.y - mousePos.y);
 
-                if (mouseButton == LEFT) force.setMag(distToMouse / (particleDist / 8));
+            if (mouseIsPressed) {
                 if (mouseButton == RIGHT) force.setMag(-distToMouse / (particleDist / 6));
 
-                ftr.add(force);
+            } else {
+                force.setMag(distToMouse / (particleDist / 8));
             }
+
+            ftr.add(force);
         }
     }
 }
@@ -161,9 +162,9 @@ function setup() {
     noStroke();
 
     // Set particle variables.
-    particleMult = 1;
+    particleMult = 0.75;
     particleSize = 6;
-    particleDist = 128;
+    particleDist = 64;
     particleSpeed = 1;
 
     createParticles(); // Create the particles with the set values.

@@ -30,22 +30,29 @@ def build_scss(filename):
         try:
             os.makedirs(os.path.dirname(CSS_PATH))
 
-        except OSError as exc:  # Guard against race condition
-            if exc.errno != errno.EEXIST:
+        except OSError as e:  # Guard against race condition
+            if e.errno != errno.EEXIST:
                 raise
 
     # Get the full paths to the files.
     srcpath = os.path.join(SCSS_PATH, filename)
     outpath = "{}{}.css".format(CSS_PATH, os.path.splitext(filename)[0])
 
+    # Generate the output CSS.
+    try:
+        output = sass.compile(
+            string=open(srcpath, "r").read(),
+            output_style="compressed"
+        )
+
+    except sass.CompileError as e:
+        print("{}SCSS build failed: Please fix the shown error to continue.".format(e))
+
+        return
+
     # Write the output CSS to the correct path.
     with open(outpath, "w") as f:
-        f.write(
-            sass.compile(
-                string=open(srcpath, "r").read(),
-                output_style="compressed"
-            )
-        )
+        f.write(output)
 
     print("SCSS built: {} -> {}".format(srcpath, outpath))
 
@@ -56,22 +63,23 @@ def build_js(filename):
         try:
             os.makedirs(os.path.dirname(MINJS_PATH))
 
-        except OSError as exc:  # Guard against race condition
-            if exc.errno != errno.EEXIST:
+        except OSError as e:  # Guard against race condition
+            if e.errno != errno.EEXIST:
                 raise
 
     # Get the full paths to the files.
     srcpath = os.path.join(JS_PATH, filename)
     outpath = "{}{}.js".format(MINJS_PATH, os.path.splitext(filename)[0])
 
-    # Write the output CSS to the correct path.
+    # Generate the output minified Javascript.
+    output = jsmin(
+        open(srcpath, "r").read(),
+        quote_chars="'\"`"
+    )
+
+    # Write the output Javascript to the correct path.
     with open(outpath, "w") as f:
-        f.write(
-            jsmin(
-                open(srcpath, "r").read(),
-                quote_chars="'\"`"
-            )
-        )
+        f.write(output)
 
     print("MINJS built: {} -> {}".format(srcpath, outpath))
 

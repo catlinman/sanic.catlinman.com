@@ -5,10 +5,107 @@ $accent-color: #ffe899;
 $secondary-color: #262523;
 $background-color: #181818;
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    cursor: default;
+}
+
 $prefix: '-moz-', '-webkit-', '-o-', '-ms-', '';
 
-@mixin keyframe-fadein {
+@mixin keyframes-cycle {
+	0% {
+        background-position-x: 0px
+    }
+
+	100% {
+        background-position-x: 75px
+    }
+}
+
+@-moz-keyframes cycle {
+     @include keyframes-cycle;
+}
+
+@-webkit-keyframes cycle {
+     @include keyframes-cycle;
+}
+
+@-o-keyframes cycle {
+     @include keyframes-cycle;
+}
+
+@-ms-keyframes cycle {
+     @include keyframes-cycle;
+}
+
+@mixin cycle($arg) {
+    $keyframes-name: cycle;
+    $duration: $arg;
+
+    @each $p in $prefix {
+        #{$p}animation: $keyframes-name $duration;
+        #{$p}animation-iteration-count: infinite;
+        #{$p}animation-timing-function: linear;
+    }
+}
+
+@mixin keyframes-pulse {
+	0% {
+        transform: scale(1);
+    }
+
+	50% {
+        transform: scale(.9);
+    }
+
+	100% {
+        transform: scale(1);
+    }
+}
+
+@-moz-keyframes pulse {
+     @include keyframes-pulse;
+}
+
+@-webkit-keyframes pulse {
+     @include keyframes-pulse;
+}
+
+@-o-keyframes pulse {
+     @include keyframes-pulse;
+}
+
+@-ms-keyframes pulse {
+     @include keyframes-pulse;
+}
+
+@mixin pulse($arg) {
+    $keyframes-name: pulse;
+    $duration: $arg;
+
+    @each $p in $prefix {
+        #{$p}animation: $keyframes-name $duration;
+        #{$p}animation-iteration-count: infinite;
+        #{$p}animation-timing-function: ease-in-out;
+    }
+}
+
+@mixin keyframes-fadein {
     0% {
+        opacity: 0;
+    }
+
+    25% {
         opacity: 0;
     }
 
@@ -17,36 +114,41 @@ $prefix: '-moz-', '-webkit-', '-o-', '-ms-', '';
     }
 }
 
+@keyframes fadein {
+     @include keyframes-fadein;
+}
+
 @-moz-keyframes fadein {
-     @include keyframe-fadein;
+     @include keyframes-fadein;
 }
 
 @-webkit-keyframes fadein {
-     @include keyframe-fadein;
+     @include keyframes-fadein;
 }
 
 @-o-keyframes fadein {
-     @include keyframe-fadein;
+     @include keyframes-fadein;
 }
 
 @-ms-keyframes fadein {
-     @include keyframe-fadein;
+     @include keyframes-fadein;
 }
 
 @keyframes fadein {
-     @include keyframe-fadein;
+     @include keyframes-fadein;
 }
 
 @mixin fadein($arg) {
-    $keyframe-name: fadein;
+    $keyframes-name: fadein;
     $duration: $arg;
+
     @each $p in $prefix {
-        #{$p}animation: $keyframe-name $duration;
+        #{$p}animation: $keyframes-name $duration;
     }
 }
 
 html {
-    background: radial-gradient(transparent, $background-color), url('/static/img/tile.png');
+    background: url('/static/img/tile.png');
     background-attachment: fixed;
     background-color: $background-color;
     background-repeat: repeat;
@@ -54,12 +156,25 @@ html {
     font-family: $primary-font;
     height: 100%;
     text-align: center;
+    @include cycle(5s);
 }
 
 body {
     margin: 0;
     overflow-y: auto;
     text-align: center;
+}
+
+#vignette {
+    background: radial-gradient(transparent, #0D0D0D);
+    background-attachment: fixed;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
 }
 
 #canvas {
@@ -70,19 +185,29 @@ body {
     top: 0;
     width: 100%;
     z-index: -1;
-    @include fadein(1s);
+    @include fadein(2s);
 }
 
 .logo {
+    background: url('/static/img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1024px;
+    height: 1024px;
+    position: fixed;
+    top: 0;
     bottom: 0;
     left: 0;
-    margin: auto;
-    max-width: 45%;
-    position: absolute;
     right: 0;
-    top: 0;
+    max-width: 85%;
+    max-height: 85%;
+    margin: auto;
+    overflow: auto;
+    @include pulse(10s);
 }
 
-.image-shadow {
-    filter: blur(32px) brightness(.05);
+.logo-shadow {
+    @extend .logo;
+    filter: blur(16px) brightness(.05);
 }
