@@ -13,19 +13,27 @@
         <div id="vignette"></div>
         {# Main scene goes in here for the background animation. #}
         <div id="canvas"></div>
-        <header>
-            <div class="logo-shadow noselect"></div>
-            <div class="logo noselect"></div>
-
+        <header class="parallax noselect">
             {# Logo header in the center of the screen #}
+            <div class="logo-container">
+                <div class="logo-shadow"></div>
+                <div class="logo"></div>
+            </div>
+            <h1>- Catlinman -</h1>
+            <noscript><h2>Javascript is disabled. Some elements might not function as intended.</h2></noscript>
+            <h2 id="motd"></h2>
+            <span class="top"></span>
+            <span class="bottom"></span>
         </header>
     </div>
     <nav>
         {# Page header menu bar for site navigation #}
+        <a>The website is being completely rebuilt. More coming soon!</a>
     </nav>
     {% block content %}
     {% endblock %}
     <footer>
+        <h1>^</h1>
         {% block footer %}
         {% endblock %}
     </footer>

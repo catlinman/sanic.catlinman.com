@@ -1,151 +1,16 @@
 
-$primary-font: Helvetica, sans-serif;
+@import 'src/scss/partials/helpers';
+@import 'src/scss/partials/animation-transition';
+@import 'src/scss/partials/animation-pulse';
+@import 'src/scss/partials/animation-cycle';
+
+$primary-font: 'Work Sans', sans-serif;
 $primary-color: #fffff5;
-$accent-color: #ffe899;
+$accent-color: #feebad;
+$neutral-color: #fece7e;
 $secondary-color: #262523;
 $background-color: #181818;
-
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
-    cursor: default;
-}
-
-$prefix: '-moz-', '-webkit-', '-o-', '-ms-', '';
-
-@mixin keyframes-cycle {
-	0% {
-        background-position-x: 0px
-    }
-
-	100% {
-        background-position-x: 75px
-    }
-}
-
-@-moz-keyframes cycle {
-     @include keyframes-cycle;
-}
-
-@-webkit-keyframes cycle {
-     @include keyframes-cycle;
-}
-
-@-o-keyframes cycle {
-     @include keyframes-cycle;
-}
-
-@-ms-keyframes cycle {
-     @include keyframes-cycle;
-}
-
-@mixin cycle($arg) {
-    $keyframes-name: cycle;
-    $duration: $arg;
-
-    @each $p in $prefix {
-        #{$p}animation: $keyframes-name $duration;
-        #{$p}animation-iteration-count: infinite;
-        #{$p}animation-timing-function: linear;
-    }
-}
-
-@mixin keyframes-pulse {
-	0% {
-        transform: scale(1);
-    }
-
-	50% {
-        transform: scale(.9);
-    }
-
-	100% {
-        transform: scale(1);
-    }
-}
-
-@-moz-keyframes pulse {
-     @include keyframes-pulse;
-}
-
-@-webkit-keyframes pulse {
-     @include keyframes-pulse;
-}
-
-@-o-keyframes pulse {
-     @include keyframes-pulse;
-}
-
-@-ms-keyframes pulse {
-     @include keyframes-pulse;
-}
-
-@mixin pulse($arg) {
-    $keyframes-name: pulse;
-    $duration: $arg;
-
-    @each $p in $prefix {
-        #{$p}animation: $keyframes-name $duration;
-        #{$p}animation-iteration-count: infinite;
-        #{$p}animation-timing-function: ease-in-out;
-    }
-}
-
-@mixin keyframes-fadein {
-    0% {
-        opacity: 0;
-    }
-
-    25% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@-moz-keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@-webkit-keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@-o-keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@-ms-keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@keyframes fadein {
-     @include keyframes-fadein;
-}
-
-@mixin fadein($arg) {
-    $keyframes-name: fadein;
-    $duration: $arg;
-
-    @each $p in $prefix {
-        #{$p}animation: $keyframes-name $duration;
-    }
-}
+$shadow-color: #0D0D0D;
 
 html {
     background: url('/static/img/tile.png');
@@ -156,7 +21,7 @@ html {
     font-family: $primary-font;
     height: 100%;
     text-align: center;
-    @include cycle(5s);
+    @include animation-cycle(background-position-x, 0px, 75px, 3);
 }
 
 body {
@@ -166,7 +31,7 @@ body {
 }
 
 #vignette {
-    background: radial-gradient(transparent, #0D0D0D);
+    background: radial-gradient(transparent, $shadow-color);
     background-attachment: fixed;
     position: fixed;
     top: 0;
@@ -185,10 +50,11 @@ body {
     top: 0;
     width: 100%;
     z-index: -1;
-    @include fadein(2s);
+    @include animation-transition(opacity, 0, 1, 1, 1);
 }
 
 .logo {
+    border-radius: 100px;
     background: url('/static/img/logo.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -197,17 +63,100 @@ body {
     height: 1024px;
     position: fixed;
     top: 0;
-    bottom: 0;
+    bottom: 16%;
     left: 0;
     right: 0;
-    max-width: 85%;
-    max-height: 85%;
+    min-width: 50%;
+    min-height: 50%;
+    max-width: 70%;
+    max-height: 70%;
     margin: auto;
-    overflow: auto;
-    @include pulse(10s);
+    @include animation-pulse(transform, scale(1.0), scale(0.9), 10);
 }
 
 .logo-shadow {
     @extend .logo;
     filter: blur(16px) brightness(.05);
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: $neutral-color;
+    text-shadow: 0px 0px 32px $shadow-color;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    h1 {
+        position: fixed;
+        bottom: 8%;
+        left: 0;
+        right: 0;
+        font-weight: 100;
+        font-size: 4em;
+        letter-spacing: 10px;
+
+        @include transition(letter-spacing, 0.5s, ease-in-out);
+
+        &:hover {
+            letter-spacing: 16px;
+        }
+    }
+
+    h2 {
+        position: fixed;
+        bottom: 8%;
+        left: 0;
+        right: 0;
+        font-weight: 400;
+        font-size: 1em;
+        letter-spacing: 3px;
+    }
+
+    span .top {
+        position: fixed;
+        background-color: $background-color;
+        width: 200%;
+        height: 512px;
+        left: -50%;
+        top: -448px;
+    }
+
+    span .bottom {
+        position: fixed;
+        background-color: $background-color;
+        width: 200%;
+        height: 512px;
+        left: -50%;
+        bottom: -480px;
+    }
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    height: 48px;
+    color: $accent-color;
+    border-bottom: 1px solid $background-color;
+    background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 16px $shadow-color;
+    line-height: 48px;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 24px;
+    border-top: 1px solid $background-color;
+    background: linear-gradient(90deg, black, $shadow-color, black);
+    color: $secondary-color;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 16px $shadow-color;
+    line-height: 0px;
+    font-size: 0.8em;
 }
