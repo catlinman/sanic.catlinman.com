@@ -5,49 +5,58 @@ import bcrypt
 # Import application secret module.
 import secrets
 
-# Import Async PostgresSQL engine.
-import asyncio
-from aiopg.sa import create_engine
+# Import SQLAlchemy modules.
+from sqlalchemy import create_engine, Column, DateTime, Integer, Boolean, String, func
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
-# Import SQLAlchemy.
-import sqlalchemy as sa
+# Prepare the declarative base.
+Base = declarative_base()
 
-metadata = sa.MetaData()
+# Path to the database file.
+DATABASE = './db/catlinman.com.db'
 
-users = sa.Table(
-    "users",
-    metadata,
-    sa.Column("id", sa.Integer, primary_key=True),
-    sa.Column("username", sa.String(255), nullable=False),
-    sa.Column("password", sa.String(60), nullable=False)
+# Create database models.
+
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    administrator = Column(Boolean, nullable=False)
+    create_on = Column(DateTime, default=func.now())
+
+
+class PSA(Base):
+    __tablename__ = "psas"
+    id = Column(Integer, primary_key=True)
+    content = Column(String, nullable=False)
+    author = Column(String, nullable=False)
+    create_on = Column(DateTime, default=func.now())
+
+
+# Make the engine connection.
+engine = create_engine("sqlite:///{}".format(DATABASE), convert_unicode=True)
+
+# Prepare the tables and their values.
+Base.metadata.create_all(engine)
+
+db_session = scoped_session(
+    sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine
+    )
 )
 
 
-async def create_tables(engine):
-    async with engine.acquire() as conn:
-        await conn.execute("DROP TABLE IF EXISTS users")
-
-        await conn.execute(sa.schema.CreateTable(users))
-
-
-async def go():
-    async with create_engine(
-        user=secrets.dbuser,
-        database="catlinman.com",
-        host="127.0.0.1",
-        password=secrets.dbpass
-    ) as engine:
-
-        # Make sure that the table exists before continuing.
-        await create_tables(engine)
-
-        async with engine.acquire() as conn:
-            await conn.execute(users.insert().values(
-                username=secrets.siteuser,
-                password=str(bcrypt.hashpw(bytes(secrets.sitepass, "utf-8"), bcrypt.gensalt(13)), "utf8")
-            ))
-
-
 def setup():
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(go())
+    admin = User(
+        username=secrets.siteuser,
+        password=str(bcrypt.hashpw(bytes(secrets.sitepass, "utf-8"), bcrypt.gensalt(13)), "utf8"),
+        administrator=True
+    )
+
+    db_session.add(admin)
+    db_session.commit()
