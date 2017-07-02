@@ -8,7 +8,7 @@ from sanic import Blueprint, response
 root = Blueprint("root")
 
 
-@root.route("/", methods=['GET'])
+@root.route("/", methods=["GET"])
 async def page_root(request):
     template_env = request.app.config.template_env
 

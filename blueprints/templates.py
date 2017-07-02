@@ -5,7 +5,7 @@ from sanic import Blueprint, response
 templates = Blueprint("templates")
 
 
-@templates.route("/templates/<name>", methods=['GET'])
+@templates.route("/templates/<name>", methods=["GET"])
 async def page_template(request, name):
     if(request.app.debug is False):
         return response.redirect("/", status=301)

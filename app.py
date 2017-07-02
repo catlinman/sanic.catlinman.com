@@ -45,6 +45,7 @@ app.blueprint(blueprints.blog)
 app.blueprint(blueprints.contact)
 app.blueprint(blueprints.gallery)
 app.blueprint(blueprints.projects)
+app.blueprint(blueprints.psa)
 app.blueprint(blueprints.templates)
 
 if __name__ == "__main__":

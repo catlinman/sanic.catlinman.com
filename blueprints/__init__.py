@@ -7,6 +7,7 @@ from .blog import blog
 from .contact import contact
 from .gallery import gallery
 from .projects import projects
+from .psa import psa
 from .templates import templates
 
 __all__ = [
@@ -15,5 +16,6 @@ __all__ = [
     "contact",
     "gallery",
     "projects",
+    "psa",
     "templates"
 ]
