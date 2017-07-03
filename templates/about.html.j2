@@ -1,0 +1,38 @@
+
+{# Main content of the page goes in here for easier handling later on. #}
+{% macro content() -%}
+    <div class="profile-image"></div>
+    <h1>Catlinman</h1>
+    <p>
+        Hey I'm Catlinman! I see you have click on my name and now spawned the amazing AJAX side of that I am working on and didn't remove in this version.
+
+        I hope the site works fine for you.
+    </p>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% if standalone is defined %}
+    {% extends "base.html.j2" %}
+
+    {# Add to the base page title. #}
+    {% block title %}{{ super() }} - About{% endblock title%}
+
+    {# Set the main content of the page. #}
+    {% block content %}
+        {{ content() }}
+    {% endblock content %}
+
+    {# Set fallback noscript content of the page. #}
+    {% block content_noscript %}
+        <noscript class="content-noscript">
+            {{ content() }}
+        </noscript>
+    {% endblock content_noscript %}
+
+    {# Add the cover behind the content if Javascript is disabled. #}
+    {% block cover_noscript %}<noscript class="content-cover-noscript"></noscript>{% endblock cover_noscript %}
+
+{# Otherwise if this is a request for only the new content serve that. #}
+{% else %}
+    {{ content() }}
+{% endif %}

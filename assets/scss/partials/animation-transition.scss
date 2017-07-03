@@ -1,0 +1,26 @@
+
+$prefixes: '-moz-', '-webkit-', '-o-', '-ms-', '';
+
+@mixin animation-transition($property, $start, $end, $duration: 1, $delay: 0) {
+    @keyframes animation-transition-keyframes {
+        0% {
+            #{$property}: $start;
+        }
+
+        @if $delay != 0s {
+            #{100 / ($duration + $delay)}% {
+                #{$property}: $start;
+            }
+        }
+
+        100% {
+            #{$property}: $end;
+        }
+    }
+
+    $keyframes-name: animation-transition-keyframes;
+
+    @each $p in $prefixes {
+        #{$p}animation: $keyframes-name #{$duration + $delay}s;
+    }
+}

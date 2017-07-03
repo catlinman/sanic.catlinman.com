@@ -1,0 +1,244 @@
+
+@import 'assets/scss/partials/helpers';
+@import 'assets/scss/partials/animation-transition';
+@import 'assets/scss/partials/animation-pulse';
+@import 'assets/scss/partials/animation-cycle';
+
+$primary-font: 'Work Sans', sans-serif;
+$primary-color: #fffff5;
+$accent-color: #feebad;
+$neutral-color: #fece7e;
+$secondary-color: #262523;
+$background-color: #181818;
+$shadow-color: #0D0D0D;
+
+html {
+    background: url('/static/img/tile.png');
+    background-attachment: fixed;
+    background-color: $background-color;
+    background-repeat: repeat;
+    color: $primary-color;
+    font-family: $primary-font;
+    height: 100%;
+    text-align: center;
+    @include animation-cycle(background-position-x, 0px, 75px, 3);
+}
+
+body {
+    margin: 0;
+    overflow-y: auto;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+
+    &:visited {
+        color: inherit;
+    }
+}
+
+#vignette {
+    z-index: -2;
+    background: radial-gradient(transparent, $shadow-color);
+    background-attachment: fixed;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+}
+
+#canvas {
+    z-index: -2;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    @include animation-transition(opacity, 0, 1, 1, 1);
+}
+
+.logo {
+    border-radius: 100px;
+    background: url('/static/img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1024px;
+    height: 1024px;
+    position: fixed;
+    top: 0;
+    bottom: 16%;
+    left: 0;
+    right: 0;
+    min-width: 50%;
+    min-height: 50%;
+    max-width: 70%;
+    max-height: 70%;
+    margin: auto;
+    @include animation-pulse(transform, scale(1.0), scale(0.9), 10);
+}
+
+.logo-shadow {
+    @extend .logo;
+    filter: blur(16px) brightness(.05);
+}
+
+header {
+    z-index: -2;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: $neutral-color;
+    text-shadow: 0px 0px 32px $shadow-color;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    h1 {
+        width: 640px;
+        position: fixed;
+        bottom: 13%;
+        left: 0;
+        right: 0;
+        font-weight: 100;
+        font-size: 4em;
+        letter-spacing: 10px;
+        text-align: center;
+        margin: auto;
+
+        @include transition(all, 0.5s, ease-in-out);
+
+        &:hover {
+            letter-spacing: 16px;
+            color: $accent-color;
+            text-shadow: 0px 0px 64px rgba($neutral-color, .75);
+        }
+    }
+
+    h2 {
+        position: fixed;
+        bottom: 8%;
+        left: 0;
+        right: 0;
+        font-weight: 400;
+        font-size: 1em;
+        letter-spacing: 3px;
+    }
+
+    .top {
+        position: fixed;
+        background: linear-gradient(180deg, $shadow-color, $shadow-color, $background-color);
+        width: 200%;
+        height: 148px;
+        left: -50%;
+        top: -96px;
+    }
+
+    .bottom {
+        position: fixed;
+        background: linear-gradient(0deg, $shadow-color, $shadow-color, $background-color);
+        width: 200%;
+        height: 154px;
+        left: -50%;
+        bottom: -128px;
+    }
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    height: 48px;
+    color: $accent-color;
+    border-bottom: 1px solid $secondary-color;
+    background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 16px $shadow-color;
+    line-height: 48px;
+    z-index: 1;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+
+    .handle {
+        height: 24px;
+        border-top: 1px solid $background-color;
+        background: linear-gradient(90deg, black, $shadow-color, black);
+        color: $secondary-color;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 0px 0px 16px $shadow-color;
+        line-height: 0px;
+        font-size: 0.8em;
+
+        @include transition(all, 0.5s, ease-in-out);
+
+        &:hover {
+            border-top: 1px solid $secondary-color;
+            color: $neutral-color;
+            height: 32px;
+            line-height: 12px;
+            text-shadow: 0px 0px 64px $neutral-color;
+            cursor: pointer;
+        }
+    }
+}
+
+.profile-image {
+    border-radius: 128px;
+    background: url('/static/img/profile.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    margin: 24px auto;
+    width: 192px;
+    height: 192px;
+}
+
+.content {
+    max-width: 920px;
+    min-height: 100%;
+    margin-top: 48px;
+    z-index: 0;
+    display: none;
+
+    p {
+        padding-left: 24px;
+        padding-right: 24px;
+        line-height: 1.4em;
+    }
+}
+
+.content-noscript {
+    @extend .content;
+
+    display: inline-block;
+}
+
+.content-cover {
+    max-width: 920px;
+    min-height: 100%;
+    background: linear-gradient(0deg, $background-color, $shadow-color);;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: .975;
+    z-index: -1;
+    display: none;
+}
+
+.content-cover-noscript {
+    @extend .content-cover;
+    display: inline-block;
+}

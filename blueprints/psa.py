@@ -7,6 +7,8 @@ from sqlalchemy import func
 
 # Import and setup this blueprint.
 from sanic import Blueprint, response
+
+# Import the database connection.
 import database
 
 psa = Blueprint("psa")

@@ -17,10 +17,10 @@ import sass
 from jsmin import jsmin
 
 # Specifiy constants for the file paths.
-SCSS_PATH = "./src/scss/"
+SCSS_PATH = "./assets/scss/"
 CSS_PATH = "./static/css/"
 
-JS_PATH = "./src/js/"
+JS_PATH = "./assets/js/"
 MINJS_PATH = "./static/js/"
 
 

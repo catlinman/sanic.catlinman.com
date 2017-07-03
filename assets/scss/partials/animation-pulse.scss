@@ -1,0 +1,26 @@
+
+$prefixes: '-moz-', '-webkit-', '-o-', '-ms-', '';
+
+@mixin animation-pulse($property, $start, $end, $duration: 1) {
+    @keyframes animation-pulse-keyframes {
+        0% {
+            #{$property}: $start;
+        }
+
+        50% {
+            #{$property}: $end;
+        }
+
+        100% {
+            #{$property}: $start;
+        }
+    }
+
+    $keyframes-name: animation-pulse-keyframes;
+
+    @each $p in $prefixes {
+        #{$p}animation: $keyframes-name #{$duration}s;
+        #{$p}animation-iteration-count: infinite;
+        #{$p}animation-timing-function: ease-in-out;
+    }
+}
