@@ -3,11 +3,15 @@
 // Store the canvas variable for easy access.
 var canvas;
 
+
 // Variables for managing the particles.
 var particleMax, particleSize, particleSpeed, particleDist;
 
 var particles = []; // Main particle object storage.
 var particleCount; // Current particle count.
+
+// Variable to store the scene state in.
+var scenePaused;
 
 // Particle creation function. Uses window size for particle count.
 function createParticles() {
@@ -131,20 +135,18 @@ function updateParticles() {
             ftr.y = pos.y
         }
 
-        var distToMouse = mousePos.dist(pos); // Get the distance of the particle to the mouse cursor.
+        if (mouseIsPressed) {
+            var distToMouse = mousePos.dist(pos); // Get the distance of the particle to the mouse cursor.
 
-        // If the distance is shorter than minimum distance we apply force to the particle.
-        if (distToMouse < particleDist) {
-            var force = createVector(pos.x - mousePos.x, pos.y - mousePos.y);
+            // If the distance is shorter than minimum distance we apply force to the particle.
+            if (distToMouse < particleDist) {
+                var force = createVector(pos.x - mousePos.x, pos.y - mousePos.y);
 
-            if (mouseIsPressed) {
                 if (mouseButton == RIGHT) force.setMag(-distToMouse / (particleDist / 6));
+                else force.setMag(distToMouse / (particleDist / 8));
 
-            } else {
-                force.setMag(distToMouse / (particleDist / 8));
+                ftr.add(force);
             }
-
-            ftr.add(force);
         }
     }
 }
@@ -160,6 +162,9 @@ function setup() {
     // Set drawing defaults.
     frameRate(60);
     noStroke();
+
+    // Set the state of the animation to run.
+    scenePaused = false;
 
     // Set particle variables.
     particleMult = 0.75;
@@ -179,6 +184,8 @@ function windowResized() {
 // Called each frame.
 function draw() {
     clear(); // Clear the last frame.
+
+    if (scenePaused === true) return;
 
     drawParticles(); // Draw particles.
     updateParticles(); // Update particle logic.

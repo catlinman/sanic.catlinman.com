@@ -135,7 +135,11 @@ def setup():
         ["How did you get here?", "Kagedreng"],
         ["NO TIME TO EXPLAIN JUST HOVER THIS TEXT.", "Kagedreng"],
         ["May have lost the game once or twice.", "Kagedreng"],
-        ["What happens if you hover this text long enough?", "Catlinman"]
+        ["What happens if you hover this text long enough?", "Catlinman"],
+        ["Connoisseur of waveforms.", "Catlinman"],
+        ["Expert audio spectrum handler.", "Catlinman"],
+        ["Verified scrobbler.", "Catlinman"],
+        ["Trades in scrobbles for prizes.", "Catlinman"],
     ]
 
     # Insert the shipping PSAs into the database.
