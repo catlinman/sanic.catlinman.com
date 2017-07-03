@@ -154,14 +154,18 @@ $(function() {
         }
     });
 
-    $("#background").click(function() {
-        if (contentActive == true) {
+    $(".background").click(function() {
+        if (footerActive === true) {
+            footerState(false);
+        }
+
+        if (contentActive === true) {
             contentLoad("/", false);
         }
     });
 
     $(document).keyup(function(e) {
-        if (contentActive == true) {
+        if (contentActive === true) {
             if (e.keyCode == 27) {
                 contentLoad("/", false);
             }
@@ -261,7 +265,10 @@ $(function() {
         $(".footer-anchor").fadeIn().css("display", "inline-block");
         $(".controls").fadeIn();
 
-        effectsState(getCookie("fx-enabled") === "true");
+        var fxEnabled = getCookie("fx-enabled") === "true";
+        scenePaused = !fxEnabled;
+        effectsState(fxEnabled);
+
         contentLoad(location.pathname, false);
 
         setInterval(parallax, 1000 / 60);

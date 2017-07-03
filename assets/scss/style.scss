@@ -27,6 +27,7 @@ html {
 
 body {
     margin: 0;
+    height: 0px;
     overflow-y: auto;
     text-align: center;
 }
@@ -63,6 +64,17 @@ a {
     @include animation-transition(opacity, 0, 1, 1, 1);
 }
 
+.background {
+    z-index: -2;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: all;
+}
+
 .dim {
     z-index: -2;
     background-color: rgba($shadow-color, 0.5);
@@ -73,6 +85,7 @@ a {
     right: 0;
     height: 100%;
     display: none;
+    pointer-events: none;
 }
 
 .vignette {
@@ -85,6 +98,7 @@ a {
     left: 0;
     right: 0;
     height: 100%;
+    pointer-events: none;
 }
 
 .logo {
@@ -183,6 +197,7 @@ header {
     height: 64px;
     top: 48px;
     display: none;
+    pointer-events: none;
 
     .control {
         margin: 8px 8px 8px auto;
@@ -194,6 +209,7 @@ header {
         line-height: 40px;
         z-index: 1;
         cursor: pointer;
+        pointer-events: all;
 
         @include transition("color box-shadow", 0.25s, ease-in-out);
 

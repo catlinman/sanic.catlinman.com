@@ -11,7 +11,7 @@ var particles = []; // Main particle object storage.
 var particleCount; // Current particle count.
 
 // Variable to store the scene state in.
-var scenePaused;
+var scenePaused = false;
 
 // Particle creation function. Uses window size for particle count.
 function createParticles() {
@@ -162,9 +162,6 @@ function setup() {
     // Set drawing defaults.
     frameRate(60);
     noStroke();
-
-    // Set the state of the animation to run.
-    scenePaused = false;
 
     // Set particle variables.
     particleMult = 0.75;
