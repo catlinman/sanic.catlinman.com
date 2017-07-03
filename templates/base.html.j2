@@ -37,7 +37,7 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
     <script type="text/javascript" src="/static/js/psa.js"></script>
 
-    {% include "scene.html.j2" %}
+    {#% include "scene.html.j2" %#}
 
     <title>{% block title %}Catlinman{% endblock %}</title>
     {% endblock %}
@@ -76,11 +76,31 @@
     {% block cover_noscript %}{% endblock cover_noscript %}
     <footer>
         {# Expandable footer menu with extra information. #}
-        <div class="handle">
-            <h1>^</h1>
+        <div class="footer-handle">
+                <noscript>
+                    <div>
+                        <p>
+                            &copy; Catlinman 2013 - 2017
+                        </p>
+                    </div>
+                </noscript>
+            <h1 class="footer-anchor">^</h1>
         </div>
-        {% block footer %}
-        {% endblock footer %}
+        <div class="footer-content">
+            <p>
+                Gotta go fast using <a href="https://www.python.org/">Python</a> and <a href="https://github.com/channelcat/sanic">Sanic</a> &copy; <a href="https://catlinman.com">Catlinman</a> 2013 - 2017
+            </p>
+            <a href="https://github.com/catlinman/catlinman.com">
+                Source code available on GitHub
+            </a>
+            <div class="footer-icons">
+                <a class="footer-twitter" href="https://twitter.catlinman.com"></a>
+                <a class="footer-facebook" href="https://facebook.catlinman.com"></a>
+                <a class="footer-youtube" href="https://youtube.catlinman.com"></a>
+                <a class="footer-github" href="https://github.catlinman.com"></a>
+                <a class="footer-steam" href="https://steam.catlinman.com"></a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

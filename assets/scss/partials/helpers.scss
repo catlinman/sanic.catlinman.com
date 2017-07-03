@@ -1,9 +1,14 @@
 
-@mixin transition($property, $duration, $easetype) {
-    -webkit-transition: $property $duration $easetype;
-    -moz-transition: $property $duration $easetype;
-    -o-transition: $property $duration $easetype;
-    transition: $property $duration $easetype;
+@mixin transition($properties, $duration, $easetype) {
+    -webkit-transition: $duration $easetype;
+    -moz-transition: $duration $easetype;
+    -o-transition: $duration $easetype;
+    transition: $duration $easetype;
+
+    -webkit-transition-property: unquote($properties);
+    -moz-transition-property: unquote($properties);
+    -o-transition-property: unquote($properties);
+    transition-property: unquote($properties);
 }
 
 .noselect {

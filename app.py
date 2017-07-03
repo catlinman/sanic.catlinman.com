@@ -27,7 +27,9 @@ app.static("/static", "./static")
 template_env = j2.Environment(
     loader=j2.PackageLoader("app", "templates"),
     autoescape=j2.select_autoescape(["html", "xml"]),
-    enable_async=enable_async
+    enable_async=enable_async,
+    trim_blocks=True,
+    lstrip_blocks=True
 )
 
 app.config.template_env = template_env
