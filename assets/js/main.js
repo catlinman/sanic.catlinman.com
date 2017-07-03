@@ -14,13 +14,13 @@ $(function() {
 
         if (contentMode === true) {
             var filterVal = "blur(4px)"
-            /*
+
             $(".background-blur").css("filter", filterVal)
                 .css("webkitFilter", filterVal)
                 .css("mozFilter", filterVal)
                 .css("oFilter", filterVal)
                 .css("msFilter", filterVal);
-                */
+
 
             $("#psa").fadeOut()
             $(".content, .content-cover").css("display", "inline-block").fadeIn();
