@@ -294,9 +294,9 @@ nav {
 
         &:hover {
             color: $base-color;
-            box-shadow: inset 0px 0px 16px 0px $base-color;
-            -webkit-box-shadow: inset 0px 0px 16px 0px $base-color;
-            -moz-box-shadow: inset 0px 0px 16px 0px $base-color;
+            box-shadow: inset 0px 0px 4px 0px $base-color;
+            -webkit-box-shadow: inset 0px 0px 4px 0px $base-color;
+            -moz-box-shadow: inset 0px 0px 4px 0px $base-color;
             -webkit-text-stroke: 1px $base-color;
         }
     }

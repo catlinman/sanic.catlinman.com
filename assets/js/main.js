@@ -279,7 +279,7 @@ $(function() {
 
     function psa() {
         if (contentActive === false) {
-            $.getJSON("psa", function(data) {
+            $.getJSON("psa" + "?cache=" + (Math.random() * 1000000), function(data) {
                 $("#psa").fadeOut(function() {
                     $(this).text(
                         "\"" + data.content + "\""
