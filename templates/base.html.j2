@@ -45,7 +45,6 @@
 
 <body>
     <div class="background" oncontextmenu="return false">
-        <div class="dim"></div>
         <div class="vignette"></div>
         {# Main scene goes in here for the background animation. #}
         <div id="canvas" class="background-blur"></div>
@@ -62,6 +61,8 @@
             <span class="bottom"></span>
         </header>
     </div>
+    <progress max="100" value="0" class="progress-forward"></progress>
+    <progress max="100" value="100" class="progress-reverse"></progress>
     <nav>
         {# Page header menu bar for site navigation. #}
         <a>The website is being completely rebuilt. More coming soon!</a>

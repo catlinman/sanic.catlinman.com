@@ -75,19 +75,6 @@ a {
     pointer-events: all;
 }
 
-.dim {
-    z-index: -2;
-    background-color: rgba($shadow-color, 0.5);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    display: none;
-    pointer-events: none;
-}
-
 .vignette {
     z-index: -2;
     background: radial-gradient(transparent, $shadow-color);
@@ -191,6 +178,77 @@ header {
     }
 }
 
+progress {
+    z-index: 2;
+    position: fixed;
+    width: 50%;
+    height: 2px;
+    top: 48px;
+
+    &::-moz-progress-bar {
+        background: $background-color;
+    }
+
+    &::-webkit-progress-bar {
+        background: $background-color;
+    }
+
+    &[value] {
+       -webkit-appearance: none;
+       -moz-appearance: none;
+       appearance: none;
+
+       color: $base-color;
+    }
+
+    &[value]::-moz-progress-value {
+        background: $base-color;
+    }
+
+    &[value]::-webkit-progress-value {
+        background: $base-color;
+    }
+
+    &.progress-forward {
+        left: 50%;
+    }
+
+    &.progress-reverse {
+        display: block;
+        float: right;
+    }
+
+    &.progress-reverse::-moz-progress-bar {
+        background: $base-color;
+    }
+
+    &.progress-reverse::-webkit-progress-bar {
+        background: $base-color;
+    }
+
+    &.progress-reverse[value]::-moz-progress-value {
+        background: $background-color;
+    }
+
+    &.progress-reverse[value]::-webkit-progress-value {
+        background: $background-color;
+    }
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    height: 48px;
+    color: $highlight-color;
+    border-bottom: 1px solid $dim-color;
+    background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0px 0px 16px $shadow-color;
+    line-height: 48px;
+    z-index: 1;
+}
+
 .controls {
     position: fixed;
     width: 100%;
@@ -224,18 +282,60 @@ header {
     }
 }
 
-nav {
-    position: fixed;
-    width: 100%;
-    height: 48px;
-    color: $highlight-color;
-    border-bottom: 1px solid $dim-color;
-    background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+.profile-image {
+    border-radius: 128px;
+    background: url('/static/img/profile.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     text-align: center;
-    text-transform: uppercase;
-    text-shadow: 0px 0px 16px $shadow-color;
-    line-height: 48px;
-    z-index: 1;
+    margin: 24px auto;
+    width: 192px;
+    height: 192px;
+}
+
+.content {
+    max-width: 920px;
+    min-height: 100%;
+    margin-top: 48px;
+    z-index: 0;
+    display: none;
+
+    p {
+        line-height: 1.4em;
+    }
+
+    .opening {
+        text-align: justify;
+        -moz-text-align-last: center;
+        text-align-last: center;
+    }
+}
+
+.content-noscript {
+    @extend .content;
+
+    display: inline-block;
+}
+
+.content-cover {
+    max-width: 920px;
+    min-height: 100%;
+    background: linear-gradient(0deg, $background-color, $shadow-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: .975;
+    z-index: -1;
+    display: none;
+}
+
+.content-cover-noscript {
+    @extend .content-cover;
+    display: inline-block;
 }
 
 footer {
@@ -335,74 +435,21 @@ footer {
     }
 }
 
-.profile-image {
-    border-radius: 128px;
-    background: url('/static/img/profile.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
-    margin: 24px auto;
-    width: 192px;
-    height: 192px;
-}
-
-.content {
-    max-width: 920px;
-    min-height: 100%;
-    margin-top: 48px;
-    z-index: 0;
-    display: none;
-
-    p {
-        line-height: 1.4em;
-    }
-
-    .opening {
-        text-align: justify;
-        -moz-text-align-last: center;
-        text-align-last: center;
-    }
-}
-
-.content-noscript {
-    @extend .content;
-
-    display: inline-block;
-}
-
-.content-cover {
-    max-width: 920px;
-    min-height: 100%;
-    background: linear-gradient(0deg, $background-color, $shadow-color);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    opacity: .975;
-    z-index: -1;
-    display: none;
-}
-
-.content-cover-noscript {
-    @extend .content-cover;
-    display: inline-block;
-}
-
 ::-webkit-scrollbar {
     width: 10px;
     border-left: 1px $dim-color;
     background: #0c0c0c;
 }
+
 ::-webkit-scrollbar-thumb {
     background: $background-color;
     box-shadow: 0px 0px 16px 0px $shadow-color;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: $base-color;
 }
+
 ::-webkit-scrollbar-corner {
     background: #000;
 }

@@ -2,7 +2,7 @@ String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
-var createCookie = function(name, value, days) {
+function setCookie(name, value, days) {
     var expires;
     if (days) {
         var date = new Date();
@@ -38,9 +38,6 @@ $(function() {
         if (state === false) {
             $(".control-fx").css("color", "#444");
 
-            $(".dim").fadeIn();
-            $(".vignette").fadeOut();
-
             $("canvas").fadeOut(function() {
                 scenePaused = true;
             })
@@ -56,14 +53,11 @@ $(function() {
         } else {
             $(".control-fx").css("color", "");
 
-            $(".dim").fadeOut();
-            $(".vignette").fadeIn();
-
             scenePaused = false;
             $("canvas").fadeIn();
         }
 
-        createCookie("fx-enabled", state, 30);
+        setCookie("fx-enabled", state, 2147483647);
         effectsActive = state;
     }
 
@@ -113,7 +107,42 @@ $(function() {
                     .css("msFilter", filterVal);
             }
 
+            var progress = 50;
+            var progressSmoothed = 0;
+
+            $("progress").fadeIn(0.5, function() {
+                var p = $(this);
+
+                var loop = setInterval(function() {
+                    if (progressSmoothed < 99.75) {
+                        progressSmoothed = progressSmoothed + (progress - progressSmoothed) * 0.05;
+
+                        if (p.hasClass("progress-reverse")) {
+                            p.val(100 - progressSmoothed);
+
+                        } else {
+                            p.val(progressSmoothed);
+                        }
+
+                    } else {
+                        var reset = 0;
+
+                        if (p.hasClass("progress-reverse")) {
+                            reset = 100;
+                        }
+
+                        p.fadeOut(function() {
+                            p.val(reset);
+                        });
+
+                        clearInterval(loop);
+                    }
+                }, 1000 / 60);
+            });
+
             $.get(path + "/html", function(data) {
+                progress = 100;
+
                 $(".content").html(data);
 
                 $("#psa").fadeOut()

@@ -3,9 +3,11 @@
 // Store the canvas variable for easy access.
 var canvas;
 
-
 // Variables for managing the particles.
 var particleMax, particleSize, particleSpeed, particleDist;
+
+// Variables for the spicy secret hue shift.
+var hueShift, hueRange;
 
 var particles = []; // Main particle object storage.
 var particleCount; // Current particle count.
@@ -70,7 +72,7 @@ function drawParticles() {
 
         // Set the fill color.
         fill(
-            ((map(pos.y, 0, height, 15, -3) % 100) + 100) % 100,
+            ((map(pos.y, 0, height, hueRange + hueShift, -3 + hueShift) % 100) + 100) % 100,
             100,
             100
         );
@@ -93,6 +95,13 @@ function drawParticles() {
 // Main particle physics calculation and mouse response.
 function updateParticles() {
     var mousePos = createVector(mouseX, mouseY); // Get the mouse position.
+
+    if (keyIsDown(72)) {
+        if (mouseIsPressed) {
+            hueRange = map(mouseX, 0, width, 0, 100);
+            hueShift = map(mouseY, 0, height, 0, 100);
+        }
+    }
 
     // Iterate over particles.
     for (var i = 0; i < particles.length; i++) {
@@ -169,8 +178,13 @@ function setup() {
     particleDist = 64;
     particleSpeed = 1;
 
+    // Set hue variables.
+    hueRange = 15;
+    hueShift = 0;
+
     createParticles(); // Create the particles with the set values.
 }
+
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
