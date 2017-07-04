@@ -96,6 +96,7 @@ function drawParticles() {
 function updateParticles() {
     var mousePos = createVector(mouseX, mouseY); // Get the mouse position.
 
+    // Enable hue shifting on key press.
     if (keyIsDown(72)) {
         if (mouseIsPressed) {
             hueRange = map(mouseX, 0, width, 0, 100);

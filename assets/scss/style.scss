@@ -4,7 +4,8 @@
 @import 'assets/scss/partials/animation-pulse';
 @import 'assets/scss/partials/animation-cycle';
 
-$primary-font: 'Work Sans', sans-serif;
+$logo-font: 'Work Sans', sans-serif;
+$primary-font: 'Roboto', sans-serif;
 $primary-color: #fffff5;
 $secondary-color: #b3b3b3;
 $highlight-color: #feebad;
@@ -20,6 +21,7 @@ html {
     background-repeat: repeat;
     color: $primary-color;
     font-family: $primary-font;
+    font-weight: 300;
     height: 100%;
     text-align: center;
     @include animation-cycle(background-position-x, 0px, 75px, 3);
@@ -54,18 +56,19 @@ a {
 }
 
 #canvas {
-    z-index: -2;
+    z-index: -3;
     height: 100%;
     left: 0;
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
+    -webkit-transform: translateZ(-750px);
+    -webkit-transform-style: preserve-3d;
     @include animation-transition(opacity, 0, 1, 1, 1);
 }
 
 .background {
-    z-index: -2;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -76,7 +79,7 @@ a {
 }
 
 .vignette {
-    z-index: -2;
+    z-index: -4;
     background: radial-gradient(transparent, $shadow-color);
     background-attachment: fixed;
     position: fixed;
@@ -86,9 +89,12 @@ a {
     right: 0;
     height: 100%;
     pointer-events: none;
+    -webkit-transform: translateZ(-1000px);
+    -webkit-transform-style: preserve-3d;
 }
 
 .logo {
+    z-index: -2;
     border-radius: 100px;
     background: url('/static/img/logo.png');
     background-size: contain;
@@ -106,12 +112,9 @@ a {
     max-width: 70%;
     max-height: 70%;
     margin: auto;
+    -webkit-transform: translateZ(-500px);
+    -webkit-transform-style: preserve-3d;
     @include animation-pulse(transform, scale(1.0), scale(0.9), 10);
-}
-
-.logo-shadow {
-    @extend .logo;
-    filter: blur(16px) brightness(.05);
 }
 
 header {
@@ -120,6 +123,9 @@ header {
     width: 100%;
     height: 100%;
     color: $base-color;
+    font-family: $logo-font;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-text-stroke: 1px $base-color;
     text-shadow: 0px 0px 32px $shadow-color;
     text-transform: uppercase;
     white-space: nowrap;
@@ -151,11 +157,11 @@ header {
 
     h2 {
         position: fixed;
-        bottom: 8%;
+        bottom: 7%;
         left: 0;
         right: 0;
         font-weight: 400;
-        font-size: 1em;
+        font-size: 1.2em;
         letter-spacing: 3px;
     }
 
@@ -166,6 +172,8 @@ header {
         height: 148px;
         left: -50%;
         top: -96px;
+        -webkit-transform: translateZ(-500px);
+        -webkit-transform-style: preserve-3d;
     }
 
     .bottom {
@@ -175,6 +183,8 @@ header {
         height: 154px;
         left: -50%;
         bottom: -128px;
+        -webkit-transform: translateZ(-500px);
+        -webkit-transform-style: preserve-3d;
     }
 }
 
@@ -184,6 +194,8 @@ progress {
     width: 50%;
     height: 2px;
     top: 48px;
+    -webkit-transform: translateZ(500px);
+    -webkit-transform-style: preserve-3d;
 
     &::-moz-progress-bar {
         background: $background-color;
@@ -247,33 +259,45 @@ nav {
     text-shadow: 0px 0px 16px $shadow-color;
     line-height: 48px;
     z-index: 1;
+    -webkit-transform: translateZ(250px);
+    -webkit-transform-style: preserve-3d;
 }
 
 .controls {
+    @extend .noselect;
     position: fixed;
     width: 100%;
     height: 64px;
     top: 48px;
     display: none;
     pointer-events: none;
+    font-family: $logo-font;
+    z-index: 2;
+    -webkit-transform: translateZ(500px);
+    -webkit-transform-style: preserve-3d;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-text-stroke: 1px darken($secondary-color, 25%);
 
     .control {
         margin: 8px 8px 8px auto;
         width: 40px;
         height: 40px;
         border-radius: 40px;
-        color: $secondary-color;
-        background: linear-gradient(180deg, $shadow-color, $background-color);
+        color: darken($secondary-color, 25%);
+        border-bottom: 2px solid $dim-color;
+        background: linear-gradient(0deg, $shadow-color, $background-color);
         line-height: 40px;
-        z-index: 1;
         cursor: pointer;
         pointer-events: all;
 
-        @include transition("color box-shadow", 0.25s, ease-in-out);
+        @include transition("color box-shadow text-stroke", 0.25s, ease-in-out);
 
         &:hover {
             color: $base-color;
-            box-shadow: 0px 0px 8px 0px $highlight-color;
+            box-shadow: inset 0px 0px 16px 0px $base-color;
+            -webkit-box-shadow: inset 0px 0px 16px 0px $base-color;
+            -moz-box-shadow: inset 0px 0px 16px 0px $base-color;
+            -webkit-text-stroke: 1px $base-color;
         }
     }
 
@@ -298,10 +322,18 @@ nav {
     max-width: 920px;
     min-height: 100%;
     margin-top: 48px;
+    margin-bottom: 24px;
     z-index: 0;
     display: none;
+    -webkit-transform: translateZ(0px);
+    -webkit-transform-style: preserve-3d;
+
+    h1 {
+        margin: 16px;
+    }
 
     p {
+        margin: 16px;
         line-height: 1.4em;
     }
 
@@ -329,8 +361,10 @@ nav {
     bottom: 0;
     margin: auto;
     opacity: .975;
-    z-index: -1;
+    z-index: 0;
     display: none;
+    -webkit-transform: translateZ(0px);
+    -webkit-transform-style: preserve-3d;
 }
 
 .content-cover-noscript {
@@ -342,7 +376,9 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
-    z-index: 1;
+    z-index: 2;
+    -webkit-transform: translateZ(500px);
+    -webkit-transform-style: preserve-3d;
 
     .footer-handle {
         height: 24px;
@@ -353,6 +389,7 @@ footer {
         text-transform: uppercase;
         text-shadow: 0px 0px 16px $shadow-color;
         line-height: 0px;
+        font-family: $logo-font;
         font-size: 0.8em;
 
         @include transition(all, 0.5s, ease-in-out);
@@ -410,7 +447,7 @@ footer {
         a:hover {
             width: 28px;
             height: 28px;
-            margin: 0px 4px 12px 4px;
+            margin: 0px 4px 12px;
         }
     }
 
@@ -444,6 +481,8 @@ footer {
 ::-webkit-scrollbar-thumb {
     background: $background-color;
     box-shadow: 0px 0px 16px 0px $shadow-color;
+    -webkit-box-shadow: 0px 0px 16px 0px $shadow-color;
+    -moz-box-shadow: 0px 0px 16px 0px $shadow-color;
 }
 
 ::-webkit-scrollbar-thumb:hover {

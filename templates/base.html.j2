@@ -19,7 +19,7 @@
     <meta name="twitter:creator" content="@catplease">
     <meta name="twitter:title" content="Catlinman"/>
     <meta name="twitter:description" content="Catlinman"/>
-    <meta name="twitter:image" content="https://catlinman.com/static/img/head/metaimage.jpg"/>
+    <meta name="twitter:image" content="https://catlinman.com/static/img/head/meta.jpg"/>
     <meta name="twitter:domain" content="https://catlinman.com">
     <meta name="twitter:url" content="https://catlinman.com"/>
     <meta property="og:url" content="https://catlinman.com">
@@ -29,13 +29,12 @@
     <link rel="apple-touch-icon" href="/static/img/head/apple-icon.png">
     <link rel="stylesheet" href="/static/css/style.css"/>
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300|Work+Sans:100&amp;subset=latin-ext" rel="stylesheet">
 
     <script type="text/javascript" src="/static/js/analytics.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/main.js"></script>
-    <script type="text/javascript" src="/static/js/psa.js"></script>
 
     {% include "scene.html.j2" %}
 
@@ -51,11 +50,10 @@
         <header class="parallax noselect background-blur">
             {# Logo header in the center of the screen. #}
             <div class="logo-container">
-                <div class="logo-shadow"></div>
                 <div class="logo"></div>
             </div>
             <h1><a href="about">- Catlinman -</a></h1>
-            <noscript><h2>Javascript is disabled. Some elements might not function as intended.</h2></noscript>
+            <noscript><h2>"Javascript is disabled. Some elements might not function as intended."</h2></noscript>
             <h2 id="psa"></h2>
             <span class="top"></span>
             <span class="bottom"></span>
@@ -70,6 +68,7 @@
     <div class="controls">
         <div class="control-fx">fx</div>
     </div>
+    <div class="content-cover"></div>
     <div class="content">
         {# Main page content loaded either on request or through AJAX. #}
         {% block content %}
@@ -77,7 +76,6 @@
     </div>
     {# Main page content shown if noscript is enabled. #}
     {% block content_noscript %}{% endblock content_noscript %}
-    <div class="content-cover"></div>
     {% block cover_noscript %}{% endblock cover_noscript %}
     <footer>
         {# Expandable footer menu with extra information. #}
@@ -85,11 +83,11 @@
                 <noscript>
                     <div>
                         <p>
-                            &copy; Catlinman 2013 - 2017
+                            Javascript is disabled - &copy; Catlinman 2013 - 2017
                         </p>
                     </div>
                 </noscript>
-            <h1 class="footer-anchor">^</h1>
+            <h1 class="footer-anchor noselect">^</h1>
         </div>
         <div class="footer-content">
             <p>

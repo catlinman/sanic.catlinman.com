@@ -36,8 +36,6 @@ $(function() {
 
     function effectsState(state) {
         if (state === false) {
-            $(".control-fx").css("color", "#444");
-
             $("canvas").fadeOut(function() {
                 scenePaused = true;
             })
@@ -167,20 +165,19 @@ $(function() {
     }
 
     $("a").click(function() {
-        if (location.hostname === this.hostname) {
-            footerState(false);
+        if ($(this).attr("href").indexOf("https://") > -1) return true;
 
-            path = $(this).attr("href");
+        if (location.hostname !== this.hostname) return true;
 
-            if (path[0] != "/") path = "/" + path;
+        footerState(false);
 
-            contentLoad(path, false)
+        path = $(this).attr("href");
 
-            return false;
+        if (path[0] != "/") path = "/" + path;
 
-        } else {
-            return true;
-        }
+        contentLoad(path, false)
+
+        return false;
     });
 
     $(".background").click(function() {
@@ -234,6 +231,7 @@ $(function() {
 
                 $(".parallax").css({
                     "transform": "perspective(" + ((width + height) / 2) + "px) rotateX(" + parallaxActualX + "deg) rotateY(" + parallaxActualY + "deg)",
+                    "-webkit-transform-style": "flat"
                 });
 
             } else {
@@ -242,6 +240,7 @@ $(function() {
 
                 $(".parallax").css({
                     "transform": "perspective(" + ((width + height) / 2) + "px) rotateX(" + parallaxActualX + "deg) rotateY(" + parallaxActualY + "deg)",
+                    "-webkit-transform-style": "flat"
                 });
             }
 
@@ -257,12 +256,16 @@ $(function() {
 
                 $(".parallax").css({
                     "transform": "perspective(" + ((width + height) / 2) + "px) rotateX(" + parallaxActualX + "deg) rotateY(" + parallaxActualY + "deg)",
+                    "-webkit-transform-style": "flat"
                 });
 
                 if (Math.abs(parallaxActualX) + Math.abs(parallaxActualY) < 0.1) parallaxReset = true;
 
             } else {
-                $(".parallax").css("transform", "");
+                $(".parallax").css({
+                    "transform": "",
+                    "transform-style": ""
+                });
             }
         }
     }
