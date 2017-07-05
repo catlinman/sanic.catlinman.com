@@ -1,0 +1,41 @@
+
+{# Main content of the page goes in here for easier handling later on. #}
+{% macro content() -%}
+    <div class="message">
+        <p>This part of the site is currently not implemented. Check back later for more!</p>
+    </div>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% if standalone is defined %}
+    {% extends "base.html.j2" %}
+
+    {# Add to the base page title. #}
+    {% block title %}{{ super() }} - Projects{% endblock title%}
+
+    {# Set the main content of the page. #}
+    {% block content %}
+        <div content-title="Projects" class="content-standalone-title"></div>
+        <div class="content-standalone-start">
+            {{ content() }}
+        </div>
+        <div class="content-standalone-end"></div>
+    {% endblock content %}
+
+    {# Set fallback noscript content of the page. #}
+    {% block content_noscript %}
+        <noscript class="content-noscript">
+            {{ content() }}
+        </noscript>
+    {% endblock content_noscript %}
+
+    {# Add the cover behind the content if Javascript is disabled. #}
+    {% block cover_noscript %}<noscript class="content-cover-noscript"></noscript>{% endblock cover_noscript %}
+
+{# Otherwise if this is a request for only the new content serve that. #}
+{% else %}
+    <div class="content-partial">
+        {{ content() }}
+    </div>
+    <div class="content-partial-end"></div>
+{% endif %}

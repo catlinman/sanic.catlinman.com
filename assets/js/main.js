@@ -80,6 +80,22 @@ $(function() {
         footerState(!footerActive);
     });
 
+    function navHighlight(path) {
+        var pathroot = path.split("/")[0];
+
+        $("nav a").each(function() {
+            var linksplit = this.href.split("/")
+            var linkroot = linksplit[linksplit.length - 1];
+
+            if (linkroot.toLowerCase() == pathroot) {
+                $(this).css("border-top", "4px solid #fece7e");
+
+            } else {
+                $(this).css("border-top", "");
+            }
+        });
+    }
+
     function contentLoad(path, replace, standalone) {
         if (replace === true) {
             history.replaceState(path, path, path);
@@ -91,6 +107,8 @@ $(function() {
         path = path.slice(1);
 
         if (path != "") {
+            navHighlight(path);
+
             contentActive = true;
 
             if (effectsActive === true) {
@@ -207,7 +225,18 @@ $(function() {
 
         if (path[0] != "/") path = "/" + path;
 
-        contentLoad(path, false, false)
+        navHighlight(path);
+
+        if (contentActive === true) {
+            $(".content-cover").fadeOut("fast");
+
+            $(".content").fadeOut("fast", function() {
+                contentLoad(path, false, false)
+            });
+
+        } else {
+            contentLoad(path, false, false);
+        }
 
         return false;
     });
@@ -218,6 +247,7 @@ $(function() {
         }
 
         if (contentActive === true) {
+            navHighlight("");
             contentLoad("/", false, false);
         }
     });
@@ -231,11 +261,20 @@ $(function() {
     });
 
     window.addEventListener("popstate", function(e) {
-        if (e.state == null) {
-            contentLoad("/", true, false);
+        var path = "";
+
+        if (e.state == null) path = "/";
+        else path = e.state;
+
+        if (contentActive === true) {
+            $(".content-cover").fadeOut("fast");
+
+            $(".content").fadeOut("fast", function() {
+                contentLoad(path, true, false)
+            });
 
         } else {
-            contentLoad(e.state, true, false);
+            contentLoad(path, true, false);
         }
     });
 
