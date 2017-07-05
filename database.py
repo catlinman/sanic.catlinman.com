@@ -4,9 +4,7 @@ import os
 import shutil
 from datetime import datetime
 import bcrypt
-
-# Import application secret module.
-import secrets
+import binascii
 
 # Import SQLAlchemy modules.
 from sqlalchemy import create_engine, Column, DateTime, Integer, Boolean, String, func
@@ -123,7 +121,6 @@ def setup():
         ["Rated 9 out of 7 for some reason.", "Chantaro"],
         ["Don't read this. Oh come on.", "Chantaro"],
         ["This is a girls only zone.", "Chantaro"],
-        ["Wanna buy some fresh home grown memes?", "Chantaro"],
         ["*insert message here*", "Chantaro"],
         ["H0w do 1 pr0gr4m", "Chantaro"],
         ["Proud knight of the holy watermelon.", "Kagedreng"],
@@ -140,6 +137,7 @@ def setup():
         ["Expert audio spectrum handler.", "Catlinman"],
         ["Verified scrobbler.", "Catlinman"],
         ["Trades in scrobbles for prizes.", "Catlinman"],
+        ["You define who I am.", "Catlinman"],
     ]
 
     # Insert the shipping PSAs into the database.
@@ -151,10 +149,13 @@ def setup():
             )
         )
 
+    # Create a temporary administrator password.
+    password = binascii.hexlify(os.urandom(16)).decode("utf-8")
+
     # Create and insert the administrator.
     admin = User(
-        username=secrets.siteuser,
-        password=str(bcrypt.hashpw(bytes(secrets.sitepass, "utf-8"), bcrypt.gensalt(13)), "utf8"),
+        username="Administrator",
+        password=str(bcrypt.hashpw(bytes(password, "utf-8"), bcrypt.gensalt(13)), "utf8"),
         administrator=True
     )
 
@@ -163,3 +164,5 @@ def setup():
 
     # Commit the changes.
     db_session.commit()
+
+    print("Successfully created database configuration. Administrator password is: '{}'.".format(password))

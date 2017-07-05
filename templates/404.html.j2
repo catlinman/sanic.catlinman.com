@@ -1,0 +1,35 @@
+{% macro message() -%}
+    <div class="message">
+        <h1>- 404 -</h1>
+        <h2>The page you are looking for was not found!</h2>
+        <p>
+            If you are 100% sure that there should be a page here please contact
+            the site administrator about this. Would be a shame if others encountered
+            the same problem!
+        </p>
+    </div>
+{%- endmacro %}
+
+{% extends "base.html.j2" %}
+
+{# Add to the base page title. #}
+{% block title %}{{ super() }} - 404{% endblock title%}
+
+{# Set the main message of the page. #}
+{% block content %}
+    <div content-title="404" class="content-standalone-title"></div>
+    <div class="content-standalone-start">
+        {{ message() }}
+    </div>
+    <div class="content-standalone-end"></div>
+{% endblock content %}
+
+{# Set fallback noscript message of the page. #}
+{% block content_noscript %}
+    <noscript class="content-noscript">
+        {{ message() }}
+    </noscript>
+{% endblock content_noscript %}
+
+{# Add the cover behind the message if Javascript is disabled. #}
+{% block cover_noscript %}<noscript class="content-cover-noscript"></noscript>{% endblock cover_noscript %}

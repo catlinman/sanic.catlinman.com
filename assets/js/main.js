@@ -80,7 +80,7 @@ $(function() {
         footerState(!footerActive);
     });
 
-    function contentLoad(path, replace) {
+    function contentLoad(path, replace, standalone) {
         if (replace === true) {
             history.replaceState(path, path, path);
 
@@ -93,8 +93,6 @@ $(function() {
         if (path != "") {
             contentActive = true;
 
-            document.title = "Catlinman" + " - " + path.capitalize();
-
             if (effectsActive === true) {
                 var filterVal = "blur(4px)"
 
@@ -104,6 +102,14 @@ $(function() {
                     .css("oFilter", filterVal)
                     .css("msFilter", filterVal);
             }
+
+            // If page content is already we skip further loading.
+            if (standalone === true) {
+                $("#psa").fadeOut()
+                $(".content, .content-cover").fadeIn().css("display", "inline-block");
+
+                return;
+            };
 
             var progress = 50;
             var progressSmoothed = 0;
@@ -141,6 +147,32 @@ $(function() {
             $.get(path + "/html", function(data) {
                 progress = 100;
 
+                /*
+                    Failsafe check if an entire page was served.
+
+                    This is required for cases where error pages and other content
+                    with no separate path for HTML is served. The tags need to be
+                    specified in the template files for this to work. Otherwise
+                    page recursion might occur.
+                */
+                if (data.indexOf("content-standalone") > -1) {
+                    var titleLength = "<div content-title=\"".length;
+                    var titleStart = data.indexOf("<div content-title=\"");
+                    var titleEnd = data.indexOf("\" class=\"content-standalone-title\"></div>");
+
+                    var title = data.slice(titleStart + titleLength, titleEnd);
+
+                    if (title != "") document.title = "Catlinman" + " - " + title;
+
+                    var contentStart = data.indexOf("<div class=\"content-standalone-start");
+                    var contentEnd = data.indexOf("<div class=\"content-standalone-end\"></div>");
+
+                    var data = data.slice(contentStart, contentEnd);
+
+                } else {
+                    document.title = "Catlinman" + " - " + path.capitalize();
+                }
+
                 $(".content").html(data);
 
                 $("#psa").fadeOut()
@@ -175,7 +207,7 @@ $(function() {
 
         if (path[0] != "/") path = "/" + path;
 
-        contentLoad(path, false)
+        contentLoad(path, false, false)
 
         return false;
     });
@@ -186,24 +218,24 @@ $(function() {
         }
 
         if (contentActive === true) {
-            contentLoad("/", false);
+            contentLoad("/", false, false);
         }
     });
 
     $(document).keyup(function(e) {
         if (contentActive === true) {
             if (e.keyCode == 27) {
-                contentLoad("/", false);
+                contentLoad("/", false, false);
             }
         }
     });
 
     window.addEventListener("popstate", function(e) {
         if (e.state == null) {
-            contentLoad("/", true);
+            contentLoad("/", true, false);
 
         } else {
-            contentLoad(e.state, true);
+            contentLoad(e.state, true, false);
         }
     });
 
@@ -301,7 +333,7 @@ $(function() {
         scenePaused = !fxEnabled;
         effectsState(fxEnabled);
 
-        contentLoad(location.pathname, false);
+        contentLoad(location.pathname, false, true);
 
         setInterval(parallax, 1000 / 60);
         setInterval(psa, 15000);

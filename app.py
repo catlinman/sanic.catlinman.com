@@ -8,7 +8,7 @@ import database
 import blueprints
 
 # Import basic Sanic modules.
-from sanic import Sanic, response, exceptions
+from sanic import Sanic
 
 # Get the required Jinja2 module for rendering templates.
 import jinja2 as j2
@@ -18,7 +18,7 @@ import jinja2 as j2
 enable_async = sys.version_info >= (3, 6)
 
 # Create a new Sanic application.
-app = Sanic(__name__)
+app = Sanic("catlinman.com")
 
 # Setup the static directory.
 app.static("/static", "./static")
@@ -34,17 +34,12 @@ template_env = j2.Environment(
 
 app.config.template_env = template_env
 
-
-@app.exception(exceptions.NotFound)
-async def page_404(request, exception):
-    if(app.debug is False):
-        return response.text("Hey stop that. You know {} doesn't exist, right?".format(request.url))
-
 # Add all blueprints to this project.
 app.blueprint(blueprints.root)
 app.blueprint(blueprints.about)
 app.blueprint(blueprints.blog)
 app.blueprint(blueprints.contact)
+app.blueprint(blueprints.errors)
 app.blueprint(blueprints.gallery)
 app.blueprint(blueprints.middleman)
 app.blueprint(blueprints.projects)
@@ -59,6 +54,6 @@ if __name__ == "__main__":
     app.run(
         host="127.0.0.1",
         port=8080,
-        workers=4,
-        debug=True
+        workers=1,
+        debug=True,
     )

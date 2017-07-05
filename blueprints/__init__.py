@@ -5,6 +5,7 @@ from .root import root
 from .about import about
 from .blog import blog
 from .contact import contact
+from .errors import errors
 from .gallery import gallery
 from .middleman import middleman
 from .projects import projects
@@ -15,6 +16,7 @@ __all__ = [
     "about",
     "blog",
     "contact",
+    "errors",
     "gallery",
     "middleman",
     "projects",

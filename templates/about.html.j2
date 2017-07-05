@@ -31,7 +31,6 @@
             <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         #}
     </div>
-
 {%- endmacro %}
 
 {# If this page is requested via a base GET we serve the entire content. #}
@@ -43,7 +42,11 @@
 
     {# Set the main content of the page. #}
     {% block content %}
-        {{ content() }}
+        <div content-title="About" class="content-standalone-title"></div>
+        <div class="content-standalone-start">
+            {{ content() }}
+        </div>
+        <div class="content-standalone-end"></div>
     {% endblock content %}
 
     {# Set fallback noscript content of the page. #}
@@ -58,5 +61,8 @@
 
 {# Otherwise if this is a request for only the new content serve that. #}
 {% else %}
-    {{ content() }}
+    <div class="content-partial">
+        {{ content() }}
+    </div>
+    <div class="content-partial-end"></div>
 {% endif %}

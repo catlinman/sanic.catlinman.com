@@ -104,8 +104,5 @@ ENV/
 static/css
 static/js
 
-# Authentication secrets
-secrets.py
-
 # Database files
 db/
