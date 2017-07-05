@@ -225,17 +225,23 @@ $(function() {
 
         if (path[0] != "/") path = "/" + path;
 
-        navHighlight(path);
-
-        if (contentActive === true) {
-            $(".content-cover").fadeOut("fast");
-
-            $(".content").fadeOut("fast", function() {
-                contentLoad(path, false, false)
-            });
+        if (location.pathname == path) {
+            navHighlight("");
+            contentLoad("/", false, false);
 
         } else {
-            contentLoad(path, false, false);
+            navHighlight(path);
+
+            if (contentActive === true) {
+                $(".content-cover").fadeOut("fast");
+
+                $(".content").fadeOut("fast", function() {
+                    contentLoad(path, false, false)
+                });
+
+            } else {
+                contentLoad(path, false, false);
+            }
         }
 
         return false;

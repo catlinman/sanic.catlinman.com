@@ -29,6 +29,15 @@
     <link rel="apple-touch-icon" href="/static/img/head/apple-icon.png">
     <link rel="stylesheet" href="/static/css/style.css"/>
 
+    {# Styling for the noscript version to avoid popping in of elements. #}
+    <style>
+        a{color: #fece7e;text-decoration:none;}
+        a:visited{color:#fece7e}
+        nav a {border:1px solid #0D0D0D;border-top:4px solid #0D0D0D;}
+        footer .footer-handle {font-size:0.8em;}
+        header h1 {font-size:4em;}
+    </style>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:300|Work+Sans:100&amp;subset=latin-ext" rel="stylesheet">
 
     <script type="text/javascript" src="/static/js/analytics.js"></script>
@@ -63,6 +72,7 @@
     <progress max="100" value="100" class="progress-reverse"></progress>
     <nav>
         {# Page header menu bar for site navigation. #}
+        <noscript><a href="/">TITLE</a></noscript>
         <a href="about">ABOUT</a>
         <a href="blog">BLOG</a>
         <a href="contact">CONTACT</a>
@@ -78,9 +88,9 @@
         {% block content %}
         {% endblock content %}
     </div>
+    {% block cover_noscript %}{% endblock cover_noscript %}
     {# Main page content shown if noscript is enabled. #}
     {% block content_noscript %}{% endblock content_noscript %}
-    {% block cover_noscript %}{% endblock cover_noscript %}
     <footer>
         {# Expandable footer menu with extra information. #}
         <div class="footer-handle">
