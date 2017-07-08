@@ -343,12 +343,16 @@ nav {
 }
 
 .content {
+    display: none;
+}
+
+.content-contained {
     max-width: 920px;
     min-height: 100%;
-    margin-top: 48px;
+    margin-top: 64px;
     margin-bottom: 24px;
     z-index: 0;
-    display: none;
+
     -webkit-transform: translateZ(0px);
     -webkit-transform-style: preserve-3d;
 
@@ -380,13 +384,12 @@ nav {
     }
 }
 
-.content-noscript {
-    @extend .content;
-
+noscript .content-contained {
+    @extend .content-contained;
     display: inline-block;
 }
 
-.content-cover {
+.dim-contained {
     max-width: 920px;
     min-height: 100%;
     background: linear-gradient(0deg, $background-color, $shadow-color);
@@ -398,13 +401,12 @@ nav {
     margin: auto;
     opacity: .975;
     z-index: 0;
-    display: none;
     -webkit-transform: translateZ(0px);
     -webkit-transform-style: preserve-3d;
 }
 
-.content-cover-noscript {
-    @extend .content-cover;
+.dim-contained-noscript {
+    @extend .dim-contained;
     display: inline-block;
 }
 

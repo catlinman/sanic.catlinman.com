@@ -1,5 +1,5 @@
 
-{# Base layout template. #}
+{# Base layout template. Is inherited by all pages except custom setup ones. #}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +13,7 @@
     <meta name="author" content="Catlinman">
     <meta charset="UTF-8">
 
+    {# Set Twitter and OpenGraph metadata #}
     <meta itemprop="image" content="/static/img/head/meta.png">
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@catplease"/>
@@ -24,9 +25,12 @@
     <meta name="twitter:url" content="https://catlinman.com"/>
     <meta property="og:url" content="https://catlinman.com">
 
+    {# Setup icons device application links. #}
     <link rel="shortcut icon" href="/static/img/head/icon.png" type="image/x-icon">
     <link rel="icon" href="/static/img/head/icon.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="/static/img/head/apple-icon.png">
+
+    {# Load page style sheets. #}
     <link rel="stylesheet" href="/static/css/style.css"/>
 
     {# Styling for the noscript version to avoid popping in of elements. #}
@@ -38,14 +42,21 @@
         header h1 {font-size:4em;letter-spacing:10px;}
     </style>
 
+    {# Load custom fonts. #}
     <link href="https://fonts.googleapis.com/css?family=Roboto:300|Work+Sans:100&amp;subset=latin-ext" rel="stylesheet">
 
-    <script type="text/javascript" src="/static/js/analytics.js"></script>
-
+    {# Load required script libraries. #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/p5.js"></script>
 
-    {% include "scene.html.j2" %}
+    {# Load vanilla fancyBox style sheet. #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
+
+    {# Load scripts used by the site. #}
+    <script src="/static/js/main.js" type="text/javascript"></script>
+    <script src="/static/js/scene.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/static/js/analytics.js"></script>
 
     <title>{% block title %}Catlinman{% endblock %}</title>
     {% endblock %}
@@ -68,8 +79,10 @@
             <span class="bottom"></span>
         </header>
     </div>
+
     <progress max="100" value="0" class="progress-forward"></progress>
     <progress max="100" value="100" class="progress-reverse"></progress>
+
     <nav>
         {# Page header menu bar for site navigation. #}
         <noscript><a href="/">HOME</a></noscript>
@@ -79,18 +92,20 @@
         <a href="gallery">GALLERY</a>
         <a href="projects">PROJECTS</a>
     </nav>
+
     <div class="controls">
         <div class="control-fx">fx</div>
     </div>
-    <div class="content-cover"></div>
+
     <div class="content">
         {# Main page content loaded either on request or through AJAX. #}
         {% block content %}
         {% endblock content %}
     </div>
-    {% block cover_noscript %}{% endblock cover_noscript %}
+
     {# Main page content shown if noscript is enabled. #}
     {% block content_noscript %}{% endblock content_noscript %}
+
     <footer>
         {# Expandable footer menu with extra information. #}
         <div class="footer-handle">
@@ -119,5 +134,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>

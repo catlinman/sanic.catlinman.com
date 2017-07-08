@@ -154,7 +154,7 @@ def setup():
 
     # Create and insert the administrator.
     admin = User(
-        username="Administrator",
+        username="administrator",
         password=str(bcrypt.hashpw(bytes(password, "utf-8"), bcrypt.gensalt(13)), "utf8"),
         administrator=True
     )
@@ -165,4 +165,4 @@ def setup():
     # Commit the changes.
     db_session.commit()
 
-    print("Successfully created database configuration. Administrator password is: '{}'.".format(password))
+    print("Successfully created database configuration. The password for 'administrator' is: '{}'.".format(password))

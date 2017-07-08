@@ -1,0 +1,38 @@
+
+{# Error handling template. #}
+{% macro content() -%}
+    {# Prepare the current view in a contained content setting. #}
+    <div class="dim-contained"></div>
+    <div class="content-contained">
+        <div class="message">
+            <h1>- {{ status }} -</h1>
+            <h2>{{ cause }}</h2>
+            <p>
+                {{ reason }}
+            </p>
+        </div>
+    </div>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% extends "base.html.j2" %}
+
+{# Add to the base page title. #}
+{% block title %}{{ super() }} - {{ status }}{% endblock title%}
+
+{# Set the main content of the page. Is hidden on start. #}
+{% block content %}
+    {# Make sure to include extra tags for the AJAX script to read. #}
+    <div content-title="{{ status }}" class="content-standalone-title"></div>
+    <div class="content-standalone-start">
+        {{ content() }}
+    </div>
+    <div class="content-standalone-end"></div>
+{% endblock content %}
+
+{# Set fallback noscript content of the page. #}
+{% block content_noscript %}
+    <noscript>
+        {{ content() }}
+    </noscript>
+{% endblock content_noscript %}

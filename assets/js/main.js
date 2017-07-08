@@ -124,7 +124,7 @@ $(function() {
             // If page content is already we skip further loading.
             if (standalone === true) {
                 $("#psa").fadeOut()
-                $(".content, .content-cover").fadeIn().css("display", "inline-block");
+                $(".content").fadeIn().css("display", "inline-block");
 
                 return;
             };
@@ -194,7 +194,7 @@ $(function() {
                 $(".content").html(data);
 
                 $("#psa").fadeOut()
-                $(".content, .content-cover").fadeIn().css("display", "inline-block");
+                $(".content").fadeIn().css("display", "inline-block");
             });
 
         } else {
@@ -210,7 +210,7 @@ $(function() {
                 .css("oFilter", filterVal)
                 .css("msFilter", filterVal);
 
-            $(".content, .content-cover").fadeOut();
+            $(".content").fadeOut();
         }
     }
 

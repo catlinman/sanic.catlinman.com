@@ -1,35 +1,39 @@
 
 {# Main content of the page goes in here for easier handling later on. #}
 {% macro content() -%}
-    <div class="opening">
-        <div class="profile-image"></div>
-        <h1>Hey there! I'm Catlinman!</h1>
-        <p>
-            Your radical dreaming humble fishstick and fiendlord known on the
-            internet as Catlinman at your service. I prefer being called Cat in
-            short but whatever you prefer works! I do pretty much anything and
-            everything that has to do with computers ranging from digital art,
-            animation and modelling over to programming, game design, web
-            development and engineering all the way to making electronic music.
-        </p>
+    {# Prepare the current view in a contained content setting. #}
+    <div class="dim-contained"></div>
+    <div class="content-contained">
+        <div class="opening">
+            <div class="profile-image"></div>
+            <h1>Hey there! I'm Catlinman!</h1>
+            <p>
+                Your radical dreaming humble fishstick and fiendlord known on the
+                internet as Catlinman at your service. I prefer being called Cat in
+                short but whatever you prefer works! I do pretty much anything and
+                everything that has to do with computers ranging from digital art,
+                animation and modelling over to programming, game design, web
+                development and engineering all the way to making electronic music.
+            </p>
 
-        <p>
-            I am always open to working and hanging out with people! If you want anything
-            from me I'm right there for you! Just hit me up on any of my profiles, pages and
-            communities! You can find some extra links in the contact page. There you will
-            also find business related contact options.
-        </p>
-        <p>
-            As you can see the website is currently being completely rebuilt. This means
-            that most functionality is currently missing. Although the main part of the
-            site is done in terms of coding I still have to hook up a lot of the sub systems
-            before everything is done. Expect this in a week though if I continue at the pace
-            that I currently am!
-        </p>
-        {#
-            <a class="twitter-timeline" data-lang="en" data-width="500" data-height="600" data-theme="dark" data-chrome="noscrollbar noheader nofooter noborders transparent" data-link-color="#fece7e" href="https://twitter.com/catplease">Tweets by catplease</a>
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-        #}
+            <p>
+                I am always open to working and hanging out with people! If you want anything
+                from me I'm right there for you! Just hit me up on any of my profiles, pages and
+                communities! You can find some extra links in the contact page. There you will
+                also find business related contact options.
+            </p>
+            <p>
+                As you can see the website is currently being completely rebuilt. This means
+                that most functionality is currently missing. Although the main part of the
+                site is done in terms of coding I still have to hook up a lot of the sub systems
+                before everything is done. Expect this in a week though if I continue at the pace
+                that I currently am!
+            </p>
+            {#
+                <a class="twitter-timeline" data-lang="en" data-width="500" data-height="600" data-theme="dark" data-chrome="noscrollbar noheader nofooter noborders transparent" data-link-color="#fece7e" href="https://twitter.com/catplease">Tweets by catplease</a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            #}
+        </div>
     </div>
 {%- endmacro %}
 
@@ -40,8 +44,9 @@
     {# Add to the base page title. #}
     {% block title %}{{ super() }} - About{% endblock title%}
 
-    {# Set the main content of the page. #}
+    {# Set the main content of the page. Is hidden on start. #}
     {% block content %}
+        {# Make sure to include extra tags for the AJAX script to read. #}
         <div content-title="About" class="content-standalone-title"></div>
         <div class="content-standalone-start">
             {{ content() }}
@@ -51,16 +56,14 @@
 
     {# Set fallback noscript content of the page. #}
     {% block content_noscript %}
-        <noscript class="content-noscript">
+        <noscript>
             {{ content() }}
         </noscript>
     {% endblock content_noscript %}
 
-    {# Add the cover behind the content if Javascript is disabled. #}
-    {% block cover_noscript %}<noscript class="content-cover-noscript"></noscript>{% endblock cover_noscript %}
-
 {# Otherwise if this is a request for only the new content serve that. #}
 {% else %}
+    {# Inlude tags to show that this is an actual partial page. #}
     <div class="content-partial">
         {{ content() }}
     </div>

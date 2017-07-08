@@ -40,6 +40,12 @@ directory which should get things started rather fast. To close things off
 you should change the configuration at the end of the *app.py* file to suit
 your needs.
 
+The site makes use of [markdown](https://pypi.python.org/pypi/Markdown) for
+content rendering and editing of dynamic content. Custom pages and blog entries
+are published using markdown. The server renders the markdown and saves it to
+the database to avoid recompiling assets each page visit. This means that as a
+trade-off more disc space is used to improve the time of serving content.
+
 ## License ##
 
 This repository is released under the MIT license. For more information please
