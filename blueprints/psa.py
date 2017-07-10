@@ -18,7 +18,7 @@ psa = Blueprint("psa")
 async def psa_json(request):
     # On GET requests return a random PSA.
     if request.method == "GET":
-        # Query the database and get all PSAs.
+        # Query the database and get a random PSA.
         result = database.db_session.query(database.PSA).order_by(func.random()).first()
 
         # Handle the result if it was found.
@@ -34,7 +34,6 @@ async def psa_json(request):
         else:
             return response.json(
                 {"message": "PSA entry not found!"},
-                headers={"X-Served-By": "sanic"},
                 status=404
             )
 
@@ -43,7 +42,7 @@ async def psa_json(request):
 async def psa_id_json(request, id):
     # On GET requests return all PSAs.
     if request.method == "GET":
-        # Query the database and get all PSAs.
+        # Query the database and get the PSA with the given id.
         result = database.db_session.query(database.PSA).get(id)
 
         # Handle the result if it was found.
@@ -59,7 +58,6 @@ async def psa_id_json(request, id):
         else:
             return response.json(
                 {"message": "PSA entry not found!"},
-                headers={"X-Served-By": "sanic"},
                 status=404
             )
 
@@ -90,6 +88,5 @@ async def psa_all_json(request):
         else:
             return response.json(
                 {"message": "PSA entry not found!"},
-                headers={"X-Served-By": "sanic"},
                 status=404
             )

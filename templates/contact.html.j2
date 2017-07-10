@@ -11,7 +11,7 @@
 {%- endmacro %}
 
 {# If this page is requested via a base GET we serve the entire content. #}
-{% if standalone is defined %}
+{% if partial is not defined or partial == False %}
     {% extends "base.html.j2" %}
 
     {# Add to the base page title. Although page title is created on the fly this is fallback. #}

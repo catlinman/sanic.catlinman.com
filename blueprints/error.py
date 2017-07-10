@@ -9,7 +9,7 @@ error = Blueprint("error")
 async def page_Error(request, exception):
     template_env = request.app.config.template_env
 
-    status = exception.status_code
+    code = exception.status_code
     cause = ""
     reason = ""
 
@@ -48,4 +48,7 @@ async def page_Error(request, exception):
         reason=reason
     )
 
-    return response.html(rendered_template)
+    return response.html(
+        rendered_template,
+        status=status
+    )

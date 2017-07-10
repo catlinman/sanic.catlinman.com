@@ -347,9 +347,10 @@ nav {
 }
 
 .content-contained {
+    display: inline-block;
     max-width: 920px;
     min-height: 100%;
-    margin-top: 64px;
+    margin-top: 48px;
     margin-bottom: 24px;
     z-index: 0;
 
@@ -384,12 +385,8 @@ nav {
     }
 }
 
-noscript .content-contained {
-    @extend .content-contained;
-    display: inline-block;
-}
-
 .dim-contained {
+    display: inline-block;
     max-width: 920px;
     min-height: 100%;
     background: linear-gradient(0deg, $background-color, $shadow-color);
@@ -403,11 +400,6 @@ noscript .content-contained {
     z-index: 0;
     -webkit-transform: translateZ(0px);
     -webkit-transform-style: preserve-3d;
-}
-
-.dim-contained-noscript {
-    @extend .dim-contained;
-    display: inline-block;
 }
 
 footer {
