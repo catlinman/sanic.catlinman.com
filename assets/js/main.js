@@ -53,6 +53,7 @@ function getCookie(name) {
 
 $(function() {
     // Variables storing states of the page segments.
+    var currentPath = "";
     var footerActive = false;
     var contentActive = false;
     var effectsActive = true;
@@ -161,7 +162,10 @@ $(function() {
      * @param  {boolean} replace If this page loading should replace a history step.
      * @param  {boolean} standalone If page content is already loaded and should only be shown.
      */
-    function contentLoad(path, replace, standalone) {
+    function contentLoad(path, hash, replace, standalone) {
+        // Set the current changed path.
+        currentPath = path;
+
         if (replace === true) {
             // Replace the history state if specified.
             history.replaceState(path, path, path);
@@ -198,6 +202,9 @@ $(function() {
             if (standalone === true) {
                 $("#psa").fadeOut()
                 $(".content").fadeIn().css("display", "block");
+
+                // Check if the path contains an anchor. If so scroll to it.
+                if (hash != "") contentScroll(hash, false, true);
 
                 return;
             };
@@ -304,6 +311,9 @@ $(function() {
                     // Fade out background elements and fade in content elements.
                     $("#psa").fadeOut()
                     $(".content").fadeIn().css("display", "block");
+
+                    // Check if the path contains an anchor. If so scroll to it.
+                    if (hash != "") contentScroll(hash, false, false);
                 }
             });
 
@@ -329,12 +339,57 @@ $(function() {
         }
     }
 
-    // Handle clicking of links on the page.
-    $("a").click(function(e) {
-        console.log("asdasdasdad");
+    function contentScroll(target, replace, standalone) {
+        // Check if the element exists.
+        if (!$(target).length && target !== "#top") return;
 
+        if (target !== "#top") {
+            // Set the current changed path.
+            currentPath = location.pathname + target
+
+            if (standalone === false) {
+                if (replace === true) {
+                    // Replace the history state if specified.
+                    history.replaceState(target, target, target);
+
+                } else {
+                    // Otherwise push this page on the history stack.
+                    history.pushState(target, target, target);
+                }
+
+                $('html,body').animate({
+                    scrollTop: ($(target).offset().top - 74)
+                }, 1000, "swing");
+            }
+
+        } else {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 1000, "swing");
+
+            if (replace === true) {
+                // Replace the history state if specified.
+                history.replaceState(location.pathname, location.pathname, location.pathname);
+
+            } else {
+                // Otherwise push this page on the history stack.
+                history.pushState(location.pathname, location.pathname, location.pathname);
+            }
+        }
+    }
+
+    // Handle clicking of links on the page.
+    $("body").on("click", "a", function() {
         // Check if this is an outside link. If so, continue with default logic.
         if ($(this).attr("href").indexOf("https://") > -1) return true;
+
+        if ($(this).attr("href").indexOf("#") > -1) {
+            var target = this.hash;
+
+            contentScroll(target, false, false);
+
+            return false;
+        }
 
         // If the hostname of the link doesn't match the local page skip it as well.
         if (location.hostname !== this.hostname) return true;
@@ -351,7 +406,7 @@ $(function() {
         if (location.pathname == path) {
             // If the link that was clicked points to the link currently open reset the page to the root page.
             setNavigationPath("");
-            contentLoad("/", false, false);
+            contentLoad("/", "", false, false);
 
         } else {
             // If this a new link make sure the navigation menu changes accordingly.
@@ -361,18 +416,19 @@ $(function() {
                 // If content was active fade it out before further handling.
                 $(".content").fadeOut("fast", function() {
                     // Load the new path on completion of the fade out.
-                    contentLoad(path, false, false)
+                    contentLoad(path, "", false, false)
                 });
 
             } else {
                 // If no content is currently present just load in the new content.
-                contentLoad(path, false, false);
+                contentLoad(path, "", false, false);
             }
         }
 
         // Interupt default browser handling of the link.
         return false;
     });
+
 
     // Handle clicking on the background of the page.
     $(".background").click(function() {
@@ -384,7 +440,7 @@ $(function() {
         // If content was active hide it and also reset the navigation menu.
         if (contentActive === true) {
             setNavigationPath("");
-            contentLoad("/", false, false);
+            contentLoad("/", "", false, false);
         }
     });
 
@@ -396,22 +452,37 @@ $(function() {
             if (contentActive === true) {
                 // If content is active track the escape key. If pressed. Load the root content.
                 setNavigationPath("");
-                contentLoad("/", false, false);
+                contentLoad("/", "", false, false);
             }
         }
     });
 
     // Add an event listener for browser history tracking.
     window.addEventListener("popstate", function(e) {
-        // Set the path variable to be used.
-        var path;
-
         // Get the path off of the event state. If there is no path set it to root.
-        if (e.state == null) path = "/";
-        else path = e.state;
+        if (e.state == null || e.state == "/") {
+            setNavigationPath("");
+            contentLoad("/", "", true, false)
 
-        // Load the content according to the path.
-        contentLoad(path, true, false)
+        } else if (e.state.indexOf("#") > -1) {
+            if (contentActive === false) {
+                setNavigationPath(location.pathname);
+
+                contentLoad(location.pathname, e.state, true, false)
+
+            } else {
+                contentScroll(e.state, true, false);
+            }
+
+        } else {
+            if (currentPath.indexOf(e.state) > -1) {
+                contentScroll("#top", true, false);
+
+            } else {
+                setNavigationPath(e.state);
+                contentLoad(e.state, "", true, false)
+            }
+        }
     });
 
     // Variables used for the parallax effect.
@@ -538,7 +609,7 @@ $(function() {
         setEffectsState(fxEnabled);
 
         // Load content from the current path. This is done to fade in and prepare logic.
-        contentLoad(location.pathname, false, true);
+        contentLoad(location.pathname, window.location.hash.substr(1), false, true);
 
         // Set the right animation intervals for the parallax and PSA handling.
         setInterval(parallax, 1000 / 60);

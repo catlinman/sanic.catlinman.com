@@ -194,11 +194,14 @@ progress {
     width: 50%;
     height: 2px;
     top: 48px;
+    border: none;
+    background: $background-color;
     -webkit-transform: translateZ(500px);
     -webkit-transform-style: preserve-3d;
 
     &::-moz-progress-bar {
-        background: $background-color;
+        background: $base-color;
+        width: 100%;
     }
 
     &::-webkit-progress-bar {
@@ -213,10 +216,6 @@ progress {
        color: $base-color;
     }
 
-    &[value]::-moz-progress-value {
-        background: $base-color;
-    }
-
     &[value]::-webkit-progress-value {
         background: $base-color;
     }
@@ -225,13 +224,26 @@ progress {
         left: 50%;
     }
 
+    @-moz-document url-prefix() {
+        &.progress-forward {
+            left: 0% !important;
+            width: 100%;
+        }
+
+        &.progress-reverse {
+            display: block;
+            width: 0%;
+        }
+    }
+
     &.progress-reverse {
         display: block;
         float: right;
     }
 
     &.progress-reverse::-moz-progress-bar {
-        background: $base-color;
+        background: $background-color;;
+        width: 0%;
     }
 
     &.progress-reverse::-webkit-progress-bar {
@@ -239,7 +251,8 @@ progress {
     }
 
     &.progress-reverse[value]::-moz-progress-value {
-        background: $background-color;
+        width: 0%;
+        background: $base-color;
     }
 
     &.progress-reverse[value]::-webkit-progress-value {
@@ -265,7 +278,8 @@ nav {
     a {
         margin: 0px 2px 0px;
         display: inline-block;
-        width: 130px;
+        font-size: 1.2em;
+        width: 140px;
         cursor: pointer;
         @include transition("border, color, text-shadow", 0.25s, ease-in-out);
         border-left: 1px solid $shadow-color;
@@ -348,6 +362,24 @@ nav {
 
 .content {
     display: none;
+
+    .content-navigation {
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: $base-color;
+        background-color: $background-color;
+        text-align: center;
+        padding-bottom: 10px;
+        padding-top: 12px;
+        border-bottom: 1px solid $dim-color;
+        background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+
+        a {
+            margin: 0px 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
 }
 
 .content-contained {
@@ -375,10 +407,14 @@ nav {
         text-align: justify;
         -moz-text-align-last: center;
         text-align-last: center;
+
+        h1 {
+            text-align: center;
+        }
     }
 
     .message {
-        text-align: justify;
+        text-align: center;
         -moz-text-align-last: center;
         text-align-last: center;
 
@@ -401,6 +437,12 @@ nav {
         width: 90%;
         height: 1px;
         background: $dim-color;
+    }
+
+    .anchor-top {
+        display: block;
+        text-align: center;
+        font-size: 0.8em;
     }
 }
 
