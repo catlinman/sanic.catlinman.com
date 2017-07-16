@@ -328,6 +328,10 @@ nav {
     .control-fx {
         @extend .control;
     }
+
+    .control-dark {
+        @extend .control;
+    }
 }
 
 .profile-image {
@@ -348,21 +352,22 @@ nav {
 
 .content-contained {
     display: inline-block;
-    max-width: 920px;
+    max-width: 1080px;
     min-height: 100%;
     margin-top: 48px;
     margin-bottom: 24px;
     z-index: 0;
 
+    text-align: justify;
+
     -webkit-transform: translateZ(0px);
     -webkit-transform-style: preserve-3d;
 
-    h1 {
+    h1, h2, h3, h4, h5, p {
         margin: 16px;
     }
 
     p {
-        margin: 16px;
         line-height: 1.4em;
     }
 
@@ -373,6 +378,10 @@ nav {
     }
 
     .message {
+        text-align: justify;
+        -moz-text-align-last: center;
+        text-align-last: center;
+
         h1 {
             margin-top: 32px;
             font-style: italic;
@@ -383,11 +392,21 @@ nav {
             font-size: 2em;
         }
     }
+
+    .horizontal-line {
+        margin-top: 24px;
+        margin-bottom: 24px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        height: 1px;
+        background: $dim-color;
+    }
 }
 
 .dim-contained {
     display: inline-block;
-    max-width: 920px;
+    max-width: 1080px;
     min-height: 100%;
     background: linear-gradient(0deg, $background-color, $shadow-color);
     position: fixed;

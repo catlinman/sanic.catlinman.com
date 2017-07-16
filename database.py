@@ -25,8 +25,9 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
-    administrator = Column(Boolean, nullable=False)
-    create_on = Column(DateTime, default=func.now())
+    template_password = Column(Boolean, default=True, nullable=False)
+    administrator = Column(Boolean, default=False, nullable=False)
+    create_on = Column(DateTime, default=func.now(), nullable=False)
 
 
 class PSA(Base):
@@ -34,7 +35,23 @@ class PSA(Base):
     id = Column(Integer, primary_key=True)
     content = Column(String, nullable=False, unique=True)
     author = Column(String, nullable=False)
-    create_on = Column(DateTime, default=func.now())
+    create_on = Column(DateTime, default=func.now(), nullable=False)
+
+
+class Posts(Base):
+    __tablename__ = "posts"
+    id = Column(Integer, primary_key=True)
+
+
+class Projects(Base):
+    __tablename__ = "projects"
+    id = Column(Integer, primary_key=True)
+
+
+class Images(Base):
+    __tablename__ = "images"
+    id = Column(Integer, primary_key=True)
+
 
 
 # Make the engine connection.

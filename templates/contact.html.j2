@@ -4,17 +4,23 @@
     {# Prepare the current view in a contained content setting. #}
     <div class="dim-contained"></div>
     <div class="content-contained">
-        <div class="message">
-            <p>This part of the site is currently not implemented. Check back later for more!</p>
-        </div>
+        <h1>Direct contact</h1>
+        <p>
+            Write about contact information here.
+        </p>
+        <h2>
+            Links
+        </h2>
+        <p>
+            Links here.
+        </p>
     </div>
 {%- endmacro %}
 
 {# If this page is requested via a base GET we serve the entire content. #}
 {% if partial is not defined or partial == False %}
     {% extends "base.html.j2" %}
-
-    {# Add to the base page title. Although page title is created on the fly this is fallback. #}
+    {# Add to the base page title. #}
     {% block title %}{{ super() }} - Contact{% endblock title%}
 
     {# Set the main content of the page. Is hidden on start. #}
@@ -33,9 +39,6 @@
             {{ content() }}
         </noscript>
     {% endblock content_noscript %}
-
-    {# Add the cover behind the content if Javascript is disabled. #}
-    {% block cover_noscript %}{% endblock cover_noscript %}
 
 {# Otherwise if this is a request for only the new content serve that. #}
 {% else %}

@@ -105,7 +105,7 @@ $(function() {
      * @param {boolean} state The boolean enabled state to be set.
      */
     function setFooterState(state) {
-        if (footerActive === true) {
+        if (state === true) {
             // Slide up the footer menu and flip the anchor.
             $(".footer-content").slideDown();
             $(".footer-anchor").css("transform", "scaleY(-1) translate(0px, 10px)");
@@ -152,7 +152,8 @@ $(function() {
 
     // Variables used for content loading of the page.
     var pageTitle = "Catlinman";
-    var pageGET = "?partial=true";
+    var pagePARTIAL = "?partial=true";
+    var pageERROR = "/error/";
 
     /**
      * Request and load the specified path of the page into the content container.
@@ -246,42 +247,64 @@ $(function() {
             });
 
             // Make a get request to our content end point.
-            $.get(path + pageGET, function(data) {
-                // Set the progress of the loading bars to the completed value.
-                progress = 100;
+            $.ajax({
+                url: path + pagePARTIAL,
+                type: "get",
 
-                /*
-                    Failsafe check if an entire page was served.
+                error: function(xhr, status) {
+                    // Set the progress of the loading bars to the completed value.
+                    progress = 100;
 
-                    This is required for cases where error pages and other content
-                    with no separate path for HTML is served. The tags need to be
-                    specified in the template files for this to work. Otherwise
-                    page recursion might occur.
-                */
-                if (data.indexOf("content-standalone") > -1) {
-                    var titleLength = "<div content-title=\"".length;
-                    var titleStart = data.indexOf("<div content-title=\"");
-                    var titleEnd = data.indexOf("\" class=\"content-standalone-title\"></div>");
+                    document.title = pageTitle + " - " + xhr.status;
 
-                    var title = data.slice(titleStart + titleLength, titleEnd);
+                    // Make another request to the correct error page handler.
+                    $.get(pageERROR + xhr.status + pagePARTIAL, function(data) {
+                        // Set the content of our content container to the returned data.
+                        $(".content").html(data);
 
-                    if (title != "") document.title = pageTitle + " - " + title;
+                        // Fade out background elements and fade in content elements.
+                        $("#psa").fadeOut()
+                        $(".content").fadeIn().css("display", "block");
+                    });
+                },
 
-                    var contentStart = data.indexOf("<div class=\"content-standalone-start");
-                    var contentEnd = data.indexOf("<div class=\"content-standalone-end\"></div>");
+                success: function(data) {
+                    // Set the progress of the loading bars to the completed value.
+                    progress = 100;
 
-                    var data = data.slice(contentStart, contentEnd);
+                    /*
+                        Failsafe check if an entire page was served.
 
-                } else {
-                    document.title = pageTitle + " - " + path.capitalize();
+                        This is required for cases where error pages and other content
+                        with no separate path for HTML is served. The tags need to be
+                        specified in the template files for this to work. Otherwise
+                        page recursion might occur.
+                    */
+                    if (data.indexOf("content-standalone") > -1) {
+                        var titleLength = "<div content-title=\"".length;
+                        var titleStart = data.indexOf("<div content-title=\"");
+                        var titleEnd = data.indexOf("\" class=\"content-standalone-title\"></div>");
+
+                        var title = data.slice(titleStart + titleLength, titleEnd);
+
+                        if (title != "") document.title = pageTitle + " - " + title;
+
+                        var contentStart = data.indexOf("<div class=\"content-standalone-start");
+                        var contentEnd = data.indexOf("<div class=\"content-standalone-end\"></div>");
+
+                        data = data.slice(contentStart, contentEnd);
+
+                    } else {
+                        document.title = pageTitle + " - " + path.capitalize();
+                    }
+
+                    // Set the content of our content container to the returned data.
+                    $(".content").html(data);
+
+                    // Fade out background elements and fade in content elements.
+                    $("#psa").fadeOut()
+                    $(".content").fadeIn().css("display", "block");
                 }
-
-                // Set the content of our content container to the returned data.
-                $(".content").html(data);
-
-                // Fade out background elements and fade in content elements.
-                $("#psa").fadeOut()
-                $(".content").fadeIn().css("display", "block");
             });
 
         } else {
@@ -307,7 +330,9 @@ $(function() {
     }
 
     // Handle clicking of links on the page.
-    $("a").click(function() {
+    $("a").click(function(e) {
+        console.log("asdasdasdad");
+
         // Check if this is an outside link. If so, continue with default logic.
         if ($(this).attr("href").indexOf("https://") > -1) return true;
 
@@ -365,9 +390,12 @@ $(function() {
 
     // Key callbacks for handling of the page.
     $(document).keyup(function(e) {
-        if (contentActive === true) {
-            if (e.keyCode == 27) {
+        if (e.keyCode == 27) {
+            setFooterState(false);
+
+            if (contentActive === true) {
                 // If content is active track the escape key. If pressed. Load the root content.
+                setNavigationPath("");
                 contentLoad("/", false, false);
             }
         }
