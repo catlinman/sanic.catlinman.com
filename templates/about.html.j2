@@ -5,7 +5,7 @@
     <div class="dim-contained"></div>
     <div class="content-contained">
         <div class="content-navigation">
-            <a href="#twitter">Social Feeds</a> &middot;
+            <a href="#twitter">Twitter Feeds</a> &middot;
             <a href="#ranking">Game Rankings</a> &middot;
             <a href="#location">Location History</a>
         </div>
@@ -36,9 +36,23 @@
             </p>
             <div class="horizontal-line"></div>
 
-            <h1 id="twitter">Social Feeds</h1>
-            <a class="twitter-timeline" data-lang="en" data-width="500" data-height="600" data-theme="dark" data-chrome="noscrollbar noheader nofooter noborders transparent" data-link-color="#fece7e" href="https://twitter.com/catplease">Tweets by catplease</a>
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <h1 id="twitter">Twitter Feeds</h1>
+            <div class="splitter">
+                <ul>
+                    <li>
+                        <h2>Personal Account</h2>
+                        <a class="twitter-timeline" data-lang="en" data-width="400" data-height="800" data-theme="dark" data-chrome="noscrollbar noheader nofooter noborders transparent" data-link-color="#fece7e" href="https://twitter.com/catplease"></a>
+                    </li>
+                    <li>
+                        <div class="vertical-line" style="height: 900px;"></div>
+                    </li>
+                    <li>
+                        <h2>Managed Accounts</h2>
+                        <a class="twitter-timeline" data-lang="en" data-width="400" data-height="800" data-theme="dark" data-chrome="noscrollbar noheader nofooter noborders transparent" data-link-color="#fece7e" href="https://twitter.com/catplease/lists/managed-accounts"></a>
+                    </li>
+                    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </ul>
+            </div>
             <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
             <div class="horizontal-line"></div>
 
@@ -53,11 +67,21 @@
 
             <h1 id="location">Location History</h1>
             <p>
-                There is no content here either don't ask me what's up with that I was fighting
-                JavaScript history states all day and couldn't get this up and running. Sorry
-                about that but I'll tackle this tomorrow I think. Yeah that sounds like a good
-                plan. I should go to sleep now since it's late though so goodnight bye!
+                Zone highlighting indicates previous locations. Zone opacity indicates frequency.
             </p>
+            <div id="map"></div>
+            <script>
+            mapboxgl.accessToken = "pk.eyJ1IjoiY2F0bGlubWFuIiwiYSI6ImNpb2tnZjkwODAwMGJ3Ymx5aXMxa2c5enUifQ.maLFykNRxQsSOh9GuNkGgQ";
+            var mapbox = new mapboxgl.Map({
+                container: "map",
+                style: "mapbox://styles/catlinman/cj4qw459g1f1x2sqfuv15ou50",
+                center: ["12.584","28.372"],
+                zoom: 1.4
+            });
+            </script>
+            <a>
+                For a full listing of location check ins click here. Wait, this isn't implemented yet.
+            </a>
             <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
             <div class="horizontal-line"></div>
         </div>

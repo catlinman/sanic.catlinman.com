@@ -66,7 +66,7 @@ $(function() {
         // Check which state we are setting at the moment.
         if (state === false) {
             // Fade out the background.
-            $("canvas").fadeOut(function() {
+            $(".fx").fadeOut(function() {
                 // Tell the scene to pause on successful completion.
                 scenePaused = true;
             })
@@ -85,8 +85,8 @@ $(function() {
             // Enable scene logic again.
             scenePaused = false;
 
-            // Fade in the canvas element containing the main scene.
-            $("canvas").fadeIn();
+            // Fade in the effects elements.
+            $(".fx").fadeIn();
         }
 
         // Set a cookie storing the scene FX state.
@@ -201,7 +201,9 @@ $(function() {
             // If page content is already present skip further loading.
             if (standalone === true) {
                 $("#psa").fadeOut()
-                $(".content").fadeIn().css("display", "block");
+                $(".content").fadeIn(function() {
+                    mapbox.resize();
+                }).css("display", "block");
 
                 // Check if the path contains an anchor. If so scroll to it.
                 if (hash != "") contentScroll(hash, false, true);
@@ -310,7 +312,9 @@ $(function() {
 
                     // Fade out background elements and fade in content elements.
                     $("#psa").fadeOut()
-                    $(".content").fadeIn().css("display", "block");
+                    $(".content").fadeIn(function() {
+                        mapbox.resize();
+                    }).css("display", "block");
 
                     // Check if the path contains an anchor. If so scroll to it.
                     if (hash != "") contentScroll(hash, false, false);

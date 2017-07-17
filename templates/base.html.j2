@@ -47,10 +47,12 @@
     {# Load required script libraries. #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/p5.js"></script>
 
-    {# Load vanilla fancyBox style sheet. #}
+    {# Load vanilla fancyBox and Mapbox style sheets. #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.0.47/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css" />
 
     {# Load scripts used by the site. #}
     <script src="/static/js/main.js" type="text/javascript"></script>
@@ -65,7 +67,7 @@
     <div class="background" oncontextmenu="return false">
         <div class="vignette"></div>
         {# Main scene goes in here for the background animation. #}
-        <div id="canvas" class="background-blur"></div>
+        <div id="particles" class="fx background-blur"></div>
         <header class="parallax noselect background-blur">
             {# Logo header in the center of the screen. #}
             <div class="logo-container">

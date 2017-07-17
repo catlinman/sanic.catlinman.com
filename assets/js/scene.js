@@ -167,7 +167,7 @@ function setup() {
     canvas = createCanvas(windowWidth, windowHeight);
 
     // Get the correct parent by its ID.
-    canvas.parent("canvas");
+    canvas.parent("particles");
 
     // Set drawing defaults.
     frameRate(60);

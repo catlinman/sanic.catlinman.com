@@ -2,6 +2,7 @@
 # Import Python modules.
 import os
 import shutil
+import time
 from datetime import datetime
 import bcrypt
 import binascii
@@ -15,14 +16,22 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 # Path to the database file.
-DATABASE = './db/catlinman.com.db'
+DBPATH = "./db"
+DBFILE = 'catlinman.com.db'
 
-# Create database models.
+
+def uniqid():
+    '''
+    Generates a Unique ID.
+    '''
+
+    return hex(int(time.time() * 10000000))[2:]
 
 
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
+    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     template_password = Column(Boolean, default=True, nullable=False)
@@ -38,24 +47,47 @@ class PSA(Base):
     create_on = Column(DateTime, default=func.now(), nullable=False)
 
 
-class Posts(Base):
+class Post(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key=True)
+    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    user_id = Column(String, nullable=False, unique=True)
+    title = Column(String)
+    opening_md = Column(String)
+    opening_html = Column(String)
+    content_md = Column(String)
+    content_html = Column(String)
+    create_on = Column(DateTime, default=func.now(), nullable=False)
+    edit_on = Column(DateTime, default=func.now(), nullable=False)
 
 
-class Projects(Base):
+class Project(Base):
     __tablename__ = "projects"
     id = Column(Integer, primary_key=True)
+    unique_id = Column(String, nullable=False, unique=True)
+    title = Column(String)
+    content = Column(String)
+    date = Column(DateTime)
 
 
-class Images(Base):
+class Image(Base):
     __tablename__ = "images"
     id = Column(Integer, primary_key=True)
+    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    title = Column(String)
+    date = Column(DateTime)
 
+
+class Location(Base):
+    __tablename__ = "locations"
+    id = Column(Integer, primary_key=True)
+    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    geo_id = Column(String, nullable=False)
+    date = Column(DateTime, nullable=False)
 
 
 # Make the engine connection.
-engine = create_engine("sqlite:///{}".format(DATABASE), convert_unicode=True)
+engine = create_engine("sqlite:///{}/{}".format(DBPATH, DBFILE), convert_unicode=True)
 
 # Start a scoped session.
 db_session = scoped_session(
@@ -68,13 +100,19 @@ db_session = scoped_session(
 
 
 def setup():
+    if not os.path.exists(DBPATH):
+        os.makedirs(DBPATH)
+
+    # Get the database filepath.
+    filepath = "{}/{}".format(DBPATH, DBFILE)
+
     # Backup the old database if it exists.
-    if os.path.isfile(DATABASE):
-        file_name, file_extension = os.path.splitext(DATABASE)
+    if os.path.isfile(filepath):
+        file_name, file_extension = os.path.splitext(filepath)
 
         # Copy the old file to the backup timestamped file.
         shutil.copyfile(
-            DATABASE,
+            filepath,
             "{}-{}{}".format(
                 file_name,
                 datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -155,6 +193,18 @@ def setup():
         ["Verified scrobbler.", "Catlinman"],
         ["Trades in scrobbles for prizes.", "Catlinman"],
         ["You define who I am.", "Catlinman"],
+        ["Running on port 24070.", "Catlinman"],
+        ["I can design that.", "Catlinman"],
+        ["I once heard CSS was a programming language.", "Catlinman"],
+        ["Always pushing the limit.", "Catlinman"],
+        ["Speaks a few languages other than this one.", "Catlinman"],
+        ["Diese Nachricht ist in Deutsch. Frag nicht warum.", "Catlinman"],
+        ["Always hopeful for a good internet connection.", "Catlinman"],
+        ["Survivor of 3000+ ms ping.", "Catlinman"],
+        ["Let's get trending on these tables.", "Catlinman"],
+        ["You can always count on a layer party in my files.", "Catlinman"],
+        ["Puts C# on a résumés.", "Catlinman"],
+        ["Running on nekodrop.com", "Catlinman"],
     ]
 
     # Insert the shipping PSAs into the database.
@@ -182,4 +232,4 @@ def setup():
     # Commit the changes.
     db_session.commit()
 
-    print("Successfully created database configuration. The password for 'administrator' is: '{}'.".format(password))
+    print("Successfully created database configuration. The password for the base user 'administrator' is: '{}'.".format(password))
