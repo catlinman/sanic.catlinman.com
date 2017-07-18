@@ -2,10 +2,10 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-templates = Blueprint("templates")
+template = Blueprint("template")
 
 
-@templates.route("/templates/<name>", methods=["GET"])
+@template.route("/template/<name>", methods=["GET"])
 async def page_template(request, name):
     if(request.app.debug is False):
         return response.redirect("/", status=301)

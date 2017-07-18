@@ -1,3 +1,6 @@
+// Variables used by other scripts that should be overwritten.
+var mapbox;
+
 /**
  * Capitalizes the base string. Mutates the base object.
  * @return {string} Capitalized string result.
@@ -166,13 +169,15 @@ $(function() {
         // Set the current changed path.
         currentPath = path;
 
-        if (replace === true) {
-            // Replace the history state if specified.
-            history.replaceState(path, path, path);
+        if (hash == "") {
+            if (replace === true) {
+                // Replace the history state if specified.
+                history.replaceState(path, path, path);
 
-        } else {
-            // Otherwise push this page on the history stack.
-            history.pushState(path, path, path);
+            } else {
+                // Otherwise push this page on the history stack.
+                history.pushState(path, path, path);
+            }
         }
 
         // Remove the first character if it is a slash.
@@ -202,11 +207,15 @@ $(function() {
             if (standalone === true) {
                 $("#psa").fadeOut()
                 $(".content").fadeIn(function() {
-                    mapbox.resize();
+                    // Resize the any mapbox present on the page.
+                    if (mapbox) {
+                        mapbox.resize();
+                        mapbox.repaint = true;
+                    }
                 }).css("display", "block");
 
                 // Check if the path contains an anchor. If so scroll to it.
-                if (hash != "") contentScroll(hash, false, true);
+                if (hash != "") contentScroll(hash, false);
 
                 return;
             };
@@ -313,11 +322,15 @@ $(function() {
                     // Fade out background elements and fade in content elements.
                     $("#psa").fadeOut()
                     $(".content").fadeIn(function() {
-                        mapbox.resize();
+                        // Resize the any mapbox present on the page.
+                        if (mapbox) {
+                            mapbox.resize();
+                            mapbox.repaint = true;
+                        }
                     }).css("display", "block");
 
                     // Check if the path contains an anchor. If so scroll to it.
-                    if (hash != "") contentScroll(hash, false, false);
+                    if (hash != "") contentScroll(hash, replace);
                 }
             });
 
@@ -343,7 +356,7 @@ $(function() {
         }
     }
 
-    function contentScroll(target, replace, standalone) {
+    function contentScroll(target, replace) {
         // Check if the element exists.
         if (!$(target).length && target !== "#top") return;
 
@@ -351,20 +364,18 @@ $(function() {
             // Set the current changed path.
             currentPath = location.pathname + target
 
-            if (standalone === false) {
-                if (replace === true) {
-                    // Replace the history state if specified.
-                    history.replaceState(target, target, target);
+            if (replace === true) {
+                // Replace the history state if specified.
+                history.replaceState(currentPath, currentPath, currentPath);
 
-                } else {
-                    // Otherwise push this page on the history stack.
-                    history.pushState(target, target, target);
-                }
-
-                $('html,body').animate({
-                    scrollTop: ($(target).offset().top - 74)
-                }, 1000, "swing");
+            } else {
+                // Otherwise push this page on the history stack.
+                history.pushState(currentPath, currentPath, currentPath);
             }
+
+            $('html,body').animate({
+                scrollTop: ($(target).offset().top - 74)
+            }, 1000, "swing");
 
         } else {
             $('html,body').animate({
@@ -390,7 +401,7 @@ $(function() {
         if ($(this).attr("href").indexOf("#") > -1) {
             var target = this.hash;
 
-            contentScroll(target, false, false);
+            contentScroll(target, false);
 
             return false;
         }
@@ -463,30 +474,41 @@ $(function() {
 
     // Add an event listener for browser history tracking.
     window.addEventListener("popstate", function(e) {
+        stateFull = e.state;
+        stateRoot = e.state.substr(0, (e.state.indexOf("#") > -1 ? e.state.indexOf("#") : e.state.length));
+        stateMain = stateRoot.substring(stateRoot.lastIndexOf("/"))
+        stateHash = e.state.indexOf("#") > -1 ? e.state.substr(e.state.indexOf("#")) : "";
+
+        currentPathFull = currentPath;
+        currentPathRoot = currentPath.substr(0, (currentPath.indexOf("#") > -1 ? currentPath.indexOf("#") : currentPath.length));
+        currentPathMain = currentPathRoot.substring(currentPathRoot.lastIndexOf("/"))
+        currentPathHash = currentPath.indexOf("#") > -1 ? currentPath.substr(currentPath.indexOf("#")) : "";
+
         // Get the path off of the event state. If there is no path set it to root.
-        if (e.state == null || e.state == "/") {
+        if (stateFull == null || stateFull == "/") {
             setNavigationPath("");
             contentLoad("/", "", true, false)
 
-        } else if (e.state.indexOf("#") > -1) {
-            if (contentActive === false) {
-                setNavigationPath(location.pathname);
+        } else if (currentPathMain.indexOf(stateMain) > -1) {
+            if (stateHash != "") {
+                if (contentActive === false) {
+                    setNavigationPath(location.pathname);
 
-                contentLoad(location.pathname, e.state, true, false)
+                    contentLoad(location.pathname, location.hash, true, false);
+
+                } else {
+                    contentScroll(stateHash, true, false);
+                }
 
             } else {
-                contentScroll(e.state, true, false);
-            }
-
-        } else {
-            if (currentPath.indexOf(e.state) > -1) {
                 contentScroll("#top", true, false);
 
-            } else {
-                setNavigationPath(e.state);
-                contentLoad(e.state, "", true, false)
             }
+        } else {
+            setNavigationPath(stateFull);
+            contentLoad(stateRoot, stateHash, true, false);
         }
+
     });
 
     // Variables used for the parallax effect.
@@ -579,7 +601,7 @@ $(function() {
     });
 
     // PSA requset end point variable.
-    var psaGET = "/psa";
+    var psaGET = "/data/psa";
 
     // PSA request and handling function.
     function psa() {

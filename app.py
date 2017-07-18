@@ -42,9 +42,12 @@ app.blueprint(blueprints.contact)
 app.blueprint(blueprints.error)
 app.blueprint(blueprints.gallery)
 app.blueprint(blueprints.middleman)
-app.blueprint(blueprints.projects)
-app.blueprint(blueprints.psa)
-app.blueprint(blueprints.templates)
+app.blueprint(blueprints.project)
+
+# Load data blueprints into the data route.
+app.blueprint(blueprints.location, url_prefix='/data')
+app.blueprint(blueprints.psa, url_prefix='/data')
+app.blueprint(blueprints.template, url_prefix='/data')
 
 if __name__ == "__main__":
     # Build all our assets.

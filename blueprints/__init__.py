@@ -7,10 +7,11 @@ from .blog import blog
 from .contact import contact
 from .error import error
 from .gallery import gallery
+from .location import location
 from .middleman import middleman
-from .projects import projects
+from .project import project
 from .psa import psa
-from .templates import templates
+from .template import template
 
 __all__ = [
     "about",
@@ -18,8 +19,9 @@ __all__ = [
     "contact",
     "error",
     "gallery",
+    "location",
     "middleman",
-    "projects",
+    "project",
     "psa",
-    "templates"
+    "template"
 ]

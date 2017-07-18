@@ -8,7 +8,7 @@ import bcrypt
 import binascii
 
 # Import SQLAlchemy modules.
-from sqlalchemy import create_engine, Column, DateTime, Integer, Boolean, String, func
+from sqlalchemy import create_engine, Column, DateTime, Integer, Float, Boolean, String, func
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -36,14 +36,6 @@ class User(Base):
     password = Column(String, nullable=False)
     template_password = Column(Boolean, default=True, nullable=False)
     administrator = Column(Boolean, default=False, nullable=False)
-    create_on = Column(DateTime, default=func.now(), nullable=False)
-
-
-class PSA(Base):
-    __tablename__ = "psas"
-    id = Column(Integer, primary_key=True)
-    content = Column(String, nullable=False, unique=True)
-    author = Column(String, nullable=False)
     create_on = Column(DateTime, default=func.now(), nullable=False)
 
 
@@ -78,12 +70,22 @@ class Image(Base):
     date = Column(DateTime)
 
 
+class PSA(Base):
+    __tablename__ = "psas"
+    id = Column(Integer, primary_key=True)
+    content = Column(String, nullable=False, unique=True)
+    author = Column(String, nullable=False)
+    create_on = Column(DateTime, default=func.now(), nullable=False)
+
+
 class Location(Base):
     __tablename__ = "locations"
     id = Column(Integer, primary_key=True)
-    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
-    geo_id = Column(String, nullable=False)
-    date = Column(DateTime, nullable=False)
+    x = Column(Float, nullable=False)
+    y = Column(Float, nullable=False)
+    checkin = Column(Boolean, default=True, nullable=False)
+    title = Column(String, default="", nullable=False)
+    date = Column(DateTime, default=func.now(), nullable=False)
 
 
 # Make the engine connection.
@@ -123,12 +125,13 @@ def setup():
     # Clear already set tables.
     db_session.execute("DROP TABLE IF EXISTS users")
     db_session.execute("DROP TABLE IF EXISTS psas")
+    db_session.execute("DROP TABLE IF EXISTS locations")
 
     # Recreate tables.
     Base.metadata.create_all(engine)
 
     # Predefined PSAs that ship with the default setup.
-    psa_messages = [
+    psa_data = [
         ["I made a game once.", "Catlinman"],
         ["Your humble fishstick and fiendlord.", "Catlinman"],
         ["Professional button presser.", "Catlinman"],
@@ -208,11 +211,26 @@ def setup():
     ]
 
     # Insert the shipping PSAs into the database.
-    for message in psa_messages:
+    for message in psa_data:
         db_session.add(
             PSA(
                 content=message[0],
                 author=message[1]
+            )
+        )
+
+    location_data = [
+        [8.290545, 53.561826, "Butjadingen", True]
+    ]
+
+    # Insert the shipping locations into the database.
+    for location in location_data:
+        db_session.add(
+            Location(
+                x=location[0],
+                y=location[1],
+                title=location[2],
+                checkin=location[3]
             )
         )
 

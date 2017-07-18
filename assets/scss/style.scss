@@ -69,10 +69,16 @@ a {
 }
 
 #map {
-    max-width: 1080px;
-    min-height: 600px;
     margin: 16px;
     border-radius: 4px;
+    max-width: 1080px;
+    min-height: 600px;
+    height: 600px;
+    color: black;
+}
+
+.mapboxgl-canvas {
+    position: relative !important;
 }
 
 .background {

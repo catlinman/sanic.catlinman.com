@@ -71,7 +71,7 @@ async def psa_all_json(request):
 
         # Handle the result if it was found.
         if result:
-            # Conver the query result into a JSON compliant format.
+            # Convert the query result into a JSON compliant format.
             data = []
 
             for psa in result:

@@ -1,0 +1,167 @@
+<div id="map"></div>
+<script>
+mapboxgl.accessToken = "pk.eyJ1IjoiY2F0bGlubWFuIiwiYSI6ImNpb2tnZjkwODAwMGJ3Ymx5aXMxa2c5enUifQ.maLFykNRxQsSOh9GuNkGgQ";
+var mapbox = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/catlinman/cj4qw459g1f1x2sqfuv15ou50",
+    center: ["12.584","28.372"],
+    zoom: 1.2
+});
+
+var url = "/data/location";
+mapbox.on("load", function () {
+    mapbox.addSource("locations", {
+        type: "geojson",
+        data: url,
+        cluster: true,
+        clusterMaxZoom: 15,
+        clusterRadius: 20
+    });
+
+    mapbox.addLayer({
+        "id": "location-cluster-circle",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(31, 100%, 57%)",
+            "circle-radius": 10,
+        },
+        "filter": ["all", [">=", "point_count", 2], ["!=", "newest", true]]
+    });
+
+    mapbox.addLayer({
+        "id": "location-cluster-circle-newest",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(90, 100%, 57%)",
+            "circle-radius": 10,
+        },
+        "filter": ["all", [">=", "point_count", 2], ["==", "newest", true]]
+    });
+
+    mapbox.addLayer({
+        "id": "location-cluster-label",
+        "type": "symbol",
+        "source": "locations",
+        "layout": {
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-field": "{point_count}",
+            "text-size" : 12
+        },
+        "paint": {
+            "icon-color": "#f00",
+        },
+        "filter": [">=", "point_count", 2]
+    });
+
+    mapbox.addLayer({
+        "id": "location-marker",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(31, 100%, 57%)",
+            "circle-radius": 5,
+        },
+        "filter": ["all", ["!=", "cluster", true], ["!=", "newest", true]]
+    });
+
+    mapbox.addLayer({
+        "id": "location-marker-newest",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(90, 100%, 57%)",
+            "circle-radius": 5,
+        },
+        "filter": ["all", ["!=", "cluster", true], ["==", "newest", true]]
+    });
+
+    mapbox.addLayer({
+        "id": "location-spots",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(31, 100%, 57%)",
+            "circle-radius": 64,
+            "circle-blur": 1,
+            "circle-opacity": 0.1,
+        },
+        "filter": ["!=", "newest", true]
+    });
+
+    mapbox.addLayer({
+        "id": "location-spots-newest",
+        "type": "circle",
+        "source": "locations",
+        "paint": {
+            "circle-color": "hsl(90, 100%, 57%)",
+            "circle-radius": 64,
+            "circle-blur": 1,
+            "circle-opacity": 0.1,
+        },
+        "filter": ["==", "newest", true]
+    });
+
+    mapbox.on("click", "location-marker", function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
+                "<strong>" + e.features[0].properties.title +
+                "</strong><br />" + e.features[0].properties.date
+            ).addTo(mapbox);
+    });
+
+    mapbox.on("mouseenter", "location-marker", function () {
+        mapbox.getCanvas().style.cursor = "pointer";
+    });
+
+    mapbox.on("mouseleave", "location-marker", function () {
+        mapbox.getCanvas().style.cursor = "";
+    });
+
+    mapbox.on("click", "location-marker-newest", function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
+                "<strong>" + e.features[0].properties.title +
+                "</strong><br />" + e.features[0].properties.date +
+                "<br />This is the most recent entry."
+            ).addTo(mapbox);
+    });
+
+    mapbox.on("mouseenter", "location-marker-newest", function () {
+        mapbox.getCanvas().style.cursor = "pointer";
+    });
+
+    mapbox.on("mouseleave", "location-marker-newest", function () {
+        mapbox.getCanvas().style.cursor = "";
+    });
+
+    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(e) {
+        var fullScreenMode = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+        if (fullScreenMode) {
+            $("#map, .mapboxgl-canvas").animate({
+                "margin": "0",
+                "max-width": "0",
+                "min-width": "100%",
+                "min-height": "100%"
+            }, 0, function(){
+                mapbox.resize();
+                mapbox.repaint = true;
+            });
+        } else {
+            $("#map, .mapboxgl-canvas").css({
+                "margin": "",
+                "max-width": "",
+                "min-width": "",
+                "min-height": ""
+            });
+        }
+    });
+
+    mapbox.addControl(new mapboxgl.FullscreenControl());
+    mapbox.addControl(new mapboxgl.NavigationControl());
+});
+
+</script>

@@ -66,22 +66,11 @@
             <div class="horizontal-line"></div>
 
             <h1 id="location">Location History</h1>
-            <p>
-                Zone highlighting indicates previous locations. Zone opacity indicates frequency.
-            </p>
-            <div id="map"></div>
-            <script>
-            mapboxgl.accessToken = "pk.eyJ1IjoiY2F0bGlubWFuIiwiYSI6ImNpb2tnZjkwODAwMGJ3Ymx5aXMxa2c5enUifQ.maLFykNRxQsSOh9GuNkGgQ";
-            var mapbox = new mapboxgl.Map({
-                container: "map",
-                style: "mapbox://styles/catlinman/cj4qw459g1f1x2sqfuv15ou50",
-                center: ["12.584","28.372"],
-                zoom: 1.4
-            });
-            </script>
-            <a>
-                For a full listing of location check ins click here. Wait, this isn't implemented yet.
+            <a href="about/locations">
+                For a full timestamped listing of all locations click here
             </a>
+            {% include "mapbox.html.j2" %}
+
             <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
             <div class="horizontal-line"></div>
         </div>

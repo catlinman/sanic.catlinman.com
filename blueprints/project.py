@@ -2,11 +2,11 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-projects = Blueprint("projects")
+project = Blueprint("project")
 
 
-@projects.route("/projects", methods=["GET"])
-async def page_projects(request):
+@project.route("/project", methods=["GET"])
+async def page_project(request):
     # Set the default state of partial requests to false.
     partial = False
 
@@ -17,7 +17,7 @@ async def page_projects(request):
 
     template_env = request.app.config.template_env
 
-    t = template_env.get_template("projects.html.j2")
+    t = template_env.get_template("project.html.j2")
 
     rendered_template = await t.render_async(
         partial=partial
