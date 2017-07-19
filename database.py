@@ -84,7 +84,8 @@ class Location(Base):
     x = Column(Float, nullable=False)
     y = Column(Float, nullable=False)
     checkin = Column(Boolean, default=True, nullable=False)
-    title = Column(String, default="", nullable=False)
+    area = Column(String, default="", nullable=False)
+    country = Column(String, default="", nullable=False)
     date = Column(DateTime, default=func.now(), nullable=False)
 
 
@@ -220,7 +221,7 @@ def setup():
         )
 
     location_data = [
-        [8.290545, 53.561826, "Butjadingen", True]
+        [8.25, 53.55, "Butjadingen", "Germany", True]
     ]
 
     # Insert the shipping locations into the database.
@@ -229,8 +230,9 @@ def setup():
             Location(
                 x=location[0],
                 y=location[1],
-                title=location[2],
-                checkin=location[3]
+                area=location[2],
+                country=location[3],
+                checkin=location[4]
             )
         )
 

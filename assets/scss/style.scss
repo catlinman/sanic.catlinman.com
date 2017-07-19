@@ -69,6 +69,7 @@ a {
 }
 
 #map {
+    text-align: center;
     margin: 16px;
     border-radius: 4px;
     max-width: 1080px;
@@ -274,7 +275,9 @@ progress {
 }
 
 nav {
+    overflow: hidden;
     position: fixed;
+    min-width: 760px;
     width: 100%;
     height: 50px;
     color: $highlight-color;
@@ -375,29 +378,13 @@ nav {
 
 .content {
     display: none;
-
-    .content-navigation {
-        text-transform: uppercase;
-        font-size: 0.8em;
-        color: $base-color;
-        background-color: $background-color;
-        text-align: center;
-        padding-bottom: 10px;
-        padding-top: 12px;
-        border-bottom: 1px solid $dim-color;
-        background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
-
-        a {
-            margin: 0px 8px;
-            display: inline-block;
-            cursor: pointer;
-        }
-    }
 }
 
 .content-contained {
     display: inline-block;
+    width: 100%;
     max-width: 1080px;
+    min-width: 760px;
     min-height: 100%;
     margin-top: 48px;
     margin-bottom: 24px;
@@ -416,7 +403,25 @@ nav {
         line-height: 1.4em;
     }
 
-    .opening {
+    .content-navigation {
+        text-transform: uppercase;
+        font-size: 0.8em;
+        color: $base-color;
+        background-color: $background-color;
+        text-align: center;
+        padding-bottom: 10px;
+        padding-top: 12px;
+        border-bottom: 1px solid $dim-color;
+        background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+
+        a {
+            margin: 0px 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
+
+    .content-center {
         text-align: justify;
         -moz-text-align-last: center;
         text-align-last: center;
@@ -472,6 +477,7 @@ nav {
 
     .splitter {
         ul {
+            text-align: center;
             vertical-align: middle;
             list-style-type: none;
             margin: 0;
@@ -484,6 +490,70 @@ nav {
 
                 .vertical-line {
                     vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    .data-wrapper {
+        margin-top: 16px;
+        margin-bottom: 16px;
+
+        .data-row {
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            height: 48px;
+            align-items: center;
+            border-left: 1px solid $dim-color;
+            border-right: 1px solid $dim-color;
+            border-top: 1px solid $dim-color;
+            border-bottom: 1px solid $dim-color;
+            border-radius: 4px;
+
+            .data-column {
+                overflow: hidden;
+                flex-grow: 1;
+            }
+
+            span {
+                width: 1px;
+                height: 80%;
+                background-color: $dim-color;
+            }
+
+            h1 {
+                margin: 0;
+                vertical-align: middle;
+                vertical-align: -webkit-baseline-middle;
+                display: inline-block;
+                font-size: 32px;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            p {
+                margin: 0;
+                vertical-align: middle;
+                vertical-align: -webkit-baseline-middle;
+                display: inline-block;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            ul {
+                margin: 0;
+                vertical-align: middle;
+                vertical-align: -webkit-baseline-middle;
+                display: inline-block;
+                list-style: none;
+                padding-left: 16px;
+                padding-right: 16px;
+
+                li {
+                    font-size: 0.8em;
                 }
             }
         }

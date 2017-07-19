@@ -5,7 +5,7 @@ var mapbox = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/catlinman/cj4qw459g1f1x2sqfuv15ou50",
     center: ["12.584","28.372"],
-    zoom: 1.2
+    zoom: 1.1
 });
 
 var url = "/data/location";
@@ -107,7 +107,7 @@ mapbox.on("load", function () {
         new mapboxgl.Popup()
             .setLngLat(e.features[0].geometry.coordinates)
             .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
-                "<strong>" + e.features[0].properties.title +
+                "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
                 "</strong><br />" + e.features[0].properties.date
             ).addTo(mapbox);
     });
@@ -124,7 +124,7 @@ mapbox.on("load", function () {
         new mapboxgl.Popup()
             .setLngLat(e.features[0].geometry.coordinates)
             .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
-                "<strong>" + e.features[0].properties.title +
+                "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
                 "</strong><br />" + e.features[0].properties.date +
                 "<br />This is the most recent entry."
             ).addTo(mapbox);

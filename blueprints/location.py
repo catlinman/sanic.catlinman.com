@@ -34,16 +34,17 @@ async def location_all_json(request):
                 data["features"].append({
                     "type": "Feature",
                     "properties": {
-                        "title": location.title,
-                        "date": location.date.strftime("%Y-%m-%d %H:%M:%S"),
+                        "area": location.area,
+                        "country": location.country,
+                        "date": location.date.strftime("Date: %B %d, %Y"),
                         "checkin": location.checkin,
                         "newest": first
                     },
                     "geometry": {
                         "type": "Point",
                         "coordinates": [
-                            location.x,
-                            location.y
+                            round(location.x, 2),
+                            round(location.y, 2)
                         ]
                     }
                 })

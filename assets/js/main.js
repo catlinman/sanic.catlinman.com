@@ -134,6 +134,9 @@ $(function() {
      * @param {string} path The path of the page to check for path matches.
      */
     function setNavigationPath(path) {
+        // Remove starting slash if it is present.
+        if (path.charAt(0) == "/") path = path.slice(1);
+
         // Get the root of the specified path.
         var pathroot = path.split("/")[0];
 
@@ -180,10 +183,7 @@ $(function() {
             }
         }
 
-        // Remove the first character if it is a slash.
-        if (path.charAt(0) == "/") path = path.slice(1);
-
-        if (path != "") {
+        if (path != "" && path != "/") {
             // If the path is not the root path set the right nav menu selection.
             setNavigationPath(path);
 
@@ -299,21 +299,24 @@ $(function() {
                         page recursion might occur.
                     */
                     if (data.indexOf("content-standalone") > -1) {
-                        var titleLength = "<div content-title=\"".length;
-                        var titleStart = data.indexOf("<div content-title=\"");
-                        var titleEnd = data.indexOf("\" class=\"content-standalone-title\"></div>");
-
-                        var title = data.slice(titleStart + titleLength, titleEnd);
-
-                        if (title != "") document.title = pageTitle + " - " + title;
-
                         var contentStart = data.indexOf("<div class=\"content-standalone-start");
                         var contentEnd = data.indexOf("<div class=\"content-standalone-end\"></div>");
 
                         data = data.slice(contentStart, contentEnd);
+                    }
+
+                    if (path != "/") {
+                        var titleSplit = "<div content-title=\"".length;
+                        var titleStart = data.indexOf("<div content-title=\"");
+                        var titleEnd = data.indexOf("\" class=\"content-title\"></div>");
+
+                        var title = (titleEnd != -1 ? data.slice(titleStart + titleSplit, titleEnd) : "");
+
+                        if (title != "") document.title = pageTitle + " - " + title;
+                        else document.title = pageTitle + " - " + (path.charAt(0) == "/" ? path.slice(1) : path).capitalize();
 
                     } else {
-                        document.title = pageTitle + " - " + path.capitalize();
+                        document.title = pageTitle;
                     }
 
                     // Set the content of our content container to the returned data.

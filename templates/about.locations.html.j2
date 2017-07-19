@@ -1,0 +1,95 @@
+
+{# Main content of the page goes in here for easier handling later on. #}
+{% macro content() -%}
+    {# Prepare the current view in a contained content setting. #}
+    <div content-title="Location History" class="content-title"></div>
+    <div class="dim-contained"></div>
+    <div class="content-contained">
+        <div class="content-center">
+            <h1 id="location">Location History</h1>
+            <p>
+                This page shows checkins and checkouts of locations I have visited
+            </p>
+        </div>
+        {% include "mapbox.html.j2" %}
+        <div class="data-wrapper">
+            <div class="data-row" style="margin-bottom: -1px;">
+                <div class="data-column" style="flex: 0 0 100px;">
+                    <p>Type</p>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 1 220px;">
+                    <p>Location</p>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 1 220px;">
+                    <p>Date</p>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 0 120px;">
+                    <p>Coordinates</p>
+                </div>
+            </div>
+            {% for location in locations %}
+            <div class="data-row">
+                <div class="data-column" style="flex: 0 0 100px;">
+                    <h1>
+                        {%- if location.checkin == True -%}
+                        &rarr;
+                        {%- else -%}
+                        &larr;
+                        {%- endif -%}
+                    </h1>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 1 220px;">
+                    <p>{{location.area}}, {{location.country}}</p>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 1 220px;">
+                    <p>{{location.date.strftime("%B %d, %Y")}}</p>
+                </div>
+                <span></span>
+                <div class="data-column" style="flex: 1 0 120px;">
+                    <ul>
+                        <li>X: {{location.x|round(2, "floor")}}</li>
+                        <li>Y: {{location.y|round(2, "floor")}}</li>
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% if partial is not defined or partial == False %}
+    {% extends "base.html.j2" %}
+
+    {# Add to the base page title. #}
+    {% block title %}{{ super() }} - Location History{% endblock title%}
+
+    {# Set the main content of the page. Is hidden on start. #}
+    {% block content %}
+        {# Make sure to include extra tags for the AJAX script to read. #}
+        <div class="content-standalone-start">
+            {{ content() }}
+        </div>
+        <div class="content-standalone-end"></div>
+    {% endblock content %}
+
+    {# Set fallback noscript content of the page. #}
+    {% block content_noscript %}
+        <noscript>
+            {{ content() }}
+        </noscript>
+    {% endblock content_noscript %}
+
+{# Otherwise if this is a request for only the new content serve that. #}
+{% else %}
+    {# Inlude tags to show that this is an actual partial page. #}
+    <div class="content-partial">
+        {{ content() }}
+    </div>
+    <div class="content-partial-end"></div>
+{% endif %}
