@@ -3,6 +3,7 @@
 import os
 import shutil
 import time
+import platform
 from datetime import datetime
 import bcrypt
 import binascii
@@ -17,10 +18,27 @@ Base = declarative_base()
 
 # Path to the database file.
 DBPATH = "./db"
-DBFILE = 'catlinman.com.db'
+DBFILE = "catlinman.com.db"
 
 
-def uniqid():
+def safe_filename(string):
+    '''
+    Convert a string into one without illegal characters for the given filesystem.
+    Args:
+        string (str): the path to remove illegal characters from.
+    Returns:
+        new path string without illegal characters.
+    '''
+
+    string = string.replace('/', '&').replace('\\', '')
+
+    if platform.system() is "Windows":
+        string = re.sub('[":*?<>|]', "", string)
+
+    return string
+
+
+def unique_id():
     '''
     Generates a Unique ID.
     '''
@@ -31,7 +49,7 @@ def uniqid():
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    unique_id = Column(String, default=unique_id(), nullable=False, unique=True)
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     template_password = Column(Boolean, default=True, nullable=False)
@@ -42,7 +60,7 @@ class User(Base):
 class Post(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key=True)
-    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    unique_id = Column(String, default=unique_id(), nullable=False, unique=True)
     user_id = Column(String, nullable=False, unique=True)
     title = Column(String)
     opening_md = Column(String)
@@ -65,7 +83,7 @@ class Project(Base):
 class Image(Base):
     __tablename__ = "images"
     id = Column(Integer, primary_key=True)
-    unique_id = Column(String, default=uniqid(), nullable=False, unique=True)
+    unique_id = Column(String, default=unique_id(), nullable=False, unique=True)
     title = Column(String)
     date = Column(DateTime)
 
@@ -83,7 +101,6 @@ class Location(Base):
     id = Column(Integer, primary_key=True)
     x = Column(Float, nullable=False)
     y = Column(Float, nullable=False)
-    checkin = Column(Boolean, default=True, nullable=False)
     area = Column(String, default="", nullable=False)
     country = Column(String, default="", nullable=False)
     date = Column(DateTime, default=func.now(), nullable=False)
@@ -107,7 +124,7 @@ def setup():
         os.makedirs(DBPATH)
 
     # Get the database filepath.
-    filepath = "{}/{}".format(DBPATH, DBFILE)
+    filepath = safe_filename("{}/{}".format(DBPATH, DBFILE))
 
     # Backup the old database if it exists.
     if os.path.isfile(filepath):
@@ -221,7 +238,8 @@ def setup():
         )
 
     location_data = [
-        [8.25, 53.55, "Butjadingen", "Germany", True]
+        [8.25, 53.55, "Butjadingen", "Germany", "Jun 18 2017"],
+        [7.55, 50.36, "Koblenz", "Germany", "Jul 20 2017"]
     ]
 
     # Insert the shipping locations into the database.
@@ -232,7 +250,7 @@ def setup():
                 y=location[1],
                 area=location[2],
                 country=location[3],
-                checkin=location[4]
+                date=datetime.strptime(location[4], "%b %d %Y")
             )
         )
 

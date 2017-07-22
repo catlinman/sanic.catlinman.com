@@ -114,6 +114,7 @@ def build_assets():
 
 
 class SCSSHandler(FileSystemEventHandler):
+
     def on_modified(self, event):
         filename = os.path.basename(event.src_path)
 
@@ -124,6 +125,7 @@ class SCSSHandler(FileSystemEventHandler):
 
 
 class JSHandler(FileSystemEventHandler):
+
     def on_modified(self, event):
         filename = os.path.basename(event.src_path)
 

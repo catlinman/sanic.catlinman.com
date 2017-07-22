@@ -8,57 +8,30 @@
         <div class="content-center">
             <h1 id="location">Location History</h1>
             <p>
-                This page shows checkins and checkouts of locations I have visited
+                This page shows locations I have visited - coordinates are rounded and not pinpoint accurate
             </p>
         </div>
         {% include "mapbox.html.j2" %}
-        <div class="data-wrapper">
-            <div class="data-row" style="margin-bottom: -1px;">
-                <div class="data-column" style="flex: 0 0 100px;">
-                    <p>Type</p>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 1 220px;">
-                    <p>Location</p>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 1 220px;">
-                    <p>Date</p>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 0 120px;">
-                    <p>Coordinates</p>
-                </div>
-            </div>
-            {% for location in locations %}
-            <div class="data-row">
-                <div class="data-column" style="flex: 0 0 100px;">
-                    <h1>
-                        {%- if location.checkin == True -%}
-                        &rarr;
-                        {%- else -%}
-                        &larr;
-                        {%- endif -%}
-                    </h1>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 1 220px;">
-                    <p>{{location.area}}, {{location.country}}</p>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 1 220px;">
-                    <p>{{location.date.strftime("%B %d, %Y")}}</p>
-                </div>
-                <span></span>
-                <div class="data-column" style="flex: 1 0 120px;">
-                    <ul>
-                        <li>X: {{location.x|round(2, "floor")}}</li>
-                        <li>Y: {{location.y|round(2, "floor")}}</li>
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Location</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+                {% for location in locations %}
+                <tr>
+                    <td>{{location.area}}</td>
+                    <td>{{location.country}}</td>
+                    <td>{{location.date.strftime("%B %d, %Y")}}</td>
+                    <td>{{location.x|round(2, "floor")}}</td>
+                    <td>{{location.y|round(2, "floor")}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {%- endmacro %}
 

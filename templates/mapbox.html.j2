@@ -19,25 +19,14 @@ mapbox.on("load", function () {
     });
 
     mapbox.addLayer({
-        "id": "location-cluster-circle",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
+        id: "location-cluster-circle",
+        type: "circle",
+        source: "locations",
+        paint: {
             "circle-color": "hsl(31, 100%, 57%)",
             "circle-radius": 10,
         },
-        "filter": ["all", [">=", "point_count", 2], ["!=", "newest", true]]
-    });
-
-    mapbox.addLayer({
-        "id": "location-cluster-circle-newest",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
-            "circle-color": "hsl(90, 100%, 57%)",
-            "circle-radius": 10,
-        },
-        "filter": ["all", [">=", "point_count", 2], ["==", "newest", true]]
+        filter: ["all", [">=", "point_count", 2]]
     });
 
     mapbox.addLayer({
@@ -56,60 +45,60 @@ mapbox.on("load", function () {
     });
 
     mapbox.addLayer({
-        "id": "location-marker",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
-            "circle-color": "hsl(31, 100%, 57%)",
+        id: "location-marker",
+        type: "circle",
+        source: "locations",
+        paint: {
+            "circle-color": {
+                property: "newest",
+                type: "interval",
+                stops: [
+                    [0, "hsl(31, 100%, 57%)"],
+                    [1, "hsl(90, 100%, 57%)"]
+                ]
+            },
             "circle-radius": 5,
         },
-        "filter": ["all", ["!=", "cluster", true], ["!=", "newest", true]]
+        filter: ["all", ["!=", "cluster", true]]
     });
 
     mapbox.addLayer({
-        "id": "location-marker-newest",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
-            "circle-color": "hsl(90, 100%, 57%)",
-            "circle-radius": 5,
-        },
-        "filter": ["all", ["!=", "cluster", true], ["==", "newest", true]]
-    });
-
-    mapbox.addLayer({
-        "id": "location-spots",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
-            "circle-color": "hsl(31, 100%, 57%)",
+        id: "location-spots",
+        type: "circle",
+        source: "locations",
+        paint: {
+            "circle-color": {
+                property: "newest",
+                type: "interval",
+                stops: [
+                    [0, "hsl(31, 100%, 57%)"],
+                    [1, "hsl(90, 100%, 57%)"]
+                ]
+            },
             "circle-radius": 64,
             "circle-blur": 1,
             "circle-opacity": 0.1,
-        },
-        "filter": ["!=", "newest", true]
-    });
-
-    mapbox.addLayer({
-        "id": "location-spots-newest",
-        "type": "circle",
-        "source": "locations",
-        "paint": {
-            "circle-color": "hsl(90, 100%, 57%)",
-            "circle-radius": 64,
-            "circle-blur": 1,
-            "circle-opacity": 0.1,
-        },
-        "filter": ["==", "newest", true]
+        }
     });
 
     mapbox.on("click", "location-marker", function (e) {
-        new mapboxgl.Popup()
-            .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
-                "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
-                "</strong><br />" + e.features[0].properties.date
-            ).addTo(mapbox);
+        if(e.features[0].properties.newest == 1) {
+            new mapboxgl.Popup()
+                .setLngLat(e.features[0].geometry.coordinates)
+                .setHTML("Check in at: " +
+                    "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
+                    "</strong><br />" + e.features[0].properties.date +
+                    "<br />This is the most recent entry."
+                ).addTo(mapbox);
+        } else {
+            new mapboxgl.Popup()
+                .setLngLat(e.features[0].geometry.coordinates)
+                .setHTML("Check in at: " +
+                    "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
+                    "</strong><br />" + e.features[0].properties.date
+                ).addTo(mapbox);
+        }
+
     });
 
     mapbox.on("mouseenter", "location-marker", function () {
@@ -117,24 +106,6 @@ mapbox.on("load", function () {
     });
 
     mapbox.on("mouseleave", "location-marker", function () {
-        mapbox.getCanvas().style.cursor = "";
-    });
-
-    mapbox.on("click", "location-marker-newest", function (e) {
-        new mapboxgl.Popup()
-            .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML((e.features[0].properties.checkin == true ? "Check in at: " : "Check out of: ") +
-                "<strong>" + e.features[0].properties.area + ", " + e.features[0].properties.country +
-                "</strong><br />" + e.features[0].properties.date +
-                "<br />This is the most recent entry."
-            ).addTo(mapbox);
-    });
-
-    mapbox.on("mouseenter", "location-marker-newest", function () {
-        mapbox.getCanvas().style.cursor = "pointer";
-    });
-
-    mapbox.on("mouseleave", "location-marker-newest", function () {
         mapbox.getCanvas().style.cursor = "";
     });
 

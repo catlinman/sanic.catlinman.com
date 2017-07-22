@@ -10,6 +10,23 @@ String.prototype.capitalize = function() {
 }
 
 /**
+ * Checks if the start of a string matches entries in of an array.
+ * @param  {String} str The string to evaluate the start of.
+ * @param  {Array} arr The array to check for matches against.
+ * @return {Boolean} The outcome evaluation.
+ */
+function checkStartArray(str, arr) {
+    // Iterate over elements and stop as soon as a match is found.
+    for (var id in arr) {
+        if (str.toLowerCase().startsWith(arr[id].toLowerCase())) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
  * Sets a cookie value by its key and specifies an expiration date.
  * @param {string} name  Key name of the cookie to be set.
  * @param {string} value The value of the cookie to set.
@@ -332,6 +349,9 @@ $(function() {
                         }
                     }).css("display", "block");
 
+                    // Prepare any tables that might be in the new content.
+                    prepareTables();
+
                     // Check if the path contains an anchor. If so scroll to it.
                     if (hash != "") contentScroll(hash, replace);
                 }
@@ -514,6 +534,81 @@ $(function() {
 
     });
 
+    // Characters used in table sorting.
+    var basechar = "▸ ";
+    var upchar = "▴ ";
+    var downchar = "▾ ";
+    var charlength = 2;
+
+    // Array of month names used for sorting type detection.
+    var months = [
+        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    // Table sorting preperation function.
+    function prepareTables() {
+        $("th").each(function() {
+            $(this).text(basechar + $(this).text())
+            $(this).css("cursor", "pointer");
+        });
+    }
+
+    // Table sorting for all tables on this page.
+    $("body").on("click", "th", function() {
+        var ascending = true;
+
+        // Check the header for the current sorting characters and set them accordingly.
+        if ($(this).text().indexOf(basechar) == 0) {
+            $(this).text(downchar + $(this).text().substring(charlength));
+
+        } else if ($(this).text().indexOf(downchar) == 0) {
+            $(this).text(upchar + $(this).text().substring(charlength));
+            ascending = false;
+
+        } else if ($(this).text().indexOf(upchar) == 0) {
+            $(this).text(downchar + $(this).text().substring(charlength));
+
+        } else {
+            $(this).text(downchar + $(this).text());
+        }
+
+        $("th").not(this).each(function() {
+            if ($(this).text().indexOf(basechar) == -1 && $(this).text().indexOf(upchar) == -1 && $(this).text().indexOf(downchar) == -1) {
+                $(this).text(basechar + $(this).text());
+
+            } else {
+                $(this).text(basechar + $(this).text().substring(charlength));
+            }
+        });
+
+        var index = $(this).index(); // Get the index of this table header in the table.
+        var $tbody = $("table tbody"); // Get the parent table container.
+
+        // Get all table rows except for the one containing the headers.
+        $tbody.find("tr:not(:has(> th))").sort(function(a, b) {
+
+            // Get the compareble elements.
+            var tda = $(a).find("td:eq(" + index + ")").text();
+            var tdb = $(b).find("td:eq(" + index + ")").text();
+
+            // Convert possible dates to an easily sortable format.
+            if (checkStartArray(tda, months) || checkStartArray(tdb, months)) {
+                tda = Date.parse(tda);
+                tdb = Date.parse(tdb);
+            }
+
+            if (ascending === true) {
+                // Ascending compare.
+                return tda > tdb ? 1 : tda < tdb ? -1 : 0;
+            } else {
+                // Descending compare.
+                return tda < tdb ? 1 : tda > tdb ? -1 : 0;
+            }
+
+        }).appendTo($tbody);
+    });
+
     // Variables used for the parallax effect.
     var parallaxReset = false; // True if the paralalx has been reset entirely.
     var parallaxSmoothing = 0.1; // Smoothing valued applied to parallax movement.
@@ -639,6 +734,9 @@ $(function() {
 
         // Load content from the current path. This is done to fade in and prepare logic.
         contentLoad(location.pathname, window.location.hash.substr(1), false, true);
+
+        // Prepare any tables that might be in the new content.
+        prepareTables();
 
         // Set the right animation intervals for the parallax and PSA handling.
         setInterval(parallax, 1000 / 60);

@@ -37,8 +37,7 @@ async def location_all_json(request):
                         "area": location.area,
                         "country": location.country,
                         "date": location.date.strftime("Date: %B %d, %Y"),
-                        "checkin": location.checkin,
-                        "newest": first
+                        "newest": 1 if first else 0
                     },
                     "geometry": {
                         "type": "Point",
