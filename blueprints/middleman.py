@@ -2,10 +2,10 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-middleman = Blueprint("middleman")
+bp_middleman = Blueprint("middleman")
 
 
-@middleman.middleware
+@bp_middleman.middleware
 async def return_head(request):
     if request.method == "HEAD":
         return response.text("Head request.")

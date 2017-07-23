@@ -38,20 +38,16 @@ p {
     margin: 1em;
 }
 
-a {
+a, a:visited {
     margin: 1em;
     color: $base-color;
     text-decoration: none;
 
-    @include transition("color, text-shadow", 0.5s, ease-in-out);
-
-    &:visited {
-        color: $base-color;
-    }
+    @include transition("color, text-shadow", 0.25s, ease-in-out);
 
     &:hover {
         color: $highlight-color;
-        text-shadow: 0px 0px 8px rgba($base-color, .25);
+        text-shadow: 0px 0px 16px rgba($base-color, .5);
     }
 }
 
@@ -412,7 +408,10 @@ nav {
         padding-bottom: 10px;
         padding-top: 12px;
         border-bottom: 1px solid $dim-color;
+        border-left: 1px solid $dim-color;
+        border-right: 1px solid $dim-color;
         background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+        line-height: 24px;
 
         a {
             margin: 0px 8px;
@@ -496,7 +495,7 @@ nav {
     }
 
     table {
-        table-layout:fixed;
+        table-layout: auto;
         width: 97%;
         margin-left: auto;
         margin-right: auto;
@@ -505,7 +504,7 @@ nav {
         border-spacing: 0;
     }
 
-    table, th, td{
+    table, th, td {
         border: 1px solid $dim-color;
     }
 
@@ -513,6 +512,20 @@ nav {
     tr {
         height: 48px;
         line-height: 48px;
+
+        &.collapsible-handle {
+            display: none;
+            text-align: center;
+            color: $base-color;
+            cursor: pointer;
+
+            @include transition("color, text-shadow", 0.25s, ease-in-out);
+
+            &:hover {
+                color: $highlight-color;
+                text-shadow: 0px 0px 16px rgba($base-color, .5);
+            }
+        }
     }
 
     tr, th, td {
@@ -522,10 +535,7 @@ nav {
         max-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        .min {
-            white-space: nowrap;
-        }
+        white-space: nowrap;
     }
 }
 

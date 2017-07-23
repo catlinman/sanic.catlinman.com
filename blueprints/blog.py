@@ -2,10 +2,10 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-blog = Blueprint("blog")
+bp_blog = Blueprint("blog")
 
 
-@blog.route("/blog", methods=["GET"])
+@bp_blog.route("/blog", methods=["GET"])
 async def page_blog(request):
     # Set the default state of partial requests to false.
     partial = False

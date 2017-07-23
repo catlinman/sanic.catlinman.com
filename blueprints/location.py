@@ -11,10 +11,10 @@ from sqlalchemy import desc
 # Import the database connection.
 import database
 
-location = Blueprint("location")
+bp_location = Blueprint("location")
 
 
-@location.route("/location", methods=["GET"])
+@bp_location.route("/location", methods=["GET"])
 async def location_all_json(request):
     # On GET requests return a all location data.
     if request.method == "GET":

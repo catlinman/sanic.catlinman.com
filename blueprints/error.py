@@ -2,7 +2,7 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response, exceptions
 
-error = Blueprint("error")
+bp_error = Blueprint("error")
 
 # Handling function for errors. Used in standalone responses (exceptions) and
 # in partial responses (AJAX 404 responses).
@@ -78,7 +78,7 @@ async def render_error(request, status, partial):
     )
 
 
-@error.route("/error/<status>", methods=["GET"])
+@bp_error.route("/error/<status>", methods=["GET"])
 async def page_error(request, status):
     # Set the default state of partial requests to false.
     partial = False
@@ -97,6 +97,6 @@ async def page_error(request, status):
         return await render_error(request, 404, False)
 
 
-@error.exception(exceptions.SanicException)
+@bp_error.exception(exceptions.SanicException)
 async def exception_error(request, exception):
     return await render_error(request, exception.status_code, False)

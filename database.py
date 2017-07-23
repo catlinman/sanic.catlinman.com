@@ -106,6 +106,14 @@ class Location(Base):
     date = Column(DateTime, default=func.now(), nullable=False)
 
 
+class GitHubProject(Base):
+    __tablename__ = "githubprojects"
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    date = Column(DateTime, nullable=False)
+    language = Column(String, nullable=False)
+    url = Column(String, nullable=False)
+
 # Make the engine connection.
 engine = create_engine("sqlite:///{}/{}".format(DBPATH, DBFILE), convert_unicode=True)
 

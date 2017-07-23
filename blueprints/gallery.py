@@ -2,10 +2,10 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-gallery = Blueprint("gallery")
+bp_gallery = Blueprint("gallery")
 
 
-@gallery.route("/gallery", methods=["GET"])
+@bp_gallery.route("/gallery", methods=["GET"])
 async def page_gallery(request):
     # Set the default state of partial requests to false.
     partial = False

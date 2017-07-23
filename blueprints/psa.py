@@ -11,10 +11,10 @@ from sanic import Blueprint, response
 # Import the database connection.
 import database
 
-psa = Blueprint("psa")
+bp_psa = Blueprint("psa")
 
 
-@psa.route("/psa", methods=["GET", "POST"])
+@bp_psa.route("/psa", methods=["GET", "POST"])
 async def psa_json(request):
     # On GET requests return a random PSA.
     if request.method == "GET":
@@ -38,7 +38,7 @@ async def psa_json(request):
             )
 
 
-@psa.route("/psa/<id>", methods=["GET", "POST"])
+@bp_psa.route("/psa/<id>", methods=["GET", "POST"])
 async def psa_id_json(request, id):
     # On GET requests return all PSAs.
     if request.method == "GET":
@@ -62,7 +62,7 @@ async def psa_id_json(request, id):
             )
 
 
-@psa.route("/psa/all", methods=["GET"])
+@bp_psa.route("/psa/all", methods=["GET"])
 async def psa_all_json(request):
     # On GET requests return a all PSAs.
     if request.method == "GET":

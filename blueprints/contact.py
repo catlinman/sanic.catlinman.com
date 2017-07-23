@@ -2,10 +2,10 @@
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-contact = Blueprint("contact")
+bp_contact = Blueprint("contact")
 
 
-@contact.route("/contact", methods=["GET"])
+@bp_contact.route("/contact", methods=["GET"])
 async def page_contact(request):
     # Set the default state of partial requests to false.
     partial = False

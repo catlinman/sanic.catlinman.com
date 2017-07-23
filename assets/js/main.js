@@ -552,7 +552,29 @@ $(function() {
             $(this).text(basechar + $(this).text())
             $(this).css("cursor", "pointer");
         });
+
+        // Enable clicking on collabsible table handles.
+        $(".collapsible-handle").each(function() {
+            $(this).attr("active",
+                $(this).attr("active") ? $(this).attr("active") : "true"
+            );
+
+            $(this).css("display", "table-row");
+
+            var isTrueSet = ($(this).attr("active") == "true");
+
+            if (isTrueSet === false) $(this).nextAll().toggle();
+        });
     }
+
+    // Enable clicking on collabsible table handles.
+    $("body").on("click", ".collapsible-handle", function() {
+        $(this).nextAll().toggle();
+
+        $(this).attr("active",
+            $(this).attr("active") == "false" ? "true" : "false"
+        );
+    });
 
     // Table sorting for all tables on this page.
     $("body").on("click", "th", function() {
@@ -583,14 +605,13 @@ $(function() {
         });
 
         var index = $(this).index(); // Get the index of this table header in the table.
-        var $tbody = $("table tbody"); // Get the parent table container.
+        var $tbody = $(this).parent().parent(); // Get the parent table container.
 
         // Get all table rows except for the one containing the headers.
-        $tbody.find("tr:not(:has(> th))").sort(function(a, b) {
-
+        $tbody.find("tr:not(:has(th)):not(.collapsible-handle)").sort(function(a, b) {
             // Get the compareble elements.
-            var tda = $(a).find("td:eq(" + index + ")").text();
-            var tdb = $(b).find("td:eq(" + index + ")").text();
+            var tda = $(a).find("td:eq(" + index + ")").text().toLowerCase();
+            var tdb = $(b).find("td:eq(" + index + ")").text().toLowerCase();
 
             // Convert possible dates to an easily sortable format.
             if (checkStartArray(tda, months) || checkStartArray(tdb, months)) {

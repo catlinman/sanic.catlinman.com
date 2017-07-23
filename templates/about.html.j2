@@ -1,13 +1,17 @@
 
 {# Main content of the page goes in here for easier handling later on. #}
-{% macro content() -%}
+{% macro content()-%}
     {# Prepare the current view in a contained content setting. #}
+    <div content-title="About" class="content-title"></div>
     <div class="dim-contained"></div>
     <div class="content-contained">
         <div class="content-navigation">
             <a href="#twitter">Twitter Feeds</a> &middot;
+            <a href="#location">Location History</a> &middot;
+            <a href="#opensource">Open Source Work</a> &middot;
+            <a href="#tools">Tools &amp; Workflow</a> &middot;
             <a href="#ranking">Game Rankings</a> &middot;
-            <a href="#location">Location History</a>
+            <a href="#faq">Frequently Asked Questions</a>
         </div>
         <div class="content-center">
             <div class="profile-image"></div>
@@ -20,22 +24,16 @@
                 animation and modelling over to programming, game design, web
                 development and engineering all the way to making electronic music.
             </p>
-
             <p>
                 I am always open to working and hanging out with people! If you want anything
                 from me I'm right there for you! Just hit me up on any of my profiles, pages or
                 communities! You can find some extra links in the contact page. There you will
                 also find business related contact options.
             </p>
-            <p>
-                As you can see the website is currently being completely rebuilt. This means
-                that most functionality is currently missing. Although the main part of the
-                site is done in terms of coding I still have to hook up a lot of the sub systems
-                before everything is done. Expect this in a week if I continue at the pace
-                that I currently am!
-            </p>
-            <div class="horizontal-line"></div>
+        </div>
+        <div class="horizontal-line"></div>
 
+        <div class="content-center">
             <h1 id="twitter">Twitter Feeds</h1>
             <div class="splitter">
                 <ul>
@@ -53,27 +51,132 @@
                     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </ul>
             </div>
-            <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
-            <div class="horizontal-line"></div>
+        </div>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
 
+        <div class="content-center">
+            <h1 id="location">Location History</h1>
+            <h3>
+                <a href="about/locations">
+                    Click here for a full timestamped listing of all locations
+                </a>
+            </h3>
+            {% include "mapbox.html.j2" %}
+        </div>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
+
+        <div class="content-center">
+            <h1 id="opensource">Open Source Work</h1>
+        </div>
+        <p>
+            Still have to program this section.
+        </p>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
+
+        <div class="content-center">
+            <h1 id="tools">Tools &amp; Workflow</h1>
+            <h3>
+                <a href="about/tools">
+                    Click here for a full unfiltered list of all tools including the ones already present on this page
+                </a>
+            </h3>
+        </div>
+        <p>
+            Since one of the frequent questions I receive is about what kind of tools I use
+            in my general workflow, I have created a separate page just for this where you can
+            and search through for anything you might find useful. To give you a brief summary
+            though here are some of my pinned applications that I use on a day to day basis.
+            Keep in mind though that use of these does change depending on the given project
+            and situation and as such use cases may vary quite a bit.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Google Chrome</td>
+                    <td style="width: 80%">Robust and fast Internet browser</td>
+                </tr>
+                <tr>
+                    <td>Atom</td>
+                    <td style="width: 80%">Extensible editor for absolutely everything</td>
+                </tr>
+                <tr>
+                    <td>PaintStorm Studio</td>
+                    <td style="width: 80%">Digital painting suite with an abundance of brush manipulation options</td>
+                </tr>
+                <tr>
+                    <td>Adobe Photoshop CS6</td>
+                    <td style="width: 80%">Image manipulation program useful for almost any task</td>
+                </tr>
+                <tr>
+                    <td>Adobe After Effects CS6</td>
+                    <td style="width: 80%">Layer based compositing and animation program with a low entry barrier</td>
+                </tr>
+                <tr>
+                    <td>Adobe Premiere Pro CS6</td>
+                    <td style="width: 80%">Timeline based video editing suite with good file and encoding support</td>
+                </tr>
+                <tr>
+                    <td>kdenlive</td>
+                    <td style="width: 80%">Free and extensible timeline based video editing suite</td>
+                </tr>
+                <tr>
+                    <td>Affinity Designer</td>
+                    <td style="width: 80%">Vector design and editing application allows for rapid workflow</td>
+                </tr>
+                <tr>
+                    <td>Affinity Photo</td>
+                    <td style="width: 80%">Similar to Photoshop but more suited and target for Photo touchups and editing</td>
+                </tr>
+                <tr>
+                    <td>OBS Studio</td>
+                    <td style="width: 80%">Live streaming and content capture suite</td>
+                </tr>
+                <tr>
+                    <td>Blender</td>
+                    <td style="width: 80%">Very robust modelling, animation, simulation, rendering and video editing suite all in one</td>
+                </tr>
+                <tr>
+                    <td>Quixel Suite</td>
+                    <td style="width: 80%">Texturing and normal mapping interface application right in Photoshop</td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
+
+        <div class="content-center">
             <h1 id="ranking">Game Rankings</h1>
             <p>
                 You know these are super important and need to be on my website.
-                <br />
+            </p>
+            <p>
                 Gotta get those sweet rankings out there.
             </p>
-            <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
-            <div class="horizontal-line"></div>
-
-            <h1 id="location">Location History</h1>
-            <a href="about/locations">
-                For a full timestamped listing of all locations click here
-            </a>
-            {% include "mapbox.html.j2" %}
-
-            <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
-            <div class="horizontal-line"></div>
         </div>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
+
+        <div class="content-center">
+            <h1 id="faq">Frequently Asked Questions</h1>
+        </div>
+        <p>
+            Before you go ahead and ask me on one of my accounts about something
+            I suggest checking through this section if you need anything. If your
+            question is not answered then feel free to write me. You can find links
+            on how to contact me in the contact section of the website.
+        </p>
+        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
+        <div class="horizontal-line"></div>
     </div>
 {%- endmacro %}
 
@@ -87,7 +190,6 @@
     {# Set the main content of the page. Is hidden on start. #}
     {% block content %}
         {# Make sure to include extra tags for the AJAX script to read. #}
-        <div content-title="About" class="content-standalone-title"></div>
         <div class="content-standalone-start">
             {{ content() }}
         </div>

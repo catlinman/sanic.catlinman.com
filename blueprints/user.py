@@ -1,12 +1,17 @@
-
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-bp_project = Blueprint("project")
+# Import SQLAlchemy modules.
+from sqlalchemy import desc
+
+# Import the database connection.
+import database
+
+bp_user = Blueprint("user")
 
 
-@bp_project.route("/project", methods=["GET"])
-async def page_project(request):
+@bp_user.route("/user/login", methods=["GET", "POST"])
+async def page_about(request):
     # Set the default state of partial requests to false.
     partial = False
 
@@ -17,7 +22,7 @@ async def page_project(request):
 
     template_env = request.app.config.template_env
 
-    t = template_env.get_template("project.html.j2")
+    t = template_env.get_template("user.login.html.j2")
 
     rendered_template = await t.render_async(
         partial=partial

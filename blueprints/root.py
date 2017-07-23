@@ -5,10 +5,10 @@ from datetime import datetime
 # Import and setup this blueprint.
 from sanic import Blueprint, response
 
-root = Blueprint("root")
+bp_root = Blueprint("root")
 
 
-@root.route("/", methods=["GET"])
+@bp_root.route("/", methods=["GET"])
 async def page_root(request):
     template_env = request.app.config.template_env
 
