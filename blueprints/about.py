@@ -57,7 +57,7 @@ async def page_about_location(request):
     return response.html(rendered_template)
 
 
-@bp_about.route("/about/tools", methods=["GET"])
+@bp_about.route("/about/setup", methods=["GET"])
 async def page_about_tools(request):
     # Set the default state of partial requests to false.
     partial = False
@@ -69,7 +69,7 @@ async def page_about_tools(request):
 
     template_env = request.app.config.template_env
 
-    t = template_env.get_template("about.tools.html.j2")
+    t = template_env.get_template("about.setup.html.j2")
 
     rendered_template = await t.render_async(
         partial=partial

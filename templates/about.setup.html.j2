@@ -1,0 +1,670 @@
+
+{# Main content of the page goes in here for easier handling later on. #}
+{% macro content() -%}
+    {# Prepare the current view in a contained content setting. #}
+    <div content-title="Setup & Tools" class="content-title"></div>
+
+    <div class="content-navigation">
+        <a href="#top">Information</a> &middot;
+        <a href="#general">General</a> &middot;
+        <a href="#development">Development</a> &middot;
+        <a href="#art">Art &amp; Graphics</a> &middot;
+        <a href="#video">Video</a> &middot;
+        <a href="#audio">Audio</a> &middot;
+        <a href="#support">Support</a> &middot;
+        <a href="#sysadmin">System Administration</a> &middot;
+        <a href="#cli">CLI &amp; Server</a> &middot;
+        <a href="#deprecated ">Deprecated</a>
+    </div>
+    <br /><br />
+
+    <div class="dim-contained"></div>
+    <div class="content-contained">
+        <h1>Setup &amp; Tools</h1>
+        <p>
+            This page contains tools and programs I used on a regular basis in my workflow.
+            The page is divided up into multiple sections to make browsing things a bit easier.
+            As you can probably tell I have included almost every single program I use
+            to avoid having to attach any further details that you might want to find out!
+        </p>
+        <p>
+            To answer a question I receive on live streams, tutorials and timelapses:
+            what kind of a system I am running on? Iwork on my main desktop setup for the most part
+            but also own a MacBook Air which I use for development on the go. It's not nearly as
+            powerful as my main rig but it gets most jobs done well with enough time.
+        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>TYPE</th>
+                    <th>MAINBOARD</th>
+                    <th>CPU</th>
+                    <th>GPU</th>
+                    <th>RAM</th>
+                </tr>
+                <tr>
+                    <td>Desktop</td>
+                    <td>MSI Z87-G45 GAMING</td>
+                    <td>Intel Core i5-4670 @ 3.40GHz</td>
+                    <td>2x NVIDIA GTX 650 Ti BOOST 2GB</td>
+                    <td>2x Kingston HyperX Blu 8GB 1600Mhz DDR3</td>
+                </tr>
+                <tr>
+                    <td>Notebook</td>
+                    <td>MacBook AIR 13" A1466</td>
+                    <td>Intel Core i5-5250U @ 1.60GHz</td>
+                    <td>Intel HD Graphics 6000 1536MB</td>
+                    <td>4GB 1600MHz DDR3</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Most applications on this page are for Windows unless specifically stated.
+            The reason for this being that Windows is my main development operating
+            system when I am at work and at home. There are also some sections with more
+            command line focused applications which either run under Bash for Windows
+            or just in a Unix shell on either my notebook or one of my servers.
+        </p>
+        <p>
+            I have omitted programming languages from this selection since those are constantly
+            growing while everything else on this page is carefully curated and only changes
+            every few years as something else comes along. Old entries are then moved
+            to the deprecated section at the bottom of the page.
+        </p>
+        <div class="horizontal-line"></div>
+
+        <h2 id="general">General</h2>
+        <p>
+            This list contains programs that I use on a day to day basis. Rather
+            normal applications that most people use are in here as well. My setup is
+            rather specific though to save me as much time as possible meaning that
+            I use a lot of automatically syncing applications so that I have my most
+            basic configurations with me on the go at all times. On top of that another
+            big point is the setup time that it takes for all of the applications
+            as it should be as short as easy as possible.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Google Chrome</td>
+                    <td style="width: 80%">Robust and fast Internet browser</td>
+                </tr>
+                <tr>
+                    <td>Firefox</td>
+                    <td style="width: 80%">Fallback Internet browser</td>
+                </tr>
+                <tr>
+                    <td>LastPass</td>
+                    <td style="width: 80%">Password manager that also saves and syncs your private data</td>
+                </tr>
+                <tr>
+                    <td>Launchy</td>
+                    <td style="width: 80%">Open programs fast and saves time</td>
+                </tr>
+                <tr>
+                    <td>Foobar2000</td>
+                    <td style="width: 80%">Music player and library manager with over the top customization and functions</td>
+                </tr>
+                <tr>
+                    <td>iTunes</td>
+                    <td style="width: 80%">Primary music player on OS X and fallback on Windows</td>
+                </tr>
+                <tr>
+                    <td>HexChat</td>
+                    <td style="width: 80%">Mostly stable and easy to set up IRC client</td>
+                </tr>
+                <tr>
+                    <td>Textual 2</td>
+                    <td style="width: 80%">Good and fast OS X IRC client that gets the job done</td>
+                </tr>
+                <tr>
+                    <td>Teamspeak 3</td>
+                    <td style="width: 80%">The basic Teamspeak Client</td>
+                </tr>
+                <tr>
+                    <td>ShareX</td>
+                    <td style="width: 80%">Extensible Windows file and image sharing system integration</td>
+                </tr>
+                <tr>
+                    <td>Nextcloud</td>
+                    <td style="width: 80%">Dropbox but instead you are entirely in control of everything</td>
+                </tr>
+                <tr>
+                    <td>Franz</td>
+                    <td style="width: 80%">Combines multiple web applications into one program</td>
+                </tr>
+                <tr>
+                    <td>Tweeten</td>
+                    <td style="width: 80%">Lightweight and fast Twitter management application</td>
+                </tr>
+                <tr>
+                    <td>Steam</td>
+                    <td style="width: 80%">Gaming and chatting platform</td>
+                </tr>
+                <tr>
+                    <td>Skype</td>
+                    <td style="width: 80%">Used for video calls and quick screen sharing</td>
+                </tr>
+                <tr>
+                    <td>Slack</td>
+                    <td style="width: 80%">Versatile company collaboration and chat application</td>
+                </tr>
+                <tr>
+                    <td>WhatsApp</td>
+                    <td style="width: 80%">Messenger for real life people that relies on use of your phone</td>
+                </tr>
+                <tr>
+                    <td>Messenger</td>
+                    <td style="width: 80%">Facebook dedicated messenger that works quite alright</td>
+                </tr>
+                <tr>
+                    <td>Gitter</td>
+                    <td style="width: 80%">Chat for open source programming projects</td>
+                </tr>
+                <tr>
+                    <td>Discord</td>
+                    <td style="width: 80%">Alternative voice chat that a lot of people/communities prefer</td>
+                </tr>
+                <tr>
+                    <td>Google Hangouts</td>
+                    <td style="width: 80%">Another chat and contact option</td>
+                </tr>
+                <tr>
+                    <td>f.lux</td>
+                    <td style="width: 80%">Changes screen color at night to spare your eyes from extra strain</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="development">Development</h2>
+        <p>
+            This list contains applications that I use in programming and general development
+            oriented environments. This field ranges from game development all the way over to
+            web server file editing. The main focus though is on editing of projects and their files.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Atom</td>
+                    <td style="width: 80%">Extensible editor for absolutely everything</td>
+                </tr>
+                <tr>
+                    <td>Sublime Text</td>
+                    <td style="width: 80%">Alternative text editor that is good at handling large files</td>
+                </tr>
+                <tr>
+                    <td>Vim</td>
+                    <td style="width: 80%">Extensible command line file editing and development environment</td>
+                </tr>
+                <tr>
+                    <td>Unity</td>
+                    <td style="width: 80%">Easy to learn and versatile game engine for quick and even large project setups</td>
+                </tr>
+                <tr>
+                    <td>Unreal Engine 4</td>
+                    <td style="width: 80%">Complex engine aimed at high end systems and large projects</td>
+                </tr>
+                <tr>
+                    <td>CryEngine</td>
+                    <td style="width: 80%">Complex engine with heavy emphasis on real time editing and testing</td>
+                </tr>
+                <tr>
+                    <td>PICO-8</td>
+                    <td style="width: 80%">Great toolkit for teaching programming and game development</td>
+                </tr>
+                <tr>
+                    <td>Cheat Engine</td>
+                    <td style="width: 80%">Open source memory scanner, hex editor and debugger</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="art">Artwork &amp; Graphics Creation</h2>
+        <p>
+            This list contains most applications I use on a day to day basis for
+            artwork and general graphics creation. This means that tools for graphic
+            assets in games and other work are also included in this list. This is
+            probably the most active list with new additions and removals over time
+            as I find more suited tools for certain tasks to work faster. The list
+            should provide a great start into general content creation as it focuses
+            on a lot of areas at the same time so there should definitely be something
+            in here that will be of use to you.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Blender</td>
+                    <td style="width: 80%">Very robust modelling, animation, simulation, rendering and video editing suite all in one</td>
+                </tr>
+                <tr>
+                    <td>Paintstorm Studio</td>
+                    <td style="width: 80%">Digital painting suite with an abundance of brush manipulation options</td>
+                </tr>
+                <tr>
+                    <td>Adobe Photoshop</td>
+                    <td style="width: 80%">Image manipulation program useful for almost any task</td>
+                </tr>
+                <tr>
+                    <td>Affinity Designer</td>
+                    <td style="width: 80%">Vector design and editing application allows for rapid workflow</td>
+                </tr>
+                <tr>
+                    <td>Affinity Photo</td>
+                    <td style="width: 80%">Similar to Photoshop but more suited and target for Photo touchups and editing</td>
+                </tr>
+                <tr>
+                    <td>Quixel Suite</td>
+                    <td style="width: 80%">Texturing and normal mapping interface application right in Photoshop</td>
+                </tr>
+                <tr>
+                    <td>World Machine</td>
+                    <td style="width: 80%">Realistic procedural terrain map and geometry generation application</td>
+                </tr>
+                <tr>
+                    <td>DesignDoll</td>
+                    <td style="width: 80%">Placeholder character and assets posing application</td>
+                </tr>
+                <tr>
+                    <td>FlamePainter</td>
+                    <td style="width: 80%">Procedural partical trail effect generation system</td>
+                </tr>
+                <tr>
+                    <td>Hexels</td>
+                    <td style="width: 80%">Custom layout artwork creation program with a lot of extra features</td>
+                </tr>
+                <tr>
+                    <td>MagicaVoxel</td>
+                    <td style="width: 80%">3D Voxel art creation and rendering suite</td>
+                </tr>
+                <tr>
+                    <td>Lazy Nezumi Pro</td>
+                    <td style="width: 80%">Pen and mouse stabilization software to make freehand drawing less frustrating</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="video">Video &amp; Visual Effects</h2>
+        <p>
+            This list contains video editing and visual effects suites as well as
+            playback and streaming applications for more casual use. This does
+            not include applications that are used to create specific graphic assets
+            to a degree as you will find those in the graphic and artwork category.
+            The programs below focus more on video editing, encoding, playback and
+            other essential features.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Adobe After Effects</td>
+                    <td style="width: 80%">Layer based compositing and animation program with a low entry barrier</td>
+                </tr>
+                <tr>
+                    <td>Adobe Premiere Pro</td>
+                    <td style="width: 80%">Timeline based video editing suite with good file and encoding support</td>
+                </tr>
+                <tr>
+                    <td>kdenlive</td>
+                    <td style="width: 80%">Free and extensible timeline based video editing suite</td>
+                </tr>
+                <tr>
+                    <td>HandBrake</td>
+                    <td style="width: 80%">Open source video transcoder that never fails</td>
+                </tr>
+                <tr>
+                    <td>mpv</td>
+                    <td style="width: 80%">Barebones, cross platform, extensible and blazing fast video player that can handle almost any format</td>
+                </tr>
+                <tr>
+                    <td>Syncplay</td>
+                    <td style="width: 80%">Video playback synchronization across multiple media players</td>
+                </tr>
+                <tr>
+                    <td>OBS Studio</td>
+                    <td style="width: 80%">Live streaming and content capture suite</td>
+                </tr>
+                <tr>
+                    <td>Nvidia Shadowplay</td>
+                    <td style="width: 80%">GPU accelerated screen recording solution that works ahead of time</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="audio">Audio Editing &amp; DAWs</h2>
+        <p>
+            This list contains applications used in audio recording, editing and
+            manipulation as well as complete digital audio workstation solutions
+            for music and sound effects production.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>Renoise</td>
+                    <td style="width: 80%">Tracker focused DAW</td>
+                </tr>
+                <tr>
+                    <td>Adobe Audition</td>
+                    <td style="width: 80%">Stable and fast audio editing solution</td>
+                </tr>
+                <tr>
+                    <td>FL Studio</td>
+                    <td style="width: 80%">Simple to learn but hard to master DAW</td>
+                </tr>
+                <tr>
+                    <td>Audacity</td>
+                    <td style="width: 80%">Open source and cross platform audio editing software</td>
+                </tr>
+                <tr>
+                    <td>BFXR</td>
+                    <td style="width: 80%">Chiptune game sound assets generator</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="support">Support &amp; Hardware</h2>
+        <p>
+            This list contains applications that I use on a regular basis in
+            hardware debugging, monitoring and client support. There are also
+            some security applications in this category as well and overclocking
+            assistants.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>CPU-Z</td>
+                    <td style="width: 80%">Hardware and system specification inspection utility</td>
+                </tr>
+                <tr>
+                    <td>BlueScreenViewer</td>
+                    <td style="width: 80%">Enables easy viewing of Windows minidump file data</td>
+                </tr>
+                <tr>
+                    <td>OpenHardwareMonitor</td>
+                    <td style="width: 80%">Excellent hardware load and temperature monitoring tool</td>
+                </tr>
+                <tr>
+                    <td>Sandboxie</td>
+                    <td style="width: 80%">Runs applications in a sandbox to protect the base system from unwanted changes</td>
+                </tr>
+                <tr>
+                    <td>TeamViewer</td>
+                    <td style="width: 80%">Remote control application that does not require a lot of time to set up and deploy</td>
+                </tr>
+                <tr>
+                    <td>MSI Afterburner</td>
+                    <td style="width: 80%">NVIDIA GPU monitoring and control application</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="sysadmin">System Administration Tools</h2>
+        <p>
+            This list contains applications used for interaction with remote servers
+            as well as monitoring and dissecting of network traffic.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>PuTTyTray</td>
+                    <td style="width: 80%">Extended version of PuTTy, a Windows SSH and telnet client</td>
+                </tr>
+                <tr>
+                    <td>WinSCP</td>
+                    <td style="width: 80%">Windows file transfer client</td>
+                </tr>
+                <tr>
+                    <td>Cyberduck</td>
+                    <td style="width: 80%">OSX file transfer client</td>
+                </tr>
+                <tr>
+                    <td>Wireshark</td>
+                    <td style="width: 80%">Network protocol analyzer and monitoring solution</td>
+                </tr>
+                <tr>
+                    <td>FastGlacier</td>
+                    <td style="width: 80%">Amazon Glacier access client</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="cli">Command Line &amp; Server Applications</h2>
+        <p>
+            This list contains command line applications and utilities that I run
+            on Unix systems once I have set them up. Obviously depending of the
+            tasks that the system has to handle there are a lot of other applications
+            that you will not find on this list actually running on the server but
+            to show a base set of what I run you can take the following list as a
+            good starting reference point.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="2">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <th style="width: 80%">Description</th>
+                </tr>
+                <tr>
+                    <td>zsh</td>
+                    <td style="width: 80%">Unix shell that makes life better through powerful commands, plugins and themes</td>
+                </tr>
+                <tr>
+                    <td>tmux</td>
+                    <td style="width: 80%">Terminal multiplexer that does not get in your way</td>
+                </tr>
+                <tr>
+                    <td>htop</td>
+                    <td style="width: 80%">Interactive process viewer for everything</td>
+                </tr>
+                <tr>
+                    <td>git</td>
+                    <td style="width: 80%">Sane version control system that works for almost any project</td>
+                </tr>
+                <tr>
+                    <td>haveged</td>
+                    <td style="width: 80%">System entropy daemon that improves the base random number generator</td>
+                </tr>
+                <tr>
+                    <td>nginx</td>
+                    <td style="width: 80%">Fast web server</td>
+                </tr>
+                <tr>
+                    <td>fail2ban</td>
+                    <td style="width: 80%">Ban rude people and bots from your web server</td>
+                </tr>
+                <tr>
+                    <td>netdata</td>
+                    <td style="width: 80%">Cross server monitoring suite</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="horizontal-line"></div>
+
+        <h2 id="deprecated">Deprecated Applications &amp; Previous Tools</h2>
+        <p>
+            This list contains applications that I have previously used in my
+            workflow at some point but have become deprecated either because they
+            are not supported anymore by the developer or a better alternative has
+            come along. To avoid table clutter I have compiled everything into a
+            single table to make things easier. Descriptions have been omitted
+            to keep things clean and should not be necessary as a quick online
+            search should show enough information about the given application.
+        </p>
+        <table class="collapsible">
+            <tbody>
+                <tr class="collapsible-handle" active="true">
+                    <td colspan="3">Click here to expand or collapse the table</td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <th>Application</th>
+                    <th style="width: 70%">Deprecation Reason</th>
+                </tr>
+                <tr>
+                    <td>Development</td>
+                    <td>Webstorm</td>
+                    <td style="width: 70%">Switched web development to Atom</td>
+                </tr>
+                <tr>
+                    <td>Development</td>
+                    <td>IntelliJ IDEA</td>
+                    <td style="width: 70%">Switched Java development to Atom</td>
+                </tr>
+                <tr>
+                    <td>Development</td>
+                    <td>FlashDevlop</td>
+                    <td style="width: 70%">Switch Actionscript and Haxe development to Atom</td>
+                </tr>
+                <tr>
+                    <td>Development</td>
+                    <td>GitExtensions</td>
+                    <td style="width: 70%">Started using the command line git interface</td>
+                </tr>
+                <tr>
+                    <td>Development</td>
+                    <td>Eclipse</td>
+                    <td style="width: 70%">Had to use this for university</td>
+                </tr>
+                <tr>
+                    <td>General</td>
+                    <td>Puush</td>
+                    <td style="width: 70%">Switched to ShareX for image and file sharing</td>
+                </tr>
+                <tr>
+                    <td>General</td>
+                    <td>Rainmeter</td>
+                    <td style="width: 70%">No current use after cleaning up desktop</td>
+                </tr>
+                <tr>
+                    <td>General</td>
+                    <td>DesktopFusion</td>
+                    <td style="width: 70%">Was in use on Windows 7 before better multiple monitor support</td>
+                </tr>
+                <tr>
+                    <td>Graphics</td>
+                    <td>Krita</td>
+                    <td style="width: 70%">Switched to Paintstorm Studio</td>
+                </tr>
+                <tr>
+                    <td>Graphics</td>
+                    <td>Sculptris</td>
+                    <td style="width: 70%">Switched to Blenders sculpting tools</td>
+                </tr>
+                <tr>
+                    <td>Graphics</td>
+                    <td>GIMP</td>
+                    <td style="width: 70%">Switched to Adobe Photoshop</td>
+                </tr>
+                <tr>
+                    <td>Graphics</td>
+                    <td>InkScape</td>
+                    <td style="width: 70%">Switched to Adobe Illustrator</td>
+                </tr>
+                <tr>
+                    <td>Graphics</td>
+                    <td>Adobe Illustrator</td>
+                    <td style="width: 70%">Switched to Affinity Designer</td>
+                </tr>
+                <tr>
+                    <td>Video</td>
+                    <td>VLC</td>
+                    <td style="width: 70%">Switched to mpv</td>
+                </tr>
+                <tr>
+                    <td>Video</td>
+                    <td>Chronolapse</td>
+                    <td style="width: 70%">Using OBS Studio now to record timelapses</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% if partial is not defined or partial == False %}
+    {% extends "base.html.j2" %}
+
+    {# Add to the base page title. #}
+    {% block title %}{{ super() }} - Setup &amp; Tools{% endblock title%}
+
+    {# Set the main content of the page. Is hidden on start. #}
+    {% block content %}
+        {# Make sure to include extra tags for the AJAX script to read. #}
+        <div class="content-standalone-start">
+            {{ content() }}
+        </div>
+        <div class="content-standalone-end"></div>
+    {% endblock content %}
+
+    {# Set fallback noscript content of the page. #}
+    {% block content_noscript %}
+        <noscript>
+            {{ content() }}
+        </noscript>
+    {% endblock content_noscript %}
+
+{# Otherwise if this is a request for only the new content serve that. #}
+{% else %}
+    {# Inlude tags to show that this is an actual partial page. #}
+    <div class="content-partial">
+        {{ content() }}
+    </div>
+    <div class="content-partial-end"></div>
+{% endif %}

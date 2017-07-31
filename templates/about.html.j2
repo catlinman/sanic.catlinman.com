@@ -3,16 +3,20 @@
 {% macro content()-%}
     {# Prepare the current view in a contained content setting. #}
     <div content-title="About" class="content-title"></div>
+
+    <div class="content-navigation">
+        <a href="#top">Introduction</a> &middot;
+        <a href="#twitter">Twitter Feeds</a> &middot;
+        <a href="#location">Location History</a> &middot;
+        <a href="#opensource">Open Source Work</a> &middot;
+        <a href="#setup">Setup &amp; Tools</a> &middot;
+        <a href="#ranking">Game Rankings</a> &middot;
+        <a href="#faq">FAQ</a>
+    </div>
+    <br /><br />
+
     <div class="dim-contained"></div>
     <div class="content-contained">
-        <div class="content-navigation">
-            <a href="#twitter">Twitter Feeds</a> &middot;
-            <a href="#location">Location History</a> &middot;
-            <a href="#opensource">Open Source Work</a> &middot;
-            <a href="#tools">Tools &amp; Workflow</a> &middot;
-            <a href="#ranking">Game Rankings</a> &middot;
-            <a href="#faq">Frequently Asked Questions</a>
-        </div>
         <div class="content-center">
             <div class="profile-image"></div>
             <h1>Hey there! I'm Catlinman!</h1>
@@ -27,8 +31,8 @@
             <p>
                 I am always open to working and hanging out with people! If you want anything
                 from me I'm right there for you! Just hit me up on any of my profiles, pages or
-                communities! You can find some extra links in the contact page. There you will
-                also find business related contact options.
+                communities! You can find some extra links on the contact page of this site.
+                There you will also find business related contact options!
             </p>
         </div>
         <div class="horizontal-line"></div>
@@ -52,19 +56,15 @@
                 </ul>
             </div>
         </div>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
 
         <div class="content-center">
             <h1 id="location">Location History</h1>
-            <h3>
-                <a href="about/locations">
-                    Click here for a full timestamped listing of all locations
-                </a>
-            </h3>
+            <a class="content-clickable" href="about/locations">
+                Click here for a full timestamped listing of all locations
+            </a>
             {% include "mapbox.html.j2" %}
         </div>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
 
         <div class="content-center">
@@ -73,23 +73,20 @@
         <p>
             Still have to program this section.
         </p>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
 
         <div class="content-center">
-            <h1 id="tools">Tools &amp; Workflow</h1>
-            <h3>
-                <a href="about/tools">
-                    Click here for a full unfiltered list of all tools including the ones already present on this page
-                </a>
-            </h3>
+            <h1 id="setup">Setup &amp; Tools</h1>
+            <a class="content-clickable" href="about/setup">
+                Click here for a full unfiltered list of my setups and  all tools including the ones already present on this page
+            </a>
         </div>
         <p>
             Since one of the frequent questions I receive is about what kind of tools I use
             in my general workflow, I have created a separate page just for this where you can
-            and search through for anything you might find useful. To give you a brief summary
-            though here are some of my pinned applications that I use on a day to day basis.
-            Keep in mind though that use of these does change depending on the given project
+            search through for anything you might find useful. To give you a brief summary
+            though: here are some of my pinned applications that I use on a day to day basis.
+            Keep in mind though that use of these do change depending on the given project
             and situation and as such use cases may vary quite a bit.
         </p>
         <table class="collapsible">
@@ -114,15 +111,15 @@
                     <td style="width: 80%">Digital painting suite with an abundance of brush manipulation options</td>
                 </tr>
                 <tr>
-                    <td>Adobe Photoshop CS6</td>
+                    <td>Adobe Photoshop</td>
                     <td style="width: 80%">Image manipulation program useful for almost any task</td>
                 </tr>
                 <tr>
-                    <td>Adobe After Effects CS6</td>
+                    <td>Adobe After Effects</td>
                     <td style="width: 80%">Layer based compositing and animation program with a low entry barrier</td>
                 </tr>
                 <tr>
-                    <td>Adobe Premiere Pro CS6</td>
+                    <td>Adobe Premiere Pro</td>
                     <td style="width: 80%">Timeline based video editing suite with good file and encoding support</td>
                 </tr>
                 <tr>
@@ -151,7 +148,6 @@
                 </tr>
             </tbody>
         </table>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
 
         <div class="content-center">
@@ -163,7 +159,6 @@
                 Gotta get those sweet rankings out there.
             </p>
         </div>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
 
         <div class="content-center">
@@ -175,7 +170,6 @@
             question is not answered then feel free to write me. You can find links
             on how to contact me in the contact section of the website.
         </p>
-        <a class="anchor-top" href="#top">- Click to return to the top of the page -</a>
         <div class="horizontal-line"></div>
     </div>
 {%- endmacro %}

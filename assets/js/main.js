@@ -232,7 +232,7 @@ $(function() {
                 }).css("display", "block");
 
                 // Check if the path contains an anchor. If so scroll to it.
-                if (hash != "") contentScroll(hash, false);
+                if (hash != "") contentScroll(hash, false, false);
 
                 return;
             };
@@ -353,7 +353,7 @@ $(function() {
                     prepareTables();
 
                     // Check if the path contains an anchor. If so scroll to it.
-                    if (hash != "") contentScroll(hash, replace);
+                    if (hash != "") contentScroll(hash, replace, false);
                 }
             });
 
@@ -379,7 +379,7 @@ $(function() {
         }
     }
 
-    function contentScroll(target, replace) {
+    function contentScroll(target, replace, vanilla) {
         // Check if the element exists.
         if (!$(target).length && target !== "#top") return;
 
@@ -396,14 +396,18 @@ $(function() {
                 history.pushState(currentPath, currentPath, currentPath);
             }
 
-            $('html,body').animate({
-                scrollTop: ($(target).offset().top - 74)
-            }, 1000, "swing");
+            if (!vanilla) {
+                $('html,body').animate({
+                    scrollTop: ($(target).offset().top - 96)
+                }, 1000, "swing");
+            }
 
         } else {
-            $('html,body').animate({
-                scrollTop: 0
-            }, 1000, "swing");
+            if (!vanilla) {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 1000, "swing");
+            }
 
             if (replace === true) {
                 // Replace the history state if specified.
@@ -424,7 +428,7 @@ $(function() {
         if ($(this).attr("href").indexOf("#") > -1) {
             var target = this.hash;
 
-            contentScroll(target, false);
+            contentScroll(target, false, false);
 
             return false;
         }
@@ -484,6 +488,7 @@ $(function() {
 
     // Key callbacks for handling of the page.
     $(document).keyup(function(e) {
+        // Escape key handling.
         if (e.keyCode == 27) {
             setFooterState(false);
 
@@ -491,6 +496,10 @@ $(function() {
                 // If content is active track the escape key. If pressed. Load the root content.
                 setNavigationPath("");
                 contentLoad("/", "", false, false);
+            }
+        } else if (e.keyCode == 36) {
+            if (contentActive === true) {
+                contentScroll("#top", false, true);
             }
         }
     });

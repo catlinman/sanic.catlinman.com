@@ -34,6 +34,9 @@ template_env = j2.Environment(
 
 app.config.template_env = template_env
 
+# Add middleware blueprints to this project.
+app.blueprint(blueprints.middleware)
+
 # Add all blueprints to this project.
 app.blueprint(blueprints.root)
 app.blueprint(blueprints.about)
@@ -41,7 +44,6 @@ app.blueprint(blueprints.blog)
 app.blueprint(blueprints.contact)
 app.blueprint(blueprints.error)
 app.blueprint(blueprints.gallery)
-app.blueprint(blueprints.middleman)
 app.blueprint(blueprints.project)
 
 # Load data blueprints into the data route.

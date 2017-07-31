@@ -106,8 +106,8 @@ class Location(Base):
     date = Column(DateTime, default=func.now(), nullable=False)
 
 
-class GitHubProject(Base):
-    __tablename__ = "githubprojects"
+class OpenSourceProject(Base):
+    __tablename__ = "opensource"
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     date = Column(DateTime, nullable=False)
@@ -148,12 +148,7 @@ def setup():
             )
         )
 
-    # Clear already set tables.
-    db_session.execute("DROP TABLE IF EXISTS users")
-    db_session.execute("DROP TABLE IF EXISTS psas")
-    db_session.execute("DROP TABLE IF EXISTS locations")
-
-    # Recreate tables.
+    # Create tables.
     Base.metadata.create_all(engine)
 
     # Predefined PSAs that ship with the default setup.

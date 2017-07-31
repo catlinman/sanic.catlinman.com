@@ -8,7 +8,7 @@ from .contact import bp_contact as contact
 from .error import bp_error as error
 from .gallery import bp_gallery as gallery
 from .location import bp_location as location
-from .middleman import bp_middleman as middleman
+from .middleware import bp_middleware as middleware
 from .project import bp_project as project
 from .psa import bp_psa as psa
 from .template import bp_template as template
@@ -20,7 +20,7 @@ __all__ = [
     "error",
     "gallery",
     "location",
-    "middleman",
+    "middleware",
     "project",
     "psa",
     "template"

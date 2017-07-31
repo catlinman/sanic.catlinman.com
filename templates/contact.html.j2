@@ -1,32 +1,129 @@
 
 {# Main content of the page goes in here for easier handling later on. #}
-{% macro content() -%}
+{% macro content()-%}
     {# Prepare the current view in a contained content setting. #}
+    <div content-title="Contact" class="content-title"></div>
+
+    <div class="content-navigation">
+        <a href="#general">Get In Touch</a> &middot;
+        <a href="#links">Links</a> &middot;
+        <a href="#business">Business Contact</a> &middot;
+        <a href="#communities">Communities &amp; Communication</a>
+    </div>
+    <br /><br />
+
     <div class="dim-contained"></div>
     <div class="content-contained">
-        <h1>Direct contact</h1>
+        <h1 id="general">Get In Touch</h1>
         <p>
-            Write about contact information here.
+            I'm always open to getting to know new people and working on new projects!
+            Even if you just want to hang out and talk or play a game or two you can get in touch
+            with me through one of the links listed further below on this page. Keep in mind
+            though that I do spend a lot of my time working on things so if I don't answer
+            instantly shoot me a message another time and I'll see what I can do.
         </p>
-        <h2>
-            Links
-        </h2>
         <p>
-            Links here.
+            If you are looking for collaboration on programming, art or absolutely anything
+            I personally suggest you check out the business contact section on this page since
+            it also lists some more private ways to contact me which you might prefer. Especially
+            if it is some work that you might not want the world to see just yet!
         </p>
+        <p>
+            If you don't mind a delayed answer and want to ask me something anonymously you can
+            find my ask.fm below. It does have some outdated questions and information here and there
+            but it's still a viable way to ask me something without having your name attached.
+            I do answer all questions but be aware that it's a casual environment which means that if
+            you ask me something ridiculous you will receive a just as ridiculous answer.
+        </p>
+        <a class="content-clickable" href="https://ask.fm/catlinman">Click here to go to my Ask.fm page</a>
+        <p>
+            For general references on my work you should have a look at the about section of this
+            website as well as the projects section. I work in a lot of different areas which means
+            that getting to know these before planning anything out is a good call to make to save
+            time and possible confusion!
+        </p>
+        <div class="horizontal-line"></div>
+
+        <div class="content-center">
+            <h1 id="links">External Profile Links</h1>
+            <div class="contact-icons">
+                <a class="contact-icon-twitter" title="Twitter" href="https://twitter.com/catplease"></a>
+                <a class="contact-icon-facebook" title="Facebook" href="https://facebook.com/catplease/"></a>
+                <a class="contact-icon-youtube" title="YouTube" href="https://youtube.com/catlinman"></a>
+                <a class="contact-icon-deviantart" title="DeviantArt" href="https://catlinman.deviantart.com/"></a>
+                <a class="contact-icon-github" title="GitHub" href="https://github.com/catlinman"></a>
+                <a class="contact-icon-500px" title="500px" href="https://500px.com/catlinman"></a>
+                <a class="contact-icon-instagram" title="Instagram" href="https://instagram.com/catlinman/"></a>
+                <a class="contact-icon-snapchat" title="Snapchat" href="https://snapchat.com/add/catlinman"></a>
+                <a class="contact-icon-steam" title="Steam" href="https://steamcommunity.com/id/catlinman"></a>
+                <a class="contact-icon-twitch" title="Twitch" href="https://twitch.tv/catlinman"></a>
+                <a class="contact-icon-lastfm" title="Last.fm" href="https://last.fm/user/catlinman"></a>
+                <a class="contact-icon-askfm" title="Ask.fm" href="https://ask.fm/catlinman"></a>
+                <a class="contact-icon-linkedin" title="LinkedIn" href="https://linkedin.com/in/catlinman/"></a>
+            </div>
+        </div>
+        <div class="horizontal-line"></div>
+
+        <h1 id="business">Business Contact</h1>
+        <p>
+            Looking to hire me? Want me to help you out with anything and everything or just
+            want to talk in private? Email is probably your best bet but I am also available on
+            a lot of social media platforms with direct messaging. Links to those can be found further
+            below in the links section of this page. Email is highly recommended if you are contacting
+            me as a firm or in a purely business related context as I will prioritise it and look into
+            the best medium for further conversations.
+        </p>
+        <a class="content-clickable" href="mailto:contact@catlinman.com">contact@catlinman.com</a>
+        <p>
+            If you are looking for support on products and projects I have worked on I suggest using
+            the contact email address as well at the moment. I am working on a support ticket system
+            which I will link to here at some point which should streamline trouble shooting and
+            general support work I do a lot and make your life easier at the same time.
+        </p>
+        <p>
+            <b>Note:</b> Pricing for the work I do depends on the project at hand. My fees are
+            negotiated on a per project basis. For more information and options please contact me.
+        </p>
+        <div class="horizontal-line"></div>
+
+        <h1 id="communities">Communities &amp; Communication</h1>
+        <p>
+            On top of having social media as a contact option you can also find me around multiple
+            communities that I manage or am simply a part of. If you want to invest the time your
+            most solid bet at catching me is on <a href="https://hivecom.net">Hivecom</a> which is
+            a gaming community I run. You should be able to poke me there or hit me up with a direct
+            message on either the Teamspeak or Discord servers if I am online. Otherwise talk to
+            one of the moderators or other administrators there. They should be able to help you
+            out as well if the need arises.
+        </p>
+        <p>
+            Chances are you have Skype installed on your system which is another way to talk to me.
+            If you do want to use Skype I suggest sending me an invitation there with information
+            on who you are since I might decline it otherwise. Shooting me a message somewhere else
+            about this might also be a good idea since then you can be sure that I add you back!
+        </p>
+        <a class="content-clickable" href="skype:catlinman?add">Contact me on Skype</a>
+        <p>
+            If all else fails you should be able to find me as Catlinman on the IRC networks of
+            <a href="https://esper.net/">EsperNet</a>, <a href="https://www.oftc.net/">OFTC</a>
+            and <a href="https://freenode.net/">Freenode</a>. I have bouncer connections set up
+            on each of these servers so any message you send me will be relayed to me sooner or
+            later and if I am online it should be instantly.
+        </p>
+        <div class="horizontal-line"></div>
     </div>
 {%- endmacro %}
 
 {# If this page is requested via a base GET we serve the entire content. #}
 {% if partial is not defined or partial == False %}
     {% extends "base.html.j2" %}
+
     {# Add to the base page title. #}
     {% block title %}{{ super() }} - Contact{% endblock title%}
 
     {# Set the main content of the page. Is hidden on start. #}
     {% block content %}
         {# Make sure to include extra tags for the AJAX script to read. #}
-        <div content-title="Contact" class="content-standalone-title"></div>
         <div class="content-standalone-start">
             {{ content() }}
         </div>

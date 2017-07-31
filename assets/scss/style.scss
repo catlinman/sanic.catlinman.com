@@ -4,8 +4,12 @@
 @import 'assets/scss/partials/animation-pulse';
 @import 'assets/scss/partials/animation-cycle';
 
+$content-width: 1200px;
+$content-width-mobile: 760px;
+
 $logo-font: 'Work Sans', sans-serif;
 $primary-font: 'Roboto', sans-serif;
+
 $primary-color: #fffff5;
 $secondary-color: #b3b3b3;
 $highlight-color: #feebad;
@@ -39,7 +43,6 @@ p {
 }
 
 a, a:visited {
-    margin: 1em;
     color: $base-color;
     text-decoration: none;
 
@@ -68,7 +71,7 @@ a, a:visited {
     text-align: center;
     margin: 16px;
     border-radius: 4px;
-    max-width: 1080px;
+    max-width: $content-width;
     min-height: 600px;
     height: 600px;
     color: black;
@@ -273,7 +276,7 @@ progress {
 nav {
     overflow: hidden;
     position: fixed;
-    min-width: 760px;
+    min-width: $content-width-mobile;
     width: 100%;
     height: 50px;
     color: $highlight-color;
@@ -308,9 +311,8 @@ nav {
 .controls {
     @extend .noselect;
     position: fixed;
+    text-align: right;
     width: 100%;
-    height: 64px;
-    top: 48px;
     display: none;
     pointer-events: none;
     font-family: $logo-font;
@@ -321,14 +323,16 @@ nav {
     -webkit-text-stroke: 1px darken($secondary-color, 25%);
 
     .control {
-        margin: 8px 8px 8px auto;
+        margin-right: 8px;
+        display: inline-block;
+        text-align: center;
         width: 40px;
-        height: 40px;
-        border-radius: 40px;
+        height: 44px;
         color: darken($secondary-color, 25%);
-        border-bottom: 2px solid $dim-color;
-        background: linear-gradient(0deg, $shadow-color, $background-color);
-        line-height: 40px;
+        border-left: 1px solid $background-color;
+        border-right: 1px solid $background-color;
+        border-top: 4px solid $shadow-color;
+        line-height: 44px;
         cursor: pointer;
         pointer-events: all;
 
@@ -336,18 +340,18 @@ nav {
 
         &:hover {
             color: $base-color;
-            box-shadow: inset 0px 0px 4px 0px $base-color;
-            -webkit-box-shadow: inset 0px 0px 4px 0px $base-color;
-            -moz-box-shadow: inset 0px 0px 4px 0px $base-color;
+            border-top: 4px solid $base-color;
+            box-shadow: inset 0px 0px 0px 0px $base-color;
+            -webkit-box-shadow: inset 0px 0px 0px 0px $base-color;
+            -moz-box-shadow: inset 0px 0px 0px 0px $base-color;
             -webkit-text-stroke: 1px $base-color;
         }
 
         &:active {
-            color: $dim-color;
-            box-shadow: inset 0px 0px 0px 0px $background-color;
-            -webkit-box-shadow: inset 0px 0px 0px 0px $background-color;
-            -moz-box-shadow: inset 0px 0px 0px 0px $background-color;
-            -webkit-text-stroke: 1px $dim-color;
+            box-shadow: inset 0px 0px 0px 0px $base-color;
+            -webkit-box-shadow: inset 0px 0px 0px 0px $base-color;
+            -moz-box-shadow: inset 0px 0px 0px 0px $base-color;
+            -webkit-text-stroke: 1px $base-color;
         }
     }
 
@@ -355,32 +359,56 @@ nav {
         @extend .control;
     }
 
-    .control-dark {
+    .control-top {
         @extend .control;
     }
 }
 
 .profile-image {
-    border-radius: 128px;
+    border-radius: 100%;
     background: url('/static/img/profile.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     text-align: center;
     margin: 24px auto;
-    width: 192px;
-    height: 192px;
+    width: 256px;
+    height: 256px;
 }
 
 .content {
     display: none;
 }
 
+.content-navigation {
+    position: fixed;
+    width: 100%;
+    top: 50px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: $base-color;
+    background-color: $background-color;
+    text-align: center;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    border-top: 1px solid $dim-color;
+    border-bottom: 1px solid $dim-color;
+    background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
+    line-height: 24px;
+    z-index: 1;
+
+    a {
+        margin: 0px 8px;
+        display: inline-block;
+        cursor: pointer;
+    }
+}
+
 .content-contained {
     display: inline-block;
     width: 100%;
-    max-width: 1080px;
-    min-width: 760px;
+    max-width: $content-width;
+    min-width: $content-width-mobile;
     min-height: 100%;
     margin-top: 48px;
     margin-bottom: 24px;
@@ -399,27 +427,6 @@ nav {
         line-height: 1.4em;
     }
 
-    .content-navigation {
-        text-transform: uppercase;
-        font-size: 0.8em;
-        color: $base-color;
-        background-color: $background-color;
-        text-align: center;
-        padding-bottom: 10px;
-        padding-top: 12px;
-        border-bottom: 1px solid $dim-color;
-        border-left: 1px solid $dim-color;
-        border-right: 1px solid $dim-color;
-        background: linear-gradient(90deg, $shadow-color, $background-color, $shadow-color);
-        line-height: 24px;
-
-        a {
-            margin: 0px 8px;
-            display: inline-block;
-            cursor: pointer;
-        }
-    }
-
     .content-center {
         text-align: justify;
         -moz-text-align-last: center;
@@ -427,6 +434,22 @@ nav {
 
         h1 {
             text-align: center;
+        }
+    }
+
+    .content-clickable {
+        border: solid 1px $dim-color;
+        padding: 16px;
+        border-radius: 4px;
+        display: block;
+        text-align: center;
+        margin: 16px;
+        font-size: 1.2em;
+
+        @include transition("border", 0.25s, ease-in-out);
+
+        &:hover {
+            border: solid 1px $base-color;
         }
     }
 
@@ -530,18 +553,99 @@ nav {
 
     tr, th, td {
         padding-left: 16px;
-        padding-right: 16px;
         width: auto;
         max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        overflow: auto;
         white-space: nowrap;
+    }
+
+    .contact-icons {
+        margin: 16px;
+
+        a {
+            margin-left: 2px;
+            margin-right: 2px;
+            overflow: hidden;
+            background-size: 64px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: solid 2px $background-color;
+            border-radius: 100%;
+            box-shadow: 0px 0px 16px $shadow-color;
+            width: 76px;
+            height: 76px;
+            text-align: center;
+            display: inline-block;
+
+            @include transition(all, 0.25s, ease-in-out);
+        }
+
+        a:hover {
+            border: solid 2px $base-color;
+            box-shadow: 0px 0px 16px $base-color;
+        }
+    }
+
+    .contact-icon-twitter {
+        background: url('/static/img/icons/twitter.png');
+    }
+
+    .contact-icon-facebook {
+        background: url('/static/img/icons/facebook.png');
+    }
+
+    .contact-icon-youtube {
+        background: url('/static/img/icons/youtube.png');
+    }
+
+    .contact-icon-deviantart {
+        background: url('/static/img/icons/deviantart.png');
+    }
+
+    .contact-icon-github {
+        background: url('/static/img/icons/github.png');
+    }
+
+    .contact-icon-500px {
+        background: url('/static/img/icons/500px.png');
+    }
+
+    .contact-icon-instagram {
+        background: url('/static/img/icons/instagram.png');
+    }
+
+    .contact-icon-snapchat {
+        background: url('/static/img/icons/snapchat.png');
+    }
+
+    .contact-icon-github {
+        background: url('/static/img/icons/github.png');
+    }
+
+    .contact-icon-steam {
+        background: url('/static/img/icons/steam.png');
+    }
+
+    .contact-icon-twitch {
+        background: url('/static/img/icons/twitch.png');
+    }
+
+    .contact-icon-lastfm {
+        background: url('/static/img/icons/lastfm.png');
+    }
+
+    .contact-icon-askfm {
+        background: url('/static/img/icons/askfm.png');
+    }
+
+    .contact-icon-linkedin {
+        background: url('/static/img/icons/linkedin.png');
     }
 }
 
 .dim-contained {
     display: inline-block;
-    max-width: 1080px;
+    max-width: $content-width;
     min-height: 100%;
     background: linear-gradient(0deg, $background-color, $shadow-color);
     position: fixed;
@@ -622,20 +726,21 @@ footer {
         vertical-align: middle;
 
         a {
-            background-size: contain;
+            background-size: 20px;
             background-repeat: no-repeat;
             background-position: center;
-            width: 20px;
-            height: 20px;
-            margin: 16px 8px;
+            border-radius: 100%;
+            border: solid 1px $shadow-color;
+            width: 24px;
+            height: 24px;
+            margin: 14px 8px;
 
             @include transition(all, 0.25s, ease-in-out);
         }
 
         a:hover {
-            width: 28px;
-            height: 28px;
-            margin: 0px 4px 12px;
+            border: solid 1px $base-color;
+            box-shadow: 0px 0px 8px $base-color;
         }
     }
 
@@ -661,6 +766,7 @@ footer {
 }
 
 ::-webkit-scrollbar {
+    height: 8px;
     width: 10px;
     border-left: 1px $dim-color;
     background: #0c0c0c;
