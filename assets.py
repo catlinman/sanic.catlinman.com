@@ -16,12 +16,15 @@ import sass
 # Import Javascript minifier.
 from jsmin import jsmin
 
-# Specifiy constants for the file paths.
-SCSS_PATH = "./assets/scss/"
-CSS_PATH = "./static/css/"
+# Script directory.
+ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
-JS_PATH = "./assets/js/"
-MINJS_PATH = "./static/js/"
+# Specifiy constants for the file paths.
+SCSS_PATH = "{}/assets/scss/".format(ROOT_PATH)
+CSS_PATH = "{}/static/css/".format(ROOT_PATH)
+
+JS_PATH = "{}/assets/js/".format(ROOT_PATH)
+MINJS_PATH = "{}/static/js/".format(ROOT_PATH)
 
 
 def build_scss(filename):
@@ -41,7 +44,7 @@ def build_scss(filename):
     # Generate the output CSS.
     try:
         output = sass.compile(
-            string=open(srcpath, "r").read(),
+            string=open(srcpath, "r", encoding="utf-8").read(),
             output_style="compressed"
         )
 
@@ -51,7 +54,7 @@ def build_scss(filename):
         return
 
     # Write the output CSS to the correct path.
-    with open(outpath, "w") as f:
+    with open(outpath, "w", encoding="utf-8") as f:
         f.write(output)
 
     print("SCSS built: {} -> {}".format(srcpath, outpath))
@@ -73,12 +76,12 @@ def build_js(filename):
 
     # Generate the output minified Javascript.
     output = jsmin(
-        open(srcpath, "r").read(),
+        open(srcpath, "r", encoding="utf-8").read(),
         quote_chars="'\"`"
     )
 
     # Write the output Javascript to the correct path.
-    with open(outpath, "w") as f:
+    with open(outpath, "w", encoding="utf-8") as f:
         f.write(output)
 
     print("MINJS built: {} -> {}".format(srcpath, outpath))

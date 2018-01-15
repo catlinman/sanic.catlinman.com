@@ -128,6 +128,11 @@ a, a:visited {
     -webkit-transform: translateZ(-500px);
     -webkit-transform-style: preserve-3d;
     @include animation-pulse(transform, scale(1.0), scale(0.9), 10);
+
+    @media all and (max-width: #{$content-width-mobile}) {
+        min-width: 90%;
+        min-height: 70%;
+    }
 }
 
 header {
@@ -155,6 +160,11 @@ header {
         text-align: center;
         margin: auto;
 
+        @media all and (max-width: #{$content-width-mobile}) {
+            width: 100%;
+            bottom: 18%;
+        }
+
         @include transition("letter-spacing, color, text-shadow", 0.5s, ease-in-out);
 
         &:hover {
@@ -176,6 +186,11 @@ header {
         font-weight: 400;
         font-size: 1.2em;
         letter-spacing: 3px;
+
+        @media all and (max-width: #{$content-width-mobile}) {
+            bottom: 13%;
+            font-size: 1em;
+        }
     }
 
     .top {
@@ -702,7 +717,6 @@ footer {
     }
 
     .footer-content {
-        height: 114px;
         border-top: 1px solid $background-color;
         background-color: $shadow-color;
         display: none;
@@ -734,6 +748,12 @@ footer {
             width: 24px;
             height: 24px;
             margin: 14px 8px;
+
+            @media all and (max-width: #{$content-width-mobile}) {
+                background-size: 44px;
+                width: 52px;
+                height: 52px;
+            }
 
             @include transition(all, 0.25s, ease-in-out);
         }

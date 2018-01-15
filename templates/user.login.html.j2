@@ -1,0 +1,48 @@
+
+{# Main content of the page goes in here for easier handling later on. #}
+{% macro content() -%}
+    {# Prepare the current view in a contained content setting. #}
+    <div content-title="User Login" class="content-title"></div>
+    <div class="dim-contained"></div>
+    <div class="content-contained">
+        <div class="content-center">
+            <h1>User login</h1>
+            <form action="/user/login">
+                <input type="text" name="username"><br>
+                <input type="password" name="password"><br>
+            </form>
+        </div>
+    </div>
+{%- endmacro %}
+
+{# If this page is requested via a base GET we serve the entire content. #}
+{% if partial is not defined or partial == False %}
+    {% extends "base.html.j2" %}
+
+    {# Add to the base page title. #}
+    {% block title %}{{ super() }} - User Login{% endblock title%}
+
+    {# Set the main content of the page. Is hidden on start. #}
+    {% block content %}
+        {# Make sure to include extra tags for the AJAX script to read. #}
+        <div class="content-standalone-start">
+            {{ content() }}
+        </div>
+        <div class="content-standalone-end"></div>
+    {% endblock content %}
+
+    {# Set fallback noscript content of the page. #}
+    {% block content_noscript %}
+        <noscript>
+            {{ content() }}
+        </noscript>
+    {% endblock content_noscript %}
+
+{# Otherwise if this is a request for only the new content serve that. #}
+{% else %}
+    {# Inlude tags to show that this is an actual partial page. #}
+    <div class="content-partial">
+        {{ content() }}
+    </div>
+    <div class="content-partial-end"></div>
+{% endif %}

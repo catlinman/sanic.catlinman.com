@@ -227,7 +227,7 @@ def setup():
         ["Survivor of 3000+ ms ping.", "Catlinman"],
         ["Let's get trending on these tables.", "Catlinman"],
         ["You can always count on a layer party in my files.", "Catlinman"],
-        ["Puts C# on a résumés.", "Catlinman"],
+        ["Puts C# on résumés.", "Catlinman"],
         ["Running on nekodrop.com", "Catlinman"],
     ]
 

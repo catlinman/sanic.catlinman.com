@@ -1,3 +1,4 @@
+
 // All variables are instantiated in the setup function.
 
 // Store the canvas variable for easy access.

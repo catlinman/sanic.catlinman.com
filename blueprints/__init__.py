@@ -12,6 +12,7 @@ from .middleware import bp_middleware as middleware
 from .project import bp_project as project
 from .psa import bp_psa as psa
 from .template import bp_template as template
+from .user import bp_user as user
 
 __all__ = [
     "about",
@@ -23,5 +24,6 @@ __all__ = [
     "middleware",
     "project",
     "psa",
-    "template"
+    "template",
+    "user"
 ]

@@ -39,6 +39,7 @@ app.blueprint(blueprints.middleware)
 
 # Add all blueprints to this project.
 app.blueprint(blueprints.root)
+app.blueprint(blueprints.user)
 app.blueprint(blueprints.about)
 app.blueprint(blueprints.blog)
 app.blueprint(blueprints.contact)
@@ -60,5 +61,5 @@ if __name__ == "__main__":
         host="127.0.0.1",
         port=24070,
         workers=1,
-        debug=True,
+        debug=False
     )

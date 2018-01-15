@@ -1,3 +1,4 @@
+
 // Variables used by other scripts that should be overwritten.
 var mapbox;
 
