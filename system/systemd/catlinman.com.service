@@ -1,0 +1,21 @@
+
+[Unit]
+# General service description.
+Description=Sanic server service for catlinman.com
+
+[Service]
+# Service is non forking.
+Type=simple
+
+# Execution on start of service.
+ExecStart=/srv/catlinman.com/systemd/catlinman.com.sh
+
+# User to run under.
+User=sanic
+
+# Set the working directory.
+WorkingDirectory=/srv/catlinman.com/
+
+[Install]
+# Target file for service management.
+WantedBy=multi-user.target
