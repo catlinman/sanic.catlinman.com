@@ -1,16 +1,41 @@
 
 # catlinman.com #
 
-Repository for my main website written in Python 3.6 and *goin' fast* using
+Repository for my main website written in Python 3.8 and *goin' fast* using
 Sanic.
 
-## Setup ##
+## Development Setup ##
+
+As a security measure, a separate user is created that runs the webserver and
+handles ownership of all files within the project. This allows isolation of
+files and provides an additional barrier between the system and the
+application. Due to this, some steps here will mention a `sanic` user.
+Services and the application they spawn run under this user. As such, setup
+configuration should also be done under this user.
+
+The first thing you will want to do is create a new virtual environment to
+install dependencies to so that they do not interfere with other projects.
+Make sure you have virtualenv installed beforehand.
+
+    $ pip install virtualenv ; python3 -m venv venv
+
+This will create a new directory and prepare configuration files. To enter the
+new environment simply source the activation binary.
+
+    $ source venv/bin/activate
+
+You can always leave the environment by calling the *deactivate* command.
+
+From here on you can run everything you normally would and it should remain in
+the closed system you just created.
+
+## Dependencies ##
 
 To get the server up and running you will have to first install all
 dependencies. These are listed in *requirements.txt* which *pip* can read and
 install for you.
 
-    $ pip install -r requirements.txt
+    $ sudo -u sanic pip3 install -r requirements.txt --no-cache-dir
 
 The main server that takes care of all requests, routing and main functionality
 is [Sanic](https://github.com/channelcat/sanic). For the database SQLite3 with
@@ -29,6 +54,8 @@ executing *assets.py* is the solution. It will track the *assets* directory
 using [watchdog](https://github.com/gorakhargosh/watchdog) and compile any
 assets as they are changed and move them to the *static* directory.
 
+## Execution ##
+
 Running the server after all prerequisites have been met is rather simple. All
 you have to do is execute the *app.py* script from Python.
 
@@ -43,7 +70,7 @@ base configuration Nekodocs is also included. You can find the loolwsd config
 in *system/loowsd*.
 
 For the server side handling of the process a systemd service script is also
-included within the *system/systemd* directory..
+included within the *system/systemd* directory.
 
 The site makes use of [markdown](https://pypi.python.org/pypi/Markdown) for
 content rendering and editing of dynamic content. Custom pages and blog entries
