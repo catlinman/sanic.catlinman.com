@@ -1,5 +1,5 @@
 
-# catlinman.com #
+# Amazing site catlinman.com #
 
 Repository for my main website written in Python 3.8 and *goin' fast* using
 Sanic.
