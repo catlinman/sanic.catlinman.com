@@ -8,7 +8,7 @@ Description=Sanic server service for catlinman.com
 Type=simple
 
 # Execution on start of service.
-ExecStart=/srv/catlinman.com/systemd/catlinman.com.sh
+ExecStart=/srv/catlinman.com/.system/systemd/catlinman.com.sh
 
 # User to run under.
 User=sanic
