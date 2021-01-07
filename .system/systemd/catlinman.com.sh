@@ -1,2 +1,2 @@
 #!/bin/bash
-/bin/python app.py
+/srv/catlinman.com/venv/bin/python app.py
