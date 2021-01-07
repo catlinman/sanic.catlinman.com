@@ -1,6 +1,6 @@
 sanic==0.5.4
 sanic_session==0.1.5
-Jinja2==2.9.6
+Jinja2==2.10.1
 libsass==0.13.2
 jsmin==2.2.2
 SQLAlchemy==1.1.11
