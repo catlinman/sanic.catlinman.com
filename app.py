@@ -18,7 +18,7 @@ import jinja2 as j2
 enable_async = sys.version_info >= (3, 6)
 
 # Create a new Sanic application.
-app = Sanic("catlinman.com")
+app = Sanic(name="catlinman.com", register=False)
 
 # Setup the static directory.
 app.static("/static", "./static")
